@@ -7,6 +7,7 @@
 2. Start thinking about questions of interest for the olympic data set (if you decide to use that).
 
    
+   
 ## For September 12
 
 1. Do Chapter 3 and 4.1 - 4.5 of <https://aeturrell.github.io/python4DS/data-visualise.html>.
