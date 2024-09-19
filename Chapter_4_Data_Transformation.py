@@ -233,3 +233,63 @@ flights.loc[:, flights.columns.str.contains("time")]
 # 1. Top Universities Ranking 2024 - Kaggle dataset
 # 2. Olympic Summer Games - Paris 2024 - Kaggle dataset
 #         - has lots of other .csv in it including medals, results, etc.
+
+# 4.6 Grouping, Changing Index, and Applying 
+(flights.groupby("month")[["dep_delay"]].mean())
+
+# multiple summary operations in one go: (using agg)
+(flights.groupby("month")[["dep_delay"]].agg("mean"))
+
+# For doing multiple aggregations on multiple columns with new names for the 
+# output variables, the syntax becomes:
+(
+    flights.groupby(["month"]).agg(
+        mean_delay=("dep_delay", "mean"),
+        count_flights=("dep_delay", "count"),
+    )
+)
+
+# group by multiple vars.:
+month_year_delay = flights.groupby(["month", "year"]).agg(
+    mean_delay=("dep_delay", "mean"),
+    count_flights=("dep_delay", "count"),
+)
+month_year_delay
+
+# reset index to set the index to the normal 0,1,2,3...
+month_year_delay.reset_index()
+
+# remove one layer of index
+month_year_delay.reset_index(1)
+
+# 4.6.3: Grouping and transforming:
+# use .transform with .groupby to perform computations on groups
+# but you want to go back to the original index
+flights["max_delay_month"] = flights.groupby("month")["arr_delay"].transform("max")
+flights["delay_frac_of_max"] = flights["arr_delay"] / flights["max_delay_month"]
+flights[
+    ["year", "month", "day", "arr_delay", "max_delay_month", "delay_frac_of_max"]
+].head()
+
+# 4.6.4 Exercises
+# 1:
+average_delays = flights.groupby("carrier")["arr_delay"].mean()
+print(average_delays)
+# F9 appears to have the worst delays
+# it would be hard to disentangle the effects of bad airports vs. bad
+# carriers, especially because maybe bad carriers tend to more likely
+# be at bad airports or vice versa
+
+# 2:
+max_delays = flights.groupby("dest")["arr_delay"].max()
+print(max_delays)
+
+max_delays.sort_values()
+# HNL is the most delayed flight with 1272 mins
+
+# 3:
+flights['dep_hour'] = flights['dep_time'] // 100
+average_delay_by_hour = flights.groupby('dep_hour')['arr_delay'].mean()
+print(average_delay_by_hour)
+# delays appear to be much higher in the early morning hours 
+# (some almost 3 hours average!)
