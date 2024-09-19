@@ -1,5 +1,15 @@
 ## Task List
 
+## For September 26
+
+1. Do Chapter on data import.
+
+2. Come up with a question of interest (or more than one question) for the olympics data set.
+
+3. Maybe start to explore one or more of the olympics data sets in r.
+
+4. Get yourself pumped up for the possibility of Q-Club!!
+
 ## For September 19
 
 1. Do Chapter 4.6, 5, and 6.
