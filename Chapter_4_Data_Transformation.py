@@ -266,6 +266,7 @@ month_year_delay.reset_index(1)
 # use .transform with .groupby to perform computations on groups
 # but you want to go back to the original index
 flights["max_delay_month"] = flights.groupby("month")["arr_delay"].transform("max")
+flights
 flights["delay_frac_of_max"] = flights["arr_delay"] / flights["max_delay_month"]
 flights[
     ["year", "month", "day", "arr_delay", "max_delay_month", "delay_frac_of_max"]

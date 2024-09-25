@@ -75,7 +75,7 @@ df = df.stack()
 df
 
 # unstack example
-df.unstack(level=1)
+df.unstack(level=0)
 
 # Exercise: unstack level = 1 appears to be doing the same thing as level = 0
 # for this example
