@@ -1,5 +1,14 @@
 ## Task List
 
+## For October 3
+
+1. Continue making exploratory plots of medals in countries and number of athletes in countries (think about how you would visualize number of athletes on a "team").
+
+2. Explore differences in the number of athletes from each sex that countries (1) send to the olympics and (2) win medals.
+
+3. Make heatmap of sport on x-axis, country on y-axis, and filled by number of athletes or by number of medals.
+
+
 ## For September 26
 
 1. Do Chapter on data import.
