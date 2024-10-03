@@ -1,5 +1,18 @@
 ## Task List
 
+## For October 10
+
+1. Move analysis to Positron (in own folder).
+
+2. Heatmap adjustments:
+
+    * collapse some of the sports 
+    * order the country factor by most to least medals won.
+
+3. Put into a short write-up, introducing the data, interpreting the plots, etc.
+
+4. Adjust athlete plot to have either number of athletes or number of medal changes on y-axis, country on x-axis, and fill by number of medals won.
+
 ## For October 3
 
 1. Continue making exploratory plots of medals in countries and number of athletes in countries (think about how you would visualize number of athletes on a "team").
