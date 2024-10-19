@@ -1,5 +1,17 @@
 ## Task List
 
+## October 24
+
+"Half week"
+
+1. Make other heatmps with proportion of medals won in each sport.
+
+2. Adjust the colours on the bar plots to be consistent and lighter for athletes, darker for medals.
+
+"Full week"
+
+3. Get started with Python for Olympic analysis
+
 ## For October 10
 
 1. Move analysis to Positron (in own folder).
