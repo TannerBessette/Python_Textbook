@@ -335,5 +335,4 @@ ggplot(Female_Medal_Counts, aes(x = Sport_Category,
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Proportion") +
   coord_fixed()
-View(Male_Medal_Counts)
 ```
