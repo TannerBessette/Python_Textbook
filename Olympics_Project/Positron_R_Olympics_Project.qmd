@@ -73,15 +73,12 @@ Male_Athletes_Count <- Male_Athletes_Count %>%
 
 # Create the plot:
 Male_Athletes_Count_barplot <- ggplot(data = Male_Athletes_Count) +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count, 
-              fill = athlete_count), stat = "identity") +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals, 
-              fill = medal_totals), stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
           labs(title = "Male Athletes and Medals by Country",
                x = "Country",
                y = "Male Athletes and Medal Counts") +
           theme_minimal() +
-          scale_fill_viridis_c() +
           theme(legend.position = "none")
 
 print(Male_Athletes_Count_barplot)
@@ -112,10 +109,8 @@ Female_Athletes_Count <- Female_Athletes_Count %>%
 
 # Create the plot:
 Female_Athletes_Count_barplot <- ggplot(data = Female_Athletes_Count) +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count, 
-              fill = athlete_count), stat = "identity") +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals, 
-              fill = medal_totals), stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
           labs(title = "Female Athletes and Medals by Country",
                x = "Country",
                y = "Female Athletes and Medal Counts") +
@@ -242,7 +237,7 @@ ggplot(Male_Medal_Counts, aes(x = Sport_Category,
                y = "Country") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_fill_gradient(low="white", high="blue", name = "Medal Count") +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
   coord_fixed()
 ```
 
@@ -280,7 +275,7 @@ ggplot(Female_Medal_Counts, aes(x = Sport_Category,
                y = "Country") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_fill_gradient(low="white", high="blue", name = "Medal Count") +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
   coord_fixed()
 ```
 
@@ -294,3 +289,51 @@ the most overall medals tend to get some medals from almost every sport, and
 tend to do especially well in swimming and athletics, where there are the most
 medals up for grabs. 
 
+
+**Create Heatmaps that color based on proportion of medals won in each sport:**
+
+**Male Medal Proportion Heatmap:**
+
+```{r}
+Male_Medal_Counts <- Male_Medal_Counts %>%
+  group_by(Sport_Category) %>%
+  mutate(total_sport_medals = sum(count)) %>%
+  mutate(prop_sport_medals = count / total_sport_medals)
+
+# Heatmap 
+ggplot(Male_Medal_Counts, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= prop_sport_medals)) + 
+  geom_tile() +
+  labs(title = "Proportion of Medals Won for Each Sport (Male)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Proportion") +
+  coord_fixed()
+```
+
+
+**Female Medal Proportion Heatmap:**
+
+```{r}
+Female_Medal_Counts <- Female_Medal_Counts %>%
+  group_by(Sport_Category) %>%
+  mutate(total_sport_medals = sum(count)) %>%
+  mutate(prop_sport_medals = count / total_sport_medals)
+
+# Heatmap 
+ggplot(Female_Medal_Counts, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= prop_sport_medals)) + 
+  geom_tile() +
+  labs(title = "Proportion of Medals Won for Each Sport (Female)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Proportion") +
+  coord_fixed()
+View(Male_Medal_Counts)
+```
