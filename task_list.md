@@ -1,5 +1,13 @@
 ## Task List
 
+## October 31
+
+1. Finish the Python analysis.
+
+2. Thinking about data for the second analysis.
+
+3. If time, start writing a summary of your first project, including results, including differences/similarities between R and python.
+
 ## October 24
 
 "Half week"
