@@ -179,7 +179,7 @@ Medal_Counts <- Medal_Counts  %>%
   group_by(country_code, Sport_Category) %>%
   mutate(count = n()) %>%
   arrange(desc(count))
-
+Medal_Counts
 # Only keep countries who got at least 10 total medals:
 # (because heatmap was getting sloppy)
 Medal_Counts <- Medal_Counts %>%
