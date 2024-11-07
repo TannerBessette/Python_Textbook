@@ -1,5 +1,21 @@
 ## Task List
 
+## November 7
+
+1. MH: Look at heatmaps (both size and whether or not they match the R heatmaps).
+
+2. Expand on the write-up (adding more R/Python function comparisons. pivots, join/merge, n()/.size, summarise(), how python treats "factor")
+
+3. Put the write-up into a .qmd file.
+
+4. In the write-up, integrate the R and Python analyses. When comparing, pick out a few line-by-line examples that show R analysis and Python analysis (using eval: false if you don't want them to actually run).
+
+5. See handwritten sheet for structure of write-up.
+
+6. MH and Tanner: Both think of a couple of stat learning / machine learning data sets.
+
+
+
 ## October 31
 
 1. Finish the Python analysis.
