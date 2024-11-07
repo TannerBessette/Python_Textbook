@@ -21,6 +21,7 @@ competing for, and other facts about them. The medals dataset includes
 information on each gold, silver, and bronze medal that was won in each event 
 throughout the Olympics, and the athlete/team that won each medal.
 
+
 **Load libraries and read in datasets:**
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -179,7 +180,7 @@ Medal_Counts <- Medal_Counts  %>%
   group_by(country_code, Sport_Category) %>%
   mutate(count = n()) %>%
   arrange(desc(count))
-Medal_Counts
+
 # Only keep countries who got at least 10 total medals:
 # (because heatmap was getting sloppy)
 Medal_Counts <- Medal_Counts %>%

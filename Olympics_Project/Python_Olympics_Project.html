@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="d2f913ad" class="cell" data-execution_count="1">
+<div id="59d1bd5c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
-            <div id="J9ioOz"></div>
+            <div id="3O7ZMR"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -175,16 +175,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("J9ioOz").appendChild(div);
+                        document.getElementById("3O7ZMR").appendChild(div);
                     };
-                    var e = document.getElementById("J9ioOz");
+                    var e = document.getElementById("3O7ZMR");
                     e.appendChild(script);
                 })()
             </script>
             
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-   <div id="crN3Z5"></div>
+   <div id="us91u4"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("crN3Z5");
+           var plotContainer = document.getElementById("us91u4");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    </script>
 </div>
 </div>
-<div id="c384a8a6" class="cell" data-execution_count="2">
+<div id="30b86fdd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FEMALE BAR PLOT:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count <span class="op">=</span> Female_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"athlete_count"</span>)</span>
@@ -289,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-   <div id="me2Jlb"></div>
+   <div id="jtx55n"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -364,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("me2Jlb");
+           var plotContainer = document.getElementById("jtx55n");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Data manipulation before Heatmaps:</p>
-<div id="c2eb7db5" class="cell" data-execution_count="3">
+<div id="5eea81e0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT for this, first step is sorting which sport will be the levels</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for the factor variable, second is assigning names for each level</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> np.select(</span>
@@ -427,15 +427,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> Medals_df[<span class="st">'Sport_Category'</span>].astype(<span class="st">'category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a medal count variable that counts country’s medals by sport:</p>
-<div id="0e412e3d" class="cell" data-execution_count="4">
+<div id="4b0ac250" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medals_df.groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_7722/3189228628.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_30966/3189228628.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
   Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)</code></pre>
 </div>
 </div>
 <p>More manipulations for combined Heatmap:</p>
-<div id="ad9e1570" class="cell" data-execution_count="5">
+<div id="42e464d4" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a total medal count variable, and only keep countries </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with medals in at least 1 sport</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>total_counts <span class="op">=</span> Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
@@ -444,7 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create the Combined Heatmap:</p>
-<div id="ecbfc9b9" class="cell" data-execution_count="6">
+<div id="e2c6acaa" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    ggplot(Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
@@ -461,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># changing the geom_tile() width and height arguments did </span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># nothing to improve visual appearance of the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-   <div id="AY3G6s"></div>
+   <div id="uYf3gL"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -534,7 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("AY3G6s");
+           var plotContainer = document.getElementById("uYf3gL");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -543,21 +543,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Men’s Overall Medal Heatmap:</p>
-<div id="91aaf8ef" class="cell" data-execution_count="7">
+<div id="8665fa98" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'M'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_7722/633812180.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_30966/633812180.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
   Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)</code></pre>
 </div>
 </div>
 <p>More Male Data Manipulations:</p>
-<div id="30998276" class="cell" data-execution_count="8">
+<div id="2bb4bc23" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>total_male_counts <span class="op">=</span> Male_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> pd.merge(Male_Medal_Counts, total_male_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Male Heatmap Plot:</p>
-<div id="ca8f638c" class="cell" data-execution_count="9">
+<div id="1afe754b" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    ggplot(Male_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
@@ -572,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-   <div id="v0MGRT"></div>
+   <div id="c8RZdK"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -645,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("v0MGRT");
+           var plotContainer = document.getElementById("c8RZdK");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -654,21 +654,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Women’s Overall Medal Heatmap:</p>
-<div id="b438ba24" class="cell" data-execution_count="10">
+<div id="8e8c43b8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'W'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_7722/1164767310.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_30966/1164767310.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
   Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)</code></pre>
 </div>
 </div>
 <p>More Female Data Manipulations:</p>
-<div id="954a0c4e" class="cell" data-execution_count="11">
+<div id="59f7b68b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>total_female_counts <span class="op">=</span> Female_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> pd.merge(Female_Medal_Counts, total_female_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Female Heatmap Plot:</p>
-<div id="77662279" class="cell" data-execution_count="12">
+<div id="59815838" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    ggplot(Female_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
@@ -683,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-   <div id="Fe4HyJ"></div>
+   <div id="q5x6NK"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -756,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("Fe4HyJ");
+           var plotContainer = document.getElementById("q5x6NK");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -766,27 +766,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now create heatmaps based on proportion of sport’s medals instead of totals:</p>
 <p>Create Male Proportions Dataset:</p>
-<div id="bc419d3d" class="cell" data-execution_count="13">
+<div id="6c1c7360" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Male_prop <span class="op">=</span> Male_Medal_Counts</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Male_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Male_prop[<span class="st">'count'</span>] <span class="op">/</span> Male_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_7722/3933653108.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_30966/3933653108.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
   Male_prop['total_sport_medals'] = Male_prop.groupby('Sport_Category')['count'].transform('sum')</code></pre>
 </div>
 </div>
 <p>Create Female Proportions Dataset:</p>
-<div id="a2ef8f07" class="cell" data-execution_count="14">
+<div id="05ca5b74" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Female_prop <span class="op">=</span> Female_Medal_Counts</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Female_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Female_prop[<span class="st">'count'</span>] <span class="op">/</span> Female_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_7722/12097668.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_30966/12097668.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
   Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count'].transform('sum')</code></pre>
 </div>
 </div>
 <p>Now create the proportions heatmap plots: Male Proportions Heatmap:</p>
-<div id="39cc520a" class="cell" data-execution_count="15">
+<div id="0c86524c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    ggplot(Male_prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
@@ -801,7 +801,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-   <div id="4z3FSE"></div>
+   <div id="sDPapY"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -880,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("4z3FSE");
+           var plotContainer = document.getElementById("sDPapY");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -889,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Try slicing the Female prop data before plotting:</p>
-<div id="e1bc86a5" class="cell" data-execution_count="16">
+<div id="00e3301e" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Female_prop.head()</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># .iloc accesses specific rows, can use it to basicall slice data:</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sliced_Female_prop <span class="op">=</span> Female_prop.iloc[<span class="dv">0</span>:<span class="dv">285</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -897,13 +897,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Figured out big issue: If number of levels on y axis and x axis are not equal, the squares are still proportional squares, so the heatmap just becomes a rectangle.</p>
 <p>Maybe ggsize() argument will work to help fix as well?</p>
 <p>Female Proportions Heatmap:</p>
-<div id="0eea6951" class="cell" data-execution_count="17">
+<div id="0d48ebdf" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    ggplot(sliced_Female_prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    ggsize(<span class="dv">800</span>, <span class="dv">1600</span>) <span class="op">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    ggsize(<span class="dv">1600</span>, <span class="dv">800</span>) <span class="op">+</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Female)"</span>,</span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
@@ -913,7 +913,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-   <div id="Jia3Oh"></div>
+   <div id="BBTMKB"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
        (function() {
            var plotSpec={
@@ -949,8 +949,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }]
 },
 "ggsize":{
-"width":800.0,
-"height":1600.0
+"width":1600.0,
+"height":800.0
 },
 "ggtitle":{
 "text":"Proportion of Medals Won for Each Sport (Female)"
@@ -996,7 +996,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }],
 "metainfo_list":[]
 };
-           var plotContainer = document.getElementById("Jia3Oh");
+           var plotContainer = document.getElementById("BBTMKB");
            window.letsPlotCall(function() {{
                LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
            }});
@@ -1005,7 +1005,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Skeleton for making a heatmap from ChatGPT (to help find errors):</p>
-<div id="dfe5aa55" class="cell" data-execution_count="18">
+<div id="bab15334" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#np.random.seed(42)</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>

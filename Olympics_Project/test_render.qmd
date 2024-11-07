@@ -1,9 +1,32 @@
 ---
 title: "Untitled"
-format: html
+format: 
+  html:
+    embed-resources: true
 ---
 
+```{r}
+2 + 2
+mtcars |> dplyr::slice(1:4)
+```
 
 ```{python}
-2 + 4
+import pandas as pd
+Athletes_df = pd.read_csv("/Users/highamm/Desktop/SYE_Bessette/Olympics_Project/athletes.csv")
+Medals_df = pd.read_csv("/Users/highamm/Desktop/SYE_Bessette/Olympics_Project/medals.csv")
+
+Medals_df.query("medal_type == 'Gold Medal'")
+3 - 4
+
+## chat GPT function:
+def add_numbers(num1, num2):
+    """
+    This function takes two numbers as input,
+    adds them together, and returns the result.
+    """
+    result = num1 + num2
+    return result
+
+sum = add_numbers(3, 9)
+print(sum)
 ```

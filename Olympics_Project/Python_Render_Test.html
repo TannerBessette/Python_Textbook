@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.55">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tanner Bessette">
+
+<title>Python Render Test</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="Python_Render_Test_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Python_Render_Test_files/libs/quarto-html/quarto.js"></script>
+<script src="Python_Render_Test_files/libs/quarto-html/popper.min.js"></script>
+<script src="Python_Render_Test_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Python_Render_Test_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Python_Render_Test_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Python_Render_Test_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Python_Render_Test_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Python_Render_Test_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Python_Render_Test_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Python Render Test</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tanner Bessette </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>OLYMPICS PROJECT IN PYTHON</strong></p>
+<div id="19fb476f" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lets_plot <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>LetsPlot.setup_html()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Athletes_df <span class="op">=</span> pd.read_csv(<span class="st">"/Users/tannerbessette/Desktop/SYE/athletes.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Medals_df <span class="op">=</span> pd.read_csv(<span class="st">"/Users/tannerbessette/Desktop/SYE/medals.csv"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Male and Female Datasets:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Male_Athletes_df <span class="op">=</span> Athletes_df.query(<span class="st">"gender == 'Male'"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Female_Athletes_df <span class="op">=</span> Athletes_df.query(<span class="st">"gender == 'Female'"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Total Male and Female Medals for each sport:</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># (learned reset_index from ChatGPT - helps to mimick summarise in R)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Male_Total_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'M'"</span>).groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"medal_totals"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Female_Total_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'W'"</span>).groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"medal_totals"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># MALE BAR PLOT:</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="op">=</span> Male_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"athlete_count"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># join data (looked ahead in textbook to ch. 22):</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># (pd.merge is the join function, on is like by, how = join method(L/R))</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count_joined <span class="op">=</span> pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keep top 10 countries with most athletes:</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count_joined <span class="op">=</span> Male_Athletes_Count_joined.query(<span class="st">"athlete_count &gt; 128"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Male bar plot with country's athletes and medals:</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#Male_Athletes_Count.sort_values (essentially arrange -&gt; do instead of reorder)</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count_joined <span class="op">=</span> Male_Athletes_Count_joined.sort_values(<span class="st">"athlete_count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    ggplot() <span class="op">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'athlete_count'</span>), fill <span class="op">=</span> <span class="st">"lightblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Male_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'medal_totals'</span>), fill <span class="op">=</span> <span class="st">"darkblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Male_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>          labs(title <span class="op">=</span> <span class="st">"Male Athletes and Medals by Country"</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">"Country"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>               y <span class="op">=</span> <span class="st">"Male Athletes and Medal Counts"</span>) <span class="op">+</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+            <div id="mIcOwP"></div>
+            <script type="text/javascript" data-lets-plot-script="library">
+                if(!window.letsPlotCallQueue) {
+                    window.letsPlotCallQueue = [];
+                }; 
+                window.letsPlotCall = function(f) {
+                    window.letsPlotCallQueue.push(f);
+                };
+                (function() {
+                    var script = document.createElement("script");
+                    script.type = "text/javascript";
+                    script.src = "https://cdn.jsdelivr.net/gh/JetBrains/lets-plot@v4.4.1/js-package/distr/lets-plot.min.js";
+                    script.onload = function() {
+                        window.letsPlotCall = function(f) {f();};
+                        window.letsPlotCallQueue.forEach(function(f) {f();});
+                        window.letsPlotCallQueue = [];
+                        
+                    };
+                    script.onerror = function(event) {
+                        window.letsPlotCall = function(f) {};    // noop
+                        window.letsPlotCallQueue = [];
+                        var div = document.createElement("div");
+                        div.style.color = 'darkred';
+                        div.textContent = 'Error loading Lets-Plot JS';
+                        document.getElementById("mIcOwP").appendChild(div);
+                    };
+                    var e = document.getElementById("mIcOwP");
+                    e.appendChild(script);
+                })()
+            </script>
+            
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+   <div id="QaSZtr"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"mapping":{
+},
+"data_meta":{
+},
+"ggtitle":{
+"text":"Male Athletes and Medals by Country"
+},
+"guides":{
+"x":{
+"title":"Country"
+},
+"y":{
+"title":"Male Athletes and Medal Counts"
+}
+},
+"theme":{
+"name":"minimal"
+},
+"kind":"plot",
+"scales":[],
+"layers":[{
+"geom":"bar",
+"stat":"identity",
+"data":{
+"country_code":["FRA","USA","GER","JPN","AUS","ITA","ESP","GBR","CHN","CAN"],
+"athlete_count":[306.0,291.0,232.0,230.0,210.0,205.0,199.0,165.0,134.0,129.0]
+},
+"mapping":{
+"x":"country_code",
+"y":"athlete_count"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"int",
+"column":"athlete_count"
+},{
+"type":"float",
+"column":"medal_totals"
+}]
+},
+"fill":"lightblue"
+},{
+"geom":"bar",
+"stat":"identity",
+"data":{
+"country_code":["FRA","USA","GER","JPN","AUS","ITA","ESP","GBR","CHN","CAN"],
+"medal_totals":[38.0,52.0,11.0,23.0,20.0,23.0,12.0,30.0,34.0,9.0]
+},
+"mapping":{
+"x":"country_code",
+"y":"medal_totals"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"int",
+"column":"athlete_count"
+},{
+"type":"float",
+"column":"medal_totals"
+}]
+},
+"fill":"darkblue"
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("QaSZtr");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<div id="1469352c" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FEMALE BAR PLOT:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count <span class="op">=</span> Female_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"athlete_count"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># join data (looked ahead in textbook to ch. 22):</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (pd.merge is the join function, on is like by, how = join method(L/R))</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> pd.merge(Female_Athletes_Count, Female_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keep top 10 countries with most athletes:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.query(<span class="st">"athlete_count &gt; 177"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Male bar plot with country's athletes and medals:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (arrange first):</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.sort_values(<span class="st">"athlete_count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    ggplot() <span class="op">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'athlete_count'</span>), fill <span class="op">=</span> <span class="st">"lightblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'medal_totals'</span>), fill <span class="op">=</span> <span class="st">"darkblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>          labs(title <span class="op">=</span> <span class="st">"Female Athletes and Medals by Country"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">"Country"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>               y <span class="op">=</span> <span class="st">"Female Athletes and Medal Counts"</span>) <span class="op">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+   <div id="NTmzIr"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"mapping":{
+},
+"data_meta":{
+},
+"ggtitle":{
+"text":"Female Athletes and Medals by Country"
+},
+"guides":{
+"x":{
+"title":"Country"
+},
+"y":{
+"title":"Female Athletes and Medal Counts"
+}
+},
+"theme":{
+"name":"minimal"
+},
+"kind":"plot",
+"scales":[],
+"layers":[{
+"geom":"bar",
+"stat":"identity",
+"data":{
+"country_code":["USA","FRA","AUS","CHN","GER","CAN","ESP","JPN","ITA","GBR"],
+"athlete_count":[328.0,295.0,265.0,264.0,225.0,203.0,202.0,201.0,192.0,178.0]
+},
+"mapping":{
+"x":"country_code",
+"y":"athlete_count"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"int",
+"column":"athlete_count"
+},{
+"type":"float",
+"column":"medal_totals"
+}]
+},
+"fill":"lightblue"
+},{
+"geom":"bar",
+"stat":"identity",
+"data":{
+"country_code":["USA","FRA","AUS","CHN","GER","CAN","ESP","JPN","ITA","GBR"],
+"medal_totals":[67.0,23.0,30.0,50.0,15.0,17.0,4.0,18.0,15.0,28.0]
+},
+"mapping":{
+"x":"country_code",
+"y":"medal_totals"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"int",
+"column":"athlete_count"
+},{
+"type":"float",
+"column":"medal_totals"
+}]
+},
+"fill":"darkblue"
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("NTmzIr");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<p>Data manipulation before Heatmaps:</p>
+<div id="59581cd2" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT for this, first step is sorting which sport will be the levels</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for the factor variable, second is assigning names for each level</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> np.select(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"3x3 Basketball"</span>, <span class="st">"Basketball"</span>]),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Badminton"</span>, <span class="st">"Table Tennis"</span>, <span class="st">"Tennis"</span>]),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Boxing"</span>, <span class="st">"Taekwondo"</span>, <span class="st">"Wrestling"</span>, <span class="st">"Judo"</span>]),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Swimming"</span>, <span class="st">"Marathon Swimming"</span>, <span class="st">"Diving"</span>, <span class="st">"Artistic Swimming"</span>]),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Volleyball"</span>, <span class="st">"Beach Volleyball"</span>]),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Cycling BMX Freestyle"</span>, <span class="st">"Cycling BMX Racing"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Cycling Mountain Bike"</span>, <span class="st">"Cycling Road"</span>, <span class="st">"Cycling Track"</span>]),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Water Polo"</span>, <span class="st">"Surfing"</span>, <span class="st">"Sailing"</span>]),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Artistic Gymnastics"</span>, <span class="st">"Rhythmic Gymnastics"</span>, <span class="st">"Trampoline Gymnastics"</span>]),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Athletics"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Canoe Slalom"</span>, <span class="st">"Canoe Sprint"</span>, <span class="st">"Rowing"</span>]),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Equestrian"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Football"</span>, <span class="st">"Handball"</span>, <span class="st">"Hockey"</span>, <span class="st">"Rugby Sevens"</span>]),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Archery"</span>, <span class="st">"Shooting"</span>, <span class="st">"Fencing"</span>]),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Triathlon"</span>, <span class="st">"Modern Pentathlon"</span>]),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Weightlifting"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Skateboarding"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Breaking"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Sport Climbing"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Golf"</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Basketball"</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Racket Sports"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Combat Sports"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Swimming"</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Volleyball"</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Cycling"</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Water Sports"</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gymnastics"</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athletics"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Canoe/Rowing"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Equestrian"</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Team Sports"</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision Sports"</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athlons"</span>,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Weightlifting"</span>,</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skateboarding"</span>,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Breakdancing"</span>,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Climbing"</span>,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Golf"</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    default<span class="op">=</span><span class="st">"Other"</span>  <span class="co"># default if any sport doesn't match</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'Sport_Category' to a categorical type</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> Medals_df[<span class="st">'Sport_Category'</span>].astype(<span class="st">'category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a medal count variable that counts country’s medals by sport:</p>
+<div id="42d0178b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medals_df.groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_31114/3189228628.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)</code></pre>
+</div>
+</div>
+<p>More manipulations for combined Heatmap:</p>
+<div id="3eaf648d" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a total medal count variable, and only keep countries </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with medals in at least 1 sport</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>total_counts <span class="op">=</span> Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> pd.merge(Medal_Counts, total_counts, on <span class="op">=</span> <span class="st">"country_code"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create the Combined Heatmap:</p>
+<div id="3f750253" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>overall_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Overall_Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"country_code in @overall_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Overall_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># changing the geom_tile() width and height arguments did </span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># nothing to improve visual appearance of the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+   <div id="fC2BDv"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"data":{
+"country_code":["USA","USA","CHN","AUS","JPN","KOR","FRA","CHN","CHN","GBR","CHN","GBR","USA","CHN","GBR","FRA","GBR","USA","USA","ITA","KOR","FRA","CAN","NED","AUS","GER","NZL","FRA","AUS","HUN","NED","BRA","NED","USA","ITA","AUS","CAN","NZL","NED","CHN","HUN","GBR","GER","JPN","ITA","GER","JPN","JPN","CHN","NED","ITA","USA","ITA","AUS","KOR","BRA","JPN","HUN","ESP","FRA","CAN","CAN","ITA","GBR","ESP","ESP","GBR","FRA","USA","FRA","USA","USA","FRA","FRA","GER","GER","BRA","ITA","NED","ITA","GBR","GER","ITA","CHN","CHN","NZL","BRA","BRA","BRA","GER","NZL","ESP","AUS","GBR","FRA","FRA","ESP","AUS","USA","ESP","USA","USA","USA","USA","JPN","GBR","NED","FRA","GER","ITA","CHN","JPN","USA","CHN","USA","CHN","NED","USA","USA","CHN","NZL","NZL","HUN","FRA","FRA","HUN","HUN","KOR","ITA","BRA","GBR","ESP","BRA","KOR","AUS","AUS","GER","GBR","GBR","ITA","GBR","GER","JPN","JPN","CAN","JPN","KOR","GER","CAN","JPN","JPN","GER","CAN","CAN","CAN","GER","CAN","CAN","AUS","AUS","NZL","ESP","JPN"],
+"Sport_Category":["Athletics","Swimming","Swimming","Swimming","Combat Sports","Precision Sports","Combat Sports","Combat Sports","Racket Sports","Canoe/Rowing","Gymnastics","Cycling","Precision Sports","Precision Sports","Swimming","Precision Sports","Athletics","Gymnastics","Combat Sports","Precision Sports","Combat Sports","Cycling","Swimming","Canoe/Rowing","Cycling","Canoe/Rowing","Canoe/Rowing","Swimming","Athletics","Canoe/Rowing","Cycling","Combat Sports","Athletics","Cycling","Swimming","Canoe/Rowing","Athletics","Cycling","Water Sports","Weightlifting","Swimming","Equestrian","Equestrian","Precision Sports","Gymnastics","Athletics","Skateboarding","Racket Sports","Athletics","Swimming","Cycling","Canoe/Rowing","Canoe/Rowing","Water Sports","Racket Sports","Gymnastics","Gymnastics","Precision Sports","Athletics","Water Sports","Combat Sports","Canoe/Rowing","Athletics","Athlons","Combat Sports","Canoe/Rowing","Gymnastics","Team Sports","Water Sports","Canoe/Rowing","Skateboarding","Basketball","Athlons","Basketball","Team Sports","Swimming","Athletics","Racket Sports","Team Sports","Combat Sports","Water Sports","Combat Sports","Water Sports","Canoe/Rowing","Climbing","Water Sports","Water Sports","Volleyball","Skateboarding","Cycling","Athletics","Water Sports","Skateboarding","Combat Sports","Equestrian","Racket Sports","Racket Sports","Combat Sports","Weightlifting","Team Sports","Volleyball","Team Sports","Racket Sports","Climbing","Swimming","Precision Sports","Basketball","Volleyball","Volleyball","Volleyball","Breakdancing","Water Sports","Athlons","Cycling","Breakdancing","Golf","Equestrian","Equestrian","Golf","Team Sports","Golf","Athlons","Combat Sports","Athletics","Breakdancing","Athlons","Athletics","Athlons","Weightlifting","Canoe/Rowing","Climbing","Basketball","Team Sports","Weightlifting","Racket Sports","Precision Sports","Athlons","Skateboarding","Weightlifting","Athlons","Golf","Precision Sports","Athletics","Equestrian","Breakdancing","Athlons","Swimming","Gymnastics","Weightlifting","Breakdancing","Climbing","Basketball","Gymnastics","Precision Sports","Racket Sports","Golf","Team Sports","Volleyball","Basketball","Equestrian","Team Sports","Swimming","Golf"],
+"count":[34.0,30.0,25.0,20.0,19.0,16.0,15.0,13.0,13.0,12.0,12.0,11.0,11.0,11.0,11.0,10.0,10.0,9.0,9.0,9.0,9.0,9.0,9.0,8.0,8.0,8.0,8.0,7.0,7.0,7.0,7.0,6.0,6.0,6.0,6.0,6.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+},
+"mapping":{
+"x":"Sport_Category",
+"y":"country_code",
+"fill":"count"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"str",
+"column":"Sport_Category"
+},{
+"type":"int",
+"column":"count"
+},{
+"type":"int",
+"column":"total_count"
+}]
+},
+"ggtitle":{
+"text":"Medal Count by Country and Sport"
+},
+"guides":{
+"x":{
+"title":"Sport"
+},
+"y":{
+"title":"Country"
+}
+},
+"theme":{
+"name":"minimal",
+"axis_text_x":{
+"angle":90.0,
+"hjust":1.0,
+"vjust":0.5,
+"blank":false
+}
+},
+"coord":{
+"name":"fixed",
+"ratio":1.0,
+"flip":false
+},
+"kind":"plot",
+"scales":[{
+"name":"Medal Count",
+"aesthetic":"fill",
+"low":"lightblue",
+"high":"darkblue",
+"scale_mapper_kind":"color_gradient"
+}],
+"layers":[{
+"geom":"tile",
+"mapping":{
+},
+"data_meta":{
+},
+"data":{
+}
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("fC2BDv");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<p>Men’s Overall Medal Heatmap:</p>
+<div id="87141a87" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'M'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_31114/633812180.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)</code></pre>
+</div>
+</div>
+<p>More Male Data Manipulations:</p>
+<div id="49826629" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>total_male_counts <span class="op">=</span> Male_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> pd.merge(Male_Medal_Counts, total_male_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Male Heatmap Plot:</p>
+<div id="8ea7c3c6" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>male_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'IRI'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'USA'</span>, <span class="st">'UZB'</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Updated_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Male)"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+   <div id="fhNGu8"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"data":{
+"country_code":["USA","JPN","IRI","UZB","CHN","USA","CHN","GBR","FRA","FRA","FRA","AUS","CHN","KOR","GBR","HUN","AUS","ITA","ITA","GBR","USA","GBR","ITA","USA","FRA","NED","GER","JPN","NED","AUS","KOR","ITA","CHN","CHN","USA","HUN","JPN","ESP","ESP","GER","GBR","HUN","AUS","GER","FRA","CHN","FRA","FRA","GBR","FRA","USA","USA","ESP","ITA","ESP","USA","USA","JPN","HUN","GBR","JPN","UZB","GBR","USA","USA","ITA","USA","FRA","USA","FRA","GBR","GBR","ITA","JPN","GER","NED","NED","CHN","CHN","USA","NED","GER","JPN","NED","GER","JPN","AUS","AUS","AUS","AUS","ITA","ESP","ITA","USA","FRA","KOR","FRA","ESP"],
+"Sport_Category":["Athletics","Combat Sports","Combat Sports","Combat Sports","Gymnastics","Swimming","Swimming","Swimming","Cycling","Combat Sports","Swimming","Swimming","Precision Sports","Precision Sports","Cycling","Swimming","Cycling","Swimming","Precision Sports","Canoe/Rowing","Precision Sports","Athletics","Canoe/Rowing","Combat Sports","Precision Sports","Canoe/Rowing","Canoe/Rowing","Gymnastics","Cycling","Water Sports","Combat Sports","Cycling","Racket Sports","Combat Sports","Skateboarding","Canoe/Rowing","Precision Sports","Combat Sports","Canoe/Rowing","Team Sports","Combat Sports","Precision Sports","Canoe/Rowing","Swimming","Team Sports","Weightlifting","Basketball","Canoe/Rowing","Gymnastics","Racket Sports","Canoe/Rowing","Water Sports","Team Sports","Athletics","Athletics","Racket Sports","Gymnastics","Swimming","Athletics","Precision Sports","Skateboarding","Weightlifting","Golf","Weightlifting","Climbing","Racket Sports","Golf","Volleyball","Volleyball","Water Sports","Athlons","Climbing","Weightlifting","Athlons","Volleyball","Basketball","Swimming","Climbing","Canoe/Rowing","Breakdancing","Team Sports","Athletics","Climbing","Water Sports","Combat Sports","Golf","Athletics","Combat Sports","Racket Sports","Skateboarding","Combat Sports","Water Sports","Athlons","Basketball","Breakdancing","Swimming","Athlons","Racket Sports"],
+"count":[18.0,10.0,10.0,10.0,9.0,9.0,9.0,8.0,8.0,8.0,6.0,6.0,6.0,6.0,5.0,5.0,5.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+},
+"mapping":{
+"x":"Sport_Category",
+"y":"country_code",
+"fill":"count"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"str",
+"column":"Sport_Category"
+},{
+"type":"int",
+"column":"count"
+},{
+"type":"int",
+"column":"total_count"
+}]
+},
+"ggtitle":{
+"text":"Medal Count by Country and Sport (Male)"
+},
+"guides":{
+"x":{
+"title":"Sport"
+},
+"y":{
+"title":"Country"
+}
+},
+"theme":{
+"name":"minimal",
+"axis_text_x":{
+"angle":90.0,
+"hjust":1.0,
+"vjust":0.5,
+"blank":false
+}
+},
+"coord":{
+"name":"fixed",
+"ratio":1.0,
+"flip":false
+},
+"kind":"plot",
+"scales":[{
+"name":"Medal Count",
+"aesthetic":"fill",
+"low":"lightblue",
+"high":"darkblue",
+"scale_mapper_kind":"color_gradient"
+}],
+"layers":[{
+"geom":"tile",
+"mapping":{
+},
+"data_meta":{
+},
+"data":{
+}
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("fhNGu8");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<p>Women’s Overall Medal Heatmap:</p>
+<div id="1026a67a" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'W'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_31114/1164767310.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)</code></pre>
+</div>
+</div>
+<p>More Female Data Manipulations:</p>
+<div id="8ef16266" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>total_female_counts <span class="op">=</span> Female_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> pd.merge(Female_Medal_Counts, total_female_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Female Heatmap Plot:</p>
+<div id="5c6ec5c8" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>female_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>,  <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Updated_Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Female)"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+   <div id="PX62lX"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"data":{
+"country_code":["USA","USA","CHN","AUS","CHN","KOR","JPN","GBR","USA","CHN","NZL","USA","FRA","GBR","FRA","KOR","NZL","AUS","ITA","USA","CAN","USA","GBR","NED","CHN","NED","BRA","NED","AUS","GER","NED","CHN","NED","ITA","JPN","GBR","CAN","CHN","FRA","BRA","GER","JPN","AUS","CHN","CAN","GER","FRA","CAN","USA","GBR","BRA","KOR","USA","USA","JPN","GBR","GER","GER","GBR","CAN","GER","GER","NED","CHN","CAN","CAN","CAN","CAN","GER","GER","CHN","GBR","CHN","CHN","CHN","CHN","GBR","FRA","AUS","AUS","ITA","AUS","ITA","FRA","AUS","ITA","ITA","FRA","ITA","ITA","FRA","NZL","JPN","USA","USA","USA","JPN","NZL","USA","NZL","AUS","KOR","FRA","GBR","BRA","BRA","BRA","FRA","KOR","ITA"],
+"Sport_Category":["Swimming","Athletics","Swimming","Swimming","Combat Sports","Precision Sports","Combat Sports","Canoe/Rowing","Gymnastics","Racket Sports","Canoe/Rowing","Cycling","Precision Sports","Cycling","Combat Sports","Combat Sports","Cycling","Athletics","Gymnastics","Combat Sports","Swimming","Precision Sports","Athletics","Athletics","Athletics","Canoe/Rowing","Gymnastics","Water Sports","Canoe/Rowing","Canoe/Rowing","Cycling","Precision Sports","Swimming","Precision Sports","Skateboarding","Swimming","Canoe/Rowing","Gymnastics","Water Sports","Combat Sports","Athletics","Racket Sports","Cycling","Weightlifting","Athletics","Cycling","Athlons","Combat Sports","Team Sports","Water Sports","Volleyball","Racket Sports","Canoe/Rowing","Basketball","Precision Sports","Skateboarding","Gymnastics","Golf","Weightlifting","Gymnastics","Combat Sports","Basketball","Team Sports","Cycling","Precision Sports","Team Sports","Volleyball","Weightlifting","Swimming","Team Sports","Team Sports","Precision Sports","Breakdancing","Canoe/Rowing","Climbing","Golf","Gymnastics","Athletics","Basketball","Precision Sports","Water Sports","Skateboarding","Volleyball","Basketball","Water Sports","Swimming","Racket Sports","Canoe/Rowing","Cycling","Combat Sports","Cycling","Team Sports","Breakdancing","Weightlifting","Water Sports","Volleyball","Athletics","Golf","Climbing","Athletics","Combat Sports","Athlons","Team Sports","Athlons","Water Sports","Team Sports","Skateboarding","Swimming","Weightlifting","Athletics"],
+"count":[19.0,15.0,14.0,13.0,10.0,8.0,8.0,7.0,7.0,7.0,6.0,6.0,6.0,6.0,6.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,4.0,4.0,4.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]
+},
+"mapping":{
+"x":"Sport_Category",
+"y":"country_code",
+"fill":"count"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"str",
+"column":"Sport_Category"
+},{
+"type":"int",
+"column":"count"
+},{
+"type":"int",
+"column":"total_count"
+}]
+},
+"ggtitle":{
+"text":"Medal Count by Country and Sport (Female)"
+},
+"guides":{
+"x":{
+"title":"Sport"
+},
+"y":{
+"title":"Country"
+}
+},
+"theme":{
+"name":"minimal",
+"axis_text_x":{
+"angle":90.0,
+"hjust":1.0,
+"vjust":0.5,
+"blank":false
+}
+},
+"coord":{
+"name":"fixed",
+"ratio":1.0,
+"flip":false
+},
+"kind":"plot",
+"scales":[{
+"name":"Medal Count",
+"aesthetic":"fill",
+"low":"lightblue",
+"high":"darkblue",
+"scale_mapper_kind":"color_gradient"
+}],
+"layers":[{
+"geom":"tile",
+"mapping":{
+},
+"data_meta":{
+},
+"data":{
+}
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("PX62lX");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<p>Now create heatmaps based on proportion of sport’s medals instead of totals:</p>
+<p>Create Male Proportions Dataset:</p>
+<div id="d9f3bd32" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Male_prop <span class="op">=</span> Male_Medal_Counts</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Male_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Male_prop[<span class="st">'count'</span>] <span class="op">/</span> Male_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_31114/3933653108.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  Male_prop['total_sport_medals'] = Male_prop.groupby('Sport_Category')['count'].transform('sum')</code></pre>
+</div>
+</div>
+<p>Create Female Proportions Dataset:</p>
+<div id="d6e4d859" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Female_prop <span class="op">=</span> Female_Medal_Counts</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Female_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Female_prop[<span class="st">'count'</span>] <span class="op">/</span> Female_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/72/fh_4fhyd5b92fzzfwm37z6rh0000gn/T/ipykernel_31114/12097668.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count'].transform('sum')</code></pre>
+</div>
+</div>
+<p>Now create the proportions heatmap plots: Male Proportions Heatmap:</p>
+<div id="7f4f0449" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Updated_Male_Prop <span class="op">=</span> Male_prop.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Male_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Male)"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+   <div id="n9t2eN"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"data":{
+"country_code":["USA","JPN","IRI","UZB","CHN","USA","CHN","GBR","FRA","FRA","FRA","AUS","CHN","KOR","GBR","HUN","AUS","ITA","ITA","GBR","USA","GBR","ITA","USA","FRA","NED","GER","JPN","NED","AUS","KOR","ITA","CHN","CHN","USA","HUN","JPN","ESP","ESP","GER","GBR","HUN","AUS","GER","FRA","CHN","FRA","FRA","GBR","FRA","USA","USA","ESP","ITA","ESP","USA","USA","JPN","HUN","GBR","JPN","UZB","GBR","USA","USA","ITA","USA","FRA","USA","FRA","GBR","GBR","ITA","JPN","GER","NED","NED","CHN","CHN","USA","NED","GER","JPN","NED","GER","JPN","AUS","AUS","AUS","AUS","ITA","ESP","ITA","USA","FRA","KOR","FRA","ESP"],
+"Sport_Category":["Athletics","Combat Sports","Combat Sports","Combat Sports","Gymnastics","Swimming","Swimming","Swimming","Cycling","Combat Sports","Swimming","Swimming","Precision Sports","Precision Sports","Cycling","Swimming","Cycling","Swimming","Precision Sports","Canoe/Rowing","Precision Sports","Athletics","Canoe/Rowing","Combat Sports","Precision Sports","Canoe/Rowing","Canoe/Rowing","Gymnastics","Cycling","Water Sports","Combat Sports","Cycling","Racket Sports","Combat Sports","Skateboarding","Canoe/Rowing","Precision Sports","Combat Sports","Canoe/Rowing","Team Sports","Combat Sports","Precision Sports","Canoe/Rowing","Swimming","Team Sports","Weightlifting","Basketball","Canoe/Rowing","Gymnastics","Racket Sports","Canoe/Rowing","Water Sports","Team Sports","Athletics","Athletics","Racket Sports","Gymnastics","Swimming","Athletics","Precision Sports","Skateboarding","Weightlifting","Golf","Weightlifting","Climbing","Racket Sports","Golf","Volleyball","Volleyball","Water Sports","Athlons","Climbing","Weightlifting","Athlons","Volleyball","Basketball","Swimming","Climbing","Canoe/Rowing","Breakdancing","Team Sports","Athletics","Climbing","Water Sports","Combat Sports","Golf","Athletics","Combat Sports","Racket Sports","Skateboarding","Combat Sports","Water Sports","Athlons","Basketball","Breakdancing","Swimming","Athlons","Racket Sports"],
+"prop_sport_medals":[0.2608695652173913,0.08333333333333333,0.08333333333333333,0.08333333333333333,0.32142857142857145,0.13636363636363635,0.13636363636363635,0.12121212121212122,0.24242424242424243,0.06666666666666667,0.09090909090909091,0.09090909090909091,0.14285714285714285,0.14285714285714285,0.15151515151515152,0.07575757575757576,0.15151515151515152,0.07575757575757576,0.11904761904761904,0.1111111111111111,0.09523809523809523,0.057971014492753624,0.08888888888888889,0.03333333333333333,0.09523809523809523,0.08888888888888889,0.08888888888888889,0.14285714285714285,0.09090909090909091,0.16666666666666666,0.025,0.09090909090909091,0.16666666666666666,0.025,0.5,0.06666666666666667,0.07142857142857142,0.025,0.06666666666666667,0.16666666666666666,0.016666666666666666,0.047619047619047616,0.044444444444444446,0.030303030303030304,0.16666666666666666,0.13333333333333333,0.3333333333333333,0.044444444444444446,0.07142857142857142,0.1111111111111111,0.044444444444444446,0.1111111111111111,0.16666666666666666,0.028985507246376812,0.028985507246376812,0.1111111111111111,0.07142857142857142,0.030303030303030304,0.014492753623188406,0.023809523809523808,0.16666666666666666,0.06666666666666667,0.3333333333333333,0.06666666666666667,0.16666666666666666,0.05555555555555555,0.3333333333333333,0.16666666666666666,0.16666666666666666,0.05555555555555555,0.16666666666666666,0.16666666666666666,0.06666666666666667,0.16666666666666666,0.16666666666666666,0.16666666666666666,0.015151515151515152,0.16666666666666666,0.022222222222222223,0.3333333333333333,0.08333333333333333,0.014492753623188406,0.16666666666666666,0.05555555555555555,0.008333333333333333,0.3333333333333333,0.014492753623188406,0.008333333333333333,0.05555555555555555,0.16666666666666666,0.008333333333333333,0.05555555555555555,0.16666666666666666,0.16666666666666666,0.3333333333333333,0.015151515151515152,0.16666666666666666,0.05555555555555555]
+},
+"mapping":{
+"x":"Sport_Category",
+"y":"country_code",
+"fill":"prop_sport_medals"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"str",
+"column":"Sport_Category"
+},{
+"type":"int",
+"column":"count"
+},{
+"type":"int",
+"column":"total_count"
+},{
+"type":"int",
+"column":"total_sport_medals"
+},{
+"type":"float",
+"column":"prop_sport_medals"
+}]
+},
+"ggtitle":{
+"text":"Proportion of Medals Won for Each Sport (Male)"
+},
+"guides":{
+"x":{
+"title":"Sport"
+},
+"y":{
+"title":"Country"
+}
+},
+"theme":{
+"name":"minimal",
+"axis_text_x":{
+"angle":90.0,
+"hjust":1.0,
+"vjust":0.5,
+"blank":false
+}
+},
+"coord":{
+"name":"fixed",
+"ratio":1.0,
+"flip":false
+},
+"kind":"plot",
+"scales":[{
+"name":"Medal Proportion",
+"aesthetic":"fill",
+"low":"lightblue",
+"high":"darkblue",
+"scale_mapper_kind":"color_gradient"
+}],
+"layers":[{
+"geom":"tile",
+"mapping":{
+},
+"data_meta":{
+},
+"data":{
+}
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("n9t2eN");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+<p>Female Proportions Heatmap:</p>
+<div id="17b25a0e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Updated_Female_Prop <span class="op">=</span> Female_prop.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    ggsize(<span class="dv">1600</span>, <span class="dv">800</span>) <span class="op">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Female)"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="dv">1</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+   <div id="FU5EJ6"></div>
+   <script type="text/javascript" data-lets-plot-script="plot">
+       (function() {
+           var plotSpec={
+"data":{
+"country_code":["USA","USA","CHN","AUS","CHN","KOR","JPN","GBR","USA","CHN","NZL","USA","FRA","GBR","FRA","KOR","NZL","AUS","ITA","USA","CAN","USA","GBR","NED","CHN","NED","BRA","NED","AUS","GER","NED","CHN","NED","ITA","JPN","GBR","CAN","CHN","FRA","BRA","GER","JPN","AUS","CHN","CAN","GER","FRA","CAN","USA","GBR","BRA","KOR","USA","USA","JPN","GBR","GER","GER","GBR","CAN","GER","GER","NED","CHN","CAN","CAN","CAN","CAN","GER","GER","CHN","GBR","CHN","CHN","CHN","CHN","GBR","FRA","AUS","AUS","ITA","AUS","ITA","FRA","AUS","ITA","ITA","FRA","ITA","ITA","FRA","NZL","JPN","USA","USA","USA","JPN","NZL","USA","NZL","AUS","KOR","FRA","GBR","BRA","BRA","BRA","FRA","KOR","ITA"],
+"Sport_Category":["Swimming","Athletics","Swimming","Swimming","Combat Sports","Precision Sports","Combat Sports","Canoe/Rowing","Gymnastics","Racket Sports","Canoe/Rowing","Cycling","Precision Sports","Cycling","Combat Sports","Combat Sports","Cycling","Athletics","Gymnastics","Combat Sports","Swimming","Precision Sports","Athletics","Athletics","Athletics","Canoe/Rowing","Gymnastics","Water Sports","Canoe/Rowing","Canoe/Rowing","Cycling","Precision Sports","Swimming","Precision Sports","Skateboarding","Swimming","Canoe/Rowing","Gymnastics","Water Sports","Combat Sports","Athletics","Racket Sports","Cycling","Weightlifting","Athletics","Cycling","Athlons","Combat Sports","Team Sports","Water Sports","Volleyball","Racket Sports","Canoe/Rowing","Basketball","Precision Sports","Skateboarding","Gymnastics","Golf","Weightlifting","Gymnastics","Combat Sports","Basketball","Team Sports","Cycling","Precision Sports","Team Sports","Volleyball","Weightlifting","Swimming","Team Sports","Team Sports","Precision Sports","Breakdancing","Canoe/Rowing","Climbing","Golf","Gymnastics","Athletics","Basketball","Precision Sports","Water Sports","Skateboarding","Volleyball","Basketball","Water Sports","Swimming","Racket Sports","Canoe/Rowing","Cycling","Combat Sports","Cycling","Team Sports","Breakdancing","Weightlifting","Water Sports","Volleyball","Athletics","Golf","Climbing","Athletics","Combat Sports","Athlons","Team Sports","Athlons","Water Sports","Team Sports","Skateboarding","Swimming","Weightlifting","Athletics"],
+"prop_sport_medals":[0.2753623188405797,0.21428571428571427,0.2028985507246377,0.18840579710144928,0.10869565217391304,0.19047619047619047,0.08695652173913043,0.15217391304347827,0.25925925925925924,0.3888888888888889,0.13043478260869565,0.18181818181818182,0.14285714285714285,0.18181818181818182,0.06521739130434782,0.05434782608695652,0.15151515151515152,0.07142857142857142,0.18518518518518517,0.05434782608695652,0.07246376811594203,0.11904761904761904,0.07142857142857142,0.07142857142857142,0.05714285714285714,0.08695652173913043,0.14814814814814814,0.2222222222222222,0.08695652173913043,0.08695652173913043,0.12121212121212122,0.07142857142857142,0.043478260869565216,0.07142857142857142,0.5,0.043478260869565216,0.06521739130434782,0.1111111111111111,0.16666666666666666,0.03260869565217391,0.04285714285714286,0.16666666666666666,0.09090909090909091,0.2,0.02857142857142857,0.06060606060606061,0.3333333333333333,0.021739130434782608,0.16666666666666666,0.1111111111111111,0.3333333333333333,0.1111111111111111,0.043478260869565216,0.3333333333333333,0.047619047619047616,0.16666666666666666,0.037037037037037035,0.3333333333333333,0.06666666666666667,0.037037037037037035,0.010869565217391304,0.16666666666666666,0.08333333333333333,0.030303030303030304,0.023809523809523808,0.08333333333333333,0.16666666666666666,0.06666666666666667,0.014492753623188406,0.08333333333333333,0.08333333333333333,0.023809523809523808,0.3333333333333333,0.021739130434782608,0.16666666666666666,0.3333333333333333,0.037037037037037035,0.014285714285714285,0.16666666666666666,0.023809523809523808,0.05555555555555555,0.16666666666666666,0.16666666666666666,0.16666666666666666,0.05555555555555555,0.014492753623188406,0.05555555555555555,0.021739130434782608,0.030303030303030304,0.010869565217391304,0.030303030303030304,0.08333333333333333,0.3333333333333333,0.06666666666666667,0.05555555555555555,0.16666666666666666,0.014285714285714285,0.3333333333333333,0.16666666666666666,0.014285714285714285,0.010869565217391304,0.16666666666666666,0.08333333333333333,0.16666666666666666,0.05555555555555555,0.08333333333333333,0.16666666666666666,0.014492753623188406,0.06666666666666667,0.014285714285714285]
+},
+"mapping":{
+"x":"Sport_Category",
+"y":"country_code",
+"fill":"prop_sport_medals"
+},
+"data_meta":{
+"series_annotations":[{
+"type":"str",
+"column":"country_code"
+},{
+"type":"str",
+"column":"Sport_Category"
+},{
+"type":"int",
+"column":"count"
+},{
+"type":"int",
+"column":"total_count"
+},{
+"type":"int",
+"column":"total_sport_medals"
+},{
+"type":"float",
+"column":"prop_sport_medals"
+}]
+},
+"ggsize":{
+"width":1600.0,
+"height":800.0
+},
+"ggtitle":{
+"text":"Proportion of Medals Won for Each Sport (Female)"
+},
+"guides":{
+"x":{
+"title":"Sport"
+},
+"y":{
+"title":"Country"
+}
+},
+"theme":{
+"name":"minimal",
+"axis_text_x":{
+"angle":90.0,
+"hjust":1.0,
+"vjust":1.0,
+"blank":false
+}
+},
+"coord":{
+"name":"fixed",
+"ratio":1.0,
+"flip":false
+},
+"kind":"plot",
+"scales":[{
+"name":"Medal Proportion",
+"aesthetic":"fill",
+"low":"lightblue",
+"high":"darkblue",
+"scale_mapper_kind":"color_gradient"
+}],
+"layers":[{
+"geom":"tile",
+"mapping":{
+},
+"data_meta":{
+},
+"data":{
+}
+}],
+"metainfo_list":[]
+};
+           var plotContainer = document.getElementById("FU5EJ6");
+           window.letsPlotCall(function() {{
+               LetsPlot.buildPlotFromProcessedSpecs(plotSpec, -1, -1, plotContainer);
+           }});
+       })();
+   </script>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,9 +1,10 @@
 ---
-title: "Olympics Project in Python"
+title: "Python Render Test"
 author: "Tanner Bessette"
 format: html
 ---
 
+**OLYMPICS PROJECT IN PYTHON**
 
 ```{python}
 import pandas as pd
@@ -50,7 +51,6 @@ Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_cou
 )
 
 ```
-
 
 
 ```{python}
@@ -139,7 +139,6 @@ Create a medal count variable that counts country's medals by sport:
 Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)
 ```
 
-
 More manipulations for combined Heatmap:
 ```{python}
 # Create a total medal count variable, and only keep countries 
@@ -151,10 +150,13 @@ Medal_Counts = Medal_Counts.query("total_count > 1")
 ```
 
 Create the Combined Heatmap:
-
 ```{python}
+overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+
+Overall_Medal_Counts = Medal_Counts.query("country_code in @overall_countries_to_keep").query("count > 0")
+
 (
-    ggplot(Medal_Counts, aes(x='Sport_Category', 
+    ggplot(Overall_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
     geom_tile() +
@@ -185,8 +187,12 @@ Male_Medal_Counts = Male_Medal_Counts.query("total_count > 1")
 
 Male Heatmap Plot:
 ```{python}
+male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'IRI', 'ITA', 'JPN', 'KOR', 'NED', 'USA', 'UZB']
+
+Updated_Medal_Counts = Male_Medal_Counts.query("country_code in @male_countries_to_keep").query("count > 0")
+
 (
-    ggplot(Male_Medal_Counts, aes(x='Sport_Category', 
+    ggplot(Updated_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
     geom_tile() +
@@ -214,8 +220,12 @@ Female_Medal_Counts = Female_Medal_Counts.query("total_count > 1")
 
 Female Heatmap Plot:
 ```{python}
+female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR', 'GER',  'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+
+Updated_Female_Medal_Counts = Female_Medal_Counts.query("country_code in @female_countries_to_keep").query("count > 0")
+
 (
-    ggplot(Female_Medal_Counts, aes(x='Sport_Category', 
+    ggplot(Updated_Female_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
     geom_tile() +
@@ -250,8 +260,10 @@ Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_spo
 Now create the proportions heatmap plots:
 Male Proportions Heatmap:
 ```{python}
+Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").query("count > 0")
+
 (
-    ggplot(Male_prop, aes(x='Sport_Category', 
+    ggplot(Updated_Male_Prop, aes(x='Sport_Category', 
                                   y='country_code', 
                                   fill='prop_sport_medals')) +  
     geom_tile() +
@@ -266,24 +278,12 @@ Male Proportions Heatmap:
 ```
 
 
-Try slicing the Female prop data before plotting:
-```{python}
-Female_prop.head()
-# .iloc accesses specific rows, can use it to basicall slice data:
-sliced_Female_prop = Female_prop.iloc[0:285]
-```
-
-Figured out big issue: If number of levels on y axis and x axis are not 
-equal, the squares are still proportional squares, so the heatmap just 
-becomes a rectangle.
-
-Maybe ggsize() argument will work to help fix as well?
-
-
 Female Proportions Heatmap:
 ```{python}
+Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_keep").query("count > 0")
+
 (
-    ggplot(sliced_Female_prop, aes(x='Sport_Category', 
+    ggplot(Updated_Female_Prop, aes(x='Sport_Category', 
                                   y='country_code', 
                                   fill='prop_sport_medals')) +  
     geom_tile() +
@@ -298,29 +298,43 @@ Female Proportions Heatmap:
 )
 ```
 
+**Specific Code Comparisons:**
 
-Skeleton for making a heatmap from ChatGPT (to help find errors):
-```{python}
-# Set seed for reproducibility
-#np.random.seed(42)
+I thought it may be interesting to compare some of the specific data manipulations side by side now that we have seen the project in full in both R and Python.
 
-# Generate 40 sports and 40 countries
-#sports = [f"Sport_{i}" for i in range(1, 501)]
-#countries = [f"Country_{i}" for i in range(1, 501)]
+Before making the male athletes and medals bar plot, I had to group by the country and add up all the athletes for each country.
 
-# Create a DataFrame with all combinations of sports and countries
-#data = pd.DataFrame([(sport, country, np.random.randint(1, 600))
-#                     for sport in sports for country in countries],
-#                    columns=['Sport_Category', 'country_code', 'count'])
-
-#(
-#    ggplot(data, aes(x='Sport_Category', y='country_code', fill='count')) +
-#    geom_tile() +
-#    labs(title="Simple Heatmap of Medal Counts",
-#         x="Sport",
-#         y="Country") +
-#    theme_minimal() +
-#    scale_fill_gradient(low="lightblue", high="darkblue", name="Medal Count") +
-#    theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1, size=6))
-#)
+Here is how I did it in R:
+```{r}
+Male_Athletes_Count <- Male_Athletes_df %>%
+  group_by(country_code) %>%
+  summarise(athlete_count = n())
 ```
+
+And here is how I did it in Python:
+```{python}
+# data manipulation (group_by, summarise):
+Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(name="athlete_count")
+
+Male_Athletes_Count.head()
+```
+
+Obviously the group_by() and groupby() functions are extremely similar, as I highlighted in the function comparison. The .size() function in Python essentially does the same thing as the combination of a summarise and n() in R. In Python, to keep country_code and athlete_count as two different columns and keep the Male_Athletes_Counts as a dataframe, we need to use the reset_index() function.
+
+Another example of side by side code comparisons of R and Python that I want to show is with joining datasets.
+
+Here is how I performed the joining of the male athletes and male medals datasets before creating the bar plot using R:
+
+```{r}
+Male_Athletes_Count <- left_join(Male_Athletes_Count, Male_Total_Medal_Counts, 
+                                 by = "country_code")
+```
+
+And here is how I did that in Python:
+
+```{python}
+Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on="country_code", how="left")
+```
+
+Both languages are using a left join, and joining by matching the country_code in the two datasets they are joining. R has a built-in left_join() function to specify that the join type is left, while Python's pd.merge() function can be used for all types of joins, and you use the how = "left" argument to specify that you want the join to be a left join. The on argument in this R example and the by argument in the Python example are used in the same exact way, to specify the variable to join on.
+
