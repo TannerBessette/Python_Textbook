@@ -1,0 +1,68 @@
+---
+title: "Tasks for November 14th"
+format: html
+---
+
+## Wrangling tasks for Thursday, November 14th.
+
+1. joining the player totals .csv and with the all-star selections.csv files and making a variable for whether or not each player was selected to be on the all-star team for a particular season.
+
+2. probably filtering down to only keep more recent years and to only keep players who started at least an xxxx number of games (so we’re only looking at starters in each season).
+
+
+## Load libraries and import data
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(dplyr)
+player_averages <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Per_Game.csv")
+
+all_stars <- read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
+
+player_totals <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
+```
+
+
+## Join datasets and create an all-star variable with two levels
+```{r}
+# create an all-star variable with 1 = made all-star and 0 = didn't make it:
+all_stars <- all_stars |>
+  mutate(all_star = 1)
+
+# Join player averages data with the all_stars data:
+joined_all_star_data <- left_join(player_averages, all_stars, 
+                                  by = c("season", "player"))
+
+# remove variables that we definitely won't need:
+joined_all_star_data <- joined_all_star_data |>
+  dplyr::select(-c("birth_year", "lg.x", "lg.y", "team"))
+
+# fix the all-star variable to be 0s and 1s not 1s and NAs
+joined_all_star_data <- joined_all_star_data |>
+  mutate(all_star = case_when(
+    is.na(all_star) ~ 0,
+    all_star == 1 ~ 1))
+```
+
+
+## Filter down to keep recent years and NBA starters
+
+I think a fair bar is a player must have started at least half of the games in
+an NBA season - so 42 games. Let's also only keep 21st century, since the game
+has evolved so much since before 2000. Also exclude the year 2025, because the
+season is active, and there has not been an all-star game.
+
+```{r}
+# specify the seasons:
+joined_all_star_data <- joined_all_star_data |>
+  filter(season > 1999) |>
+  filter(season != 2025)
+
+# specify the number of starts each player must have (at least half of the season):
+joined_all_star_data <- joined_all_star_data |>
+  filter(gs > 41)
+```
+
+
+

@@ -5,15 +5,20 @@ format:
     embed-resources: true
 ---
 
+
 ```{r}
 2 + 2
 mtcars |> dplyr::slice(1:4)
+library(reticulate)
+use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", required = TRUE)
 ```
 
 ```{python}
+from plotnine import *
 import pandas as pd
-Athletes_df = pd.read_csv("/Users/highamm/Desktop/SYE_Bessette/Olympics_Project/athletes.csv")
-Medals_df = pd.read_csv("/Users/highamm/Desktop/SYE_Bessette/Olympics_Project/medals.csv")
+
+Athletes_df = pd.read_csv("/Users/tannerbessette/Desktop/SYE/athletes.csv")
+Medals_df = pd.read_csv("/Users/tannerbessette/Desktop/SYE/medals.csv")
 
 Medals_df.query("medal_type == 'Gold Medal'")
 3 - 4

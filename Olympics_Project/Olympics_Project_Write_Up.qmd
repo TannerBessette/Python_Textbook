@@ -1,5 +1,5 @@
 ---
-title: "Final Version of Olympic Project"
+title: "Final Version of Olympics Project"
 author: "Tanner Bessette"
 format: html
 execute:
@@ -19,7 +19,7 @@ Functions:
 
 	-read_csv() in R → pd.read_csv() in Python
 
-	-as.factor() in R → .astype(“category”)
+	-as.factor() in R → .astype(“category”) in Python
 
 	-head() in R → dataset.head() in Python
 
@@ -37,7 +37,7 @@ Functions:
 
 Other Syntax:
 
-    -%in% in R → .isin() in Python 
+  -%in% in R → .isin() in Python 
 
 	-& in R → and in Python
 
@@ -242,7 +242,7 @@ Medal_Counts <- Medal_Counts  %>%
   group_by(country_code, Sport_Category) %>%
   mutate(count = n()) %>%
   arrange(desc(count))
-Medal_Counts
+
 # Only keep countries who got at least 10 total medals:
 # (because heatmap was getting sloppy)
 Medal_Counts <- Medal_Counts %>%
@@ -260,7 +260,7 @@ ggplot(Medal_Counts, aes(x = Sport_Category,
                y = "Country") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_fill_gradient(low="white", high="blue", name = "Medal Count") +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
   coord_fixed()
 ```
 
@@ -376,6 +376,10 @@ ggplot(Male_Medal_Counts, aes(x = Sport_Category,
   coord_fixed()
 ```
 
+The male proportion heatmap helps to highlight how dominant countries were in certain sports. Specifically, USA and France being the only countries to medal in breakdancing, and USA, France, and Germany being the only countries to medal in volleyball. Basketball, skateboarding, and golf also only had three countries receive a medal in the men's competitions.
+
+It also demonstrates that although certain countries had many medals in certain sports (i.e. USA in athletics), it does not mean that they had as high of a porportion of total medals in that sport.
+
 
 **Female Medal Proportion Heatmap:**
 
@@ -399,14 +403,15 @@ ggplot(Female_Medal_Counts, aes(x = Sport_Category,
   coord_fixed()
 ```
 
+In the women's competitions, climbing, breakdancing, and golf seem to be the sports that were most dominated by just a couple of countries. Many of the sports in the women's proportions plot have a wide range of countries with roughly the same proportion of medals. Some of these sports include athletics, combat sports, and swimming. Swimming proportions being close was especially surprising to me in this plot, given how many medals we could see that USA, China, and Australia won in total. It just goes to show how many total swimming medals are up for grabs.
 
-Confirm Python environment in R:
+Now, I will be going through the same project, this time in Python. 
+
+**Specify the correct Python path before switching to Python:**
 ```{r}
 library(reticulate)
 use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", required = TRUE)
-py_config()
 ```
-
 
 
 **OLYMPICS PROJECT IN PYTHON**
@@ -415,8 +420,7 @@ py_config()
 import pandas as pd
 import numpy as np
 from palmerpenguins import load_penguins
-from lets_plot import *
-LetsPlot.setup_html()
+from plotnine import *
 
 # Read in data:
 Athletes_df = pd.read_csv("/Users/tannerbessette/Desktop/SYE/athletes.csv")
@@ -445,7 +449,7 @@ Male_Athletes_Count_joined = Male_Athletes_Count_joined.query("athlete_count > 1
 # Create the Male bar plot with country's athletes and medals:
 #Male_Athletes_Count.sort_values (essentially arrange -> do instead of reorder)
 Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
-(
+plot_1 = (
     ggplot() +
           geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Male_Athletes_Count_joined) +
           geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Male_Athletes_Count_joined) +
@@ -454,9 +458,10 @@ Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_cou
                y = "Male Athletes and Medal Counts") +
           theme_minimal()
 )
-
+print(plot_1)
 ```
 
+Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (.size() then .reset_index()) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.
 
 ```{python}
 # FEMALE BAR PLOT:
@@ -470,7 +475,7 @@ Female_Athletes_Count_joined = Female_Athletes_Count_joined.query("athlete_count
 # Create the Male bar plot with country's athletes and medals:
 # (arrange first):
 Female_Athletes_Count_joined = Female_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
-(
+plot_2 = (
     ggplot() +
           geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Female_Athletes_Count_joined) +
           geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Female_Athletes_Count_joined) +
@@ -479,7 +484,7 @@ Female_Athletes_Count_joined = Female_Athletes_Count_joined.sort_values("athlete
                y = "Female Athletes and Medal Counts") +
           theme_minimal()
 )
-
+print(plot_2)
 ```
 
 
@@ -538,6 +543,7 @@ Medals_df['Sport_Category'] = np.select(
 Medals_df['Sport_Category'] = Medals_df['Sport_Category'].astype('category')
 ```
 
+Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.
 
 Create a medal count variable that counts country's medals by sport:
 ```{python}
@@ -560,7 +566,7 @@ overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR', 'G
 
 Overall_Medal_Counts = Medal_Counts.query("country_code in @overall_countries_to_keep").query("count > 0")
 
-(
+plot_3 = (
     ggplot(Overall_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
@@ -573,10 +579,12 @@ Overall_Medal_Counts = Medal_Counts.query("country_code in @overall_countries_to
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
+print(plot_3)
 # changing the geom_tile() width and height arguments did 
 # nothing to improve visual appearance of the plot
 ```
 
+In the code chunk above I specified a list of countries to keep, based on the same requirements that I had in my plots in R. The query("country_code in @overall_countries_to_keep") is a good example of some differences in syntax than we would have in doing this in R, specifically with the quotes around the whole filtering statement. 
 
 Men's Overall Medal Heatmap:
 ```{python}
@@ -596,7 +604,7 @@ male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'IRI'
 
 Updated_Medal_Counts = Male_Medal_Counts.query("country_code in @male_countries_to_keep").query("count > 0")
 
-(
+plot_4 = (
     ggplot(Updated_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
@@ -609,6 +617,7 @@ Updated_Medal_Counts = Male_Medal_Counts.query("country_code in @male_countries_
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
+print(plot_4)
 ```
 
 Women's Overall Medal Heatmap:
@@ -629,7 +638,7 @@ female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR', 'GER',  'I
 
 Updated_Female_Medal_Counts = Female_Medal_Counts.query("country_code in @female_countries_to_keep").query("count > 0")
 
-(
+plot_5 = (
     ggplot(Updated_Female_Medal_Counts, aes(x='Sport_Category', 
                              y='country_code', 
                              fill='count')) +  
@@ -642,6 +651,7 @@ Updated_Female_Medal_Counts = Female_Medal_Counts.query("country_code in @female
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
+print(plot_5)
 ```
 
 
@@ -662,12 +672,14 @@ Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count
 Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
 ```
 
+Instead of using a $ in R to access a dataset's variable, you use [] in Python. Instead of a mutate function that I would have used in R, here I am telling Python what variable to save as prop_sport_medals to my male and female datasets.
+
 Now create the proportions heatmap plots:
 Male Proportions Heatmap:
 ```{python}
 Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").query("count > 0")
 
-(
+plot_6 = (
     ggplot(Updated_Male_Prop, aes(x='Sport_Category', 
                                   y='country_code', 
                                   fill='prop_sport_medals')) +  
@@ -680,6 +692,7 @@ Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").q
     scale_fill_gradient(low="lightblue", high="darkblue", name="Medal Proportion") +
     coord_fixed()
 )
+print(plot_6)
 ```
 
 
@@ -687,12 +700,11 @@ Female Proportions Heatmap:
 ```{python}
 Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_keep").query("count > 0")
 
-(
+plot_7 = (
     ggplot(Updated_Female_Prop, aes(x='Sport_Category', 
                                   y='country_code', 
                                   fill='prop_sport_medals')) +  
     geom_tile() +
-    ggsize(1600, 800) +
     labs(title="Proportion of Medals Won for Each Sport (Female)",
          x="Sport",
          y="Country") +
@@ -701,6 +713,7 @@ Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_ke
     theme(axis_text_x=element_text(angle=90, vjust=1, hjust=1)) +
     coord_fixed()
 )
+print(plot_7)
 ```
 
 **Specific Code Comparisons:**
@@ -714,6 +727,7 @@ Here is how I did it in R:
 Male_Athletes_Count <- Male_Athletes_df %>%
   group_by(country_code) %>%
   summarise(athlete_count = n())
+head(Male_Athletes_Count)
 ```
 
 And here is how I did it in Python:
