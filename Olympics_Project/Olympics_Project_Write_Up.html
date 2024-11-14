@@ -8,7 +8,7 @@
 
 <meta name="author" content="Tanner Bessette">
 
-<title>Final Version of Olympic Project</title>
+<title>Final Version of Olympics Project</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Final Version of Olympic Project</h1>
+<h1 class="title">Final Version of Olympics Project</h1>
 </div>
 
 
@@ -504,9 +504,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>               y <span class="op">=</span> <span class="st">"Male Athletes and Medal Counts"</span>) <span class="op">+</span></span>
 <span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
 <span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>plot_1.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<pre><code>Matplotlib is building the font cache; this may take a moment.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (.size() then .reset_index()) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.</p>

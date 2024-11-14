@@ -458,7 +458,7 @@ plot_1 = (
                y = "Male Athletes and Medal Counts") +
           theme_minimal()
 )
-print(plot_1)
+plot_1.show()
 ```
 
 Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (.size() then .reset_index()) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.
@@ -484,7 +484,7 @@ plot_2 = (
                y = "Female Athletes and Medal Counts") +
           theme_minimal()
 )
-print(plot_2)
+plot_2.show()
 ```
 
 
@@ -579,7 +579,7 @@ plot_3 = (
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
-print(plot_3)
+plot_3.show()
 # changing the geom_tile() width and height arguments did 
 # nothing to improve visual appearance of the plot
 ```
@@ -617,7 +617,7 @@ plot_4 = (
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
-print(plot_4)
+plot_4.show()
 ```
 
 Women's Overall Medal Heatmap:
@@ -651,7 +651,7 @@ plot_5 = (
     coord_fixed() +
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
-print(plot_5)
+plot_5.show()
 ```
 
 
@@ -692,7 +692,7 @@ plot_6 = (
     scale_fill_gradient(low="lightblue", high="darkblue", name="Medal Proportion") +
     coord_fixed()
 )
-print(plot_6)
+plot_6.show()
 ```
 
 
@@ -713,7 +713,7 @@ plot_7 = (
     theme(axis_text_x=element_text(angle=90, vjust=1, hjust=1)) +
     coord_fixed()
 )
-print(plot_7)
+plot_7.show()
 ```
 
 **Specific Code Comparisons:**
