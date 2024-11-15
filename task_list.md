@@ -1,5 +1,23 @@
 ## Task List
 
+## November 21
+
+1. Visualize NBA data in R.
+
+2. Start the knn analysis in Python (scaling predictors, splitting into training/test or k-fold cross-validation, make the classification table and get classification rate).
+
+3. MH: Read write up.
+
+## November 14
+
+1. Wrangle basketball data (getting everything in R done before the knn analysis.
+
+2. Wrapping up the write up (proportion graphs, adding some text in the python analysis, etc.).
+
+3. Review knn (MH: Send Tanner something).
+
+4. MH: Look at this quarto rendering issue.
+
 ## November 7
 
 1. MH: Look at heatmaps (both size and whether or not they match the R heatmaps).
