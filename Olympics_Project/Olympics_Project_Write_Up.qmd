@@ -55,7 +55,7 @@ Additionally, I have found the plotting structure to be overall very similar usi
 
 Of course, there were differences I encountered as well. A specific difference that I found challenging was that there is not a good Python equivalent to mutate in R, which I find to be one of the most helpful and one of my most-used functions when I am manipulating data in R. Transform in Python works similarly to a mutate in R that is doing a mathematical operation, and assign in Python creates a new column similarly to mutate, but there is not an exact mutate equivalent in Python.
 
-There are also some big downsides to using Python instead of R in this setting, in my opinion. After spending a few months getting familiar using and practicing Python, there are a couple of huge downsides to using Python for a basic data science project, and reasons that I would personally prefer R. The first reason is that code becomes unreadable so quickly in Python. Instead of a simple pipe in R, where you can space out and enter in between each step to clearly show the process and keep the coding tidy, in Python you need to use a . in between each new function you are applying to the dataset, and you cannot neatly space out or enter between operations. Evidence of this difference is how much Python code needs to be broken down into multiple steps as you code, whereas in R it could all be contained within on data piping process easily. 
+There are also some big downsides to using Python instead of R in this setting, in my opinion. After spending a few months getting familiar using and practicing Python, there are some significant downsides to using Python for a basic data science project, and reasons that I would personally prefer R. The first reason is that code becomes unreadable so quickly in Python. Instead of a simple pipe in R, where you can space out and enter in between each step to clearly show the process and keep the coding tidy, in Python you need to use a . in between each new function you are applying to the dataset, and you cannot neatly space out or enter between operations. Evidence of this difference is how much Python code needs to be broken down into multiple steps as you code, whereas in R it could all be contained within one data piping process easily. 
 
 Interpretability is so much more feasible in R. For somebody unfamiliar with either language, it would be easier to learn basic R, and it would be easier for somebody who doesn’t code to be able to understand what the coder is doing to the data each step of the data manipulation process. The structure of the code is much cleaner and easier to follow.
 
@@ -718,9 +718,9 @@ plot_7.show()
 
 **Specific Code Comparisons:**
 
-I thought it may be interesting to compare some of the specific data manipulations side by side now that we have seen the project in full in both R and Python.
+I thought it may be interesting to compare some of the specific data manipulations side by side now that we have seen the project in both R and Python.
 
-Before making the male athletes and medals bar plot, I had to group by the country and add up all the athletes for each country.
+Before making the male bar plot, I had to group by country and add up all the athletes for each country.
 
 Here is how I did it in R:
 ```{r}

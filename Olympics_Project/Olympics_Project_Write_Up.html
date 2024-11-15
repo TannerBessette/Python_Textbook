@@ -505,9 +505,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
 <span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>plot_1.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Matplotlib is building the font cache; this may take a moment.</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -518,265 +515,289 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (.size() then .reset_index()) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FEMALE BAR PLOT:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count <span class="op">=</span> Female_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"athlete_count"</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># join data (looked ahead in textbook to ch. 22):</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (pd.merge is the join function, on is like by, how = join method(L/R))</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> pd.merge(Female_Athletes_Count, Female_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keep top 10 countries with most athletes:</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.query(<span class="st">"athlete_count &gt; 177"</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Male bar plot with country's athletes and medals:</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (arrange first):</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.sort_values(<span class="st">"athlete_count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plot_2 <span class="op">=</span> (</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    ggplot() <span class="op">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'athlete_count'</span>), fill <span class="op">=</span> <span class="st">"lightblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'medal_totals'</span>), fill <span class="op">=</span> <span class="st">"darkblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>          labs(title <span class="op">=</span> <span class="st">"Female Athletes and Medals by Country"</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">"Country"</span>,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>               y <span class="op">=</span> <span class="st">"Female Athletes and Medal Counts"</span>) <span class="op">+</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># FEMALE BAR PLOT:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count <span class="op">=</span> Female_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name <span class="op">=</span> <span class="st">"athlete_count"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># join data (looked ahead in textbook to ch. 22):</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (pd.merge is the join function, on is like by, how = join method(L/R))</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> pd.merge(Female_Athletes_Count, Female_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keep top 10 countries with most athletes:</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.query(<span class="st">"athlete_count &gt; 177"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Male bar plot with country's athletes and medals:</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (arrange first):</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>Female_Athletes_Count_joined <span class="op">=</span> Female_Athletes_Count_joined.sort_values(<span class="st">"athlete_count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plot_2 <span class="op">=</span> (</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    ggplot() <span class="op">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'athlete_count'</span>), fill <span class="op">=</span> <span class="st">"lightblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          geom_bar(aes(x <span class="op">=</span> <span class="st">'country_code'</span>, y <span class="op">=</span> <span class="st">'medal_totals'</span>), fill <span class="op">=</span> <span class="st">"darkblue"</span>, stat <span class="op">=</span> <span class="st">"identity"</span>, data <span class="op">=</span> Female_Athletes_Count_joined) <span class="op">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          labs(title <span class="op">=</span> <span class="st">"Female Athletes and Medals by Country"</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">"Country"</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>               y <span class="op">=</span> <span class="st">"Female Athletes and Medal Counts"</span>) <span class="op">+</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>          theme_minimal()</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>plot_2.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Data manipulation before Heatmaps:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT for this, first step is sorting which sport will be the levels</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for the factor variable, second is assigning names for each level</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> np.select(</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"3x3 Basketball"</span>, <span class="st">"Basketball"</span>]),</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Badminton"</span>, <span class="st">"Table Tennis"</span>, <span class="st">"Tennis"</span>]),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Boxing"</span>, <span class="st">"Taekwondo"</span>, <span class="st">"Wrestling"</span>, <span class="st">"Judo"</span>]),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Swimming"</span>, <span class="st">"Marathon Swimming"</span>, <span class="st">"Diving"</span>, <span class="st">"Artistic Swimming"</span>]),</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Volleyball"</span>, <span class="st">"Beach Volleyball"</span>]),</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Cycling BMX Freestyle"</span>, <span class="st">"Cycling BMX Racing"</span>, </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Cycling Mountain Bike"</span>, <span class="st">"Cycling Road"</span>, <span class="st">"Cycling Track"</span>]),</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Water Polo"</span>, <span class="st">"Surfing"</span>, <span class="st">"Sailing"</span>]),</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Artistic Gymnastics"</span>, <span class="st">"Rhythmic Gymnastics"</span>, <span class="st">"Trampoline Gymnastics"</span>]),</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Athletics"</span>,</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Canoe Slalom"</span>, <span class="st">"Canoe Sprint"</span>, <span class="st">"Rowing"</span>]),</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Equestrian"</span>,</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Football"</span>, <span class="st">"Handball"</span>, <span class="st">"Hockey"</span>, <span class="st">"Rugby Sevens"</span>]),</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Archery"</span>, <span class="st">"Shooting"</span>, <span class="st">"Fencing"</span>]),</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Triathlon"</span>, <span class="st">"Modern Pentathlon"</span>]),</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Weightlifting"</span>,</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Skateboarding"</span>,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Breaking"</span>,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Sport Climbing"</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Golf"</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Basketball"</span>,</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Racket Sports"</span>,</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Combat Sports"</span>,</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Swimming"</span>,</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Volleyball"</span>,</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Cycling"</span>,</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Water Sports"</span>,</span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gymnastics"</span>,</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athletics"</span>,</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Canoe/Rowing"</span>,</span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Equestrian"</span>,</span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Team Sports"</span>,</span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision Sports"</span>,</span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athlons"</span>,</span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Weightlifting"</span>,</span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skateboarding"</span>,</span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Breakdancing"</span>,</span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Climbing"</span>,</span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Golf"</span></span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    default<span class="op">=</span><span class="st">"Other"</span>  <span class="co"># default if any sport doesn't match</span></span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'Sport_Category' to a categorical type</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> Medals_df[<span class="st">'Sport_Category'</span>].astype(<span class="st">'category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT for this, first step is sorting which sport will be the levels</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for the factor variable, second is assigning names for each level</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> np.select(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"3x3 Basketball"</span>, <span class="st">"Basketball"</span>]),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Badminton"</span>, <span class="st">"Table Tennis"</span>, <span class="st">"Tennis"</span>]),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Boxing"</span>, <span class="st">"Taekwondo"</span>, <span class="st">"Wrestling"</span>, <span class="st">"Judo"</span>]),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Swimming"</span>, <span class="st">"Marathon Swimming"</span>, <span class="st">"Diving"</span>, <span class="st">"Artistic Swimming"</span>]),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Volleyball"</span>, <span class="st">"Beach Volleyball"</span>]),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Cycling BMX Freestyle"</span>, <span class="st">"Cycling BMX Racing"</span>, </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="st">"Cycling Mountain Bike"</span>, <span class="st">"Cycling Road"</span>, <span class="st">"Cycling Track"</span>]),</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Water Polo"</span>, <span class="st">"Surfing"</span>, <span class="st">"Sailing"</span>]),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Artistic Gymnastics"</span>, <span class="st">"Rhythmic Gymnastics"</span>, <span class="st">"Trampoline Gymnastics"</span>]),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Athletics"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Canoe Slalom"</span>, <span class="st">"Canoe Sprint"</span>, <span class="st">"Rowing"</span>]),</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Equestrian"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Football"</span>, <span class="st">"Handball"</span>, <span class="st">"Hockey"</span>, <span class="st">"Rugby Sevens"</span>]),</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Archery"</span>, <span class="st">"Shooting"</span>, <span class="st">"Fencing"</span>]),</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>].isin([<span class="st">"Triathlon"</span>, <span class="st">"Modern Pentathlon"</span>]),</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Weightlifting"</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Skateboarding"</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Breaking"</span>,</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Sport Climbing"</span>,</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        Medals_df[<span class="st">'discipline'</span>] <span class="op">==</span> <span class="st">"Golf"</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Basketball"</span>,</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Racket Sports"</span>,</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Combat Sports"</span>,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Swimming"</span>,</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Volleyball"</span>,</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Cycling"</span>,</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Water Sports"</span>,</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gymnastics"</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athletics"</span>,</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Canoe/Rowing"</span>,</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Equestrian"</span>,</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Team Sports"</span>,</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision Sports"</span>,</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Athlons"</span>,</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Weightlifting"</span>,</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skateboarding"</span>,</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Breakdancing"</span>,</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Climbing"</span>,</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Golf"</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>    default<span class="op">=</span><span class="st">"Other"</span>  <span class="co"># default if any sport doesn't match</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert 'Sport_Category' to a categorical type</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>Medals_df[<span class="st">'Sport_Category'</span>] <span class="op">=</span> Medals_df[<span class="st">'Sport_Category'</span>].astype(<span class="st">'category'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.</p>
 <p>Create a medal count variable that counts country’s medals by sport:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medals_df.groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medals_df.groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'count'</span>).sort_values(by<span class="op">=</span><span class="st">'count'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</code></pre>
 </div>
 </div>
 <p>More manipulations for combined Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a total medal count variable, and only keep countries </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with medals in at least 1 sport</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>total_counts <span class="op">=</span> Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> pd.merge(Medal_Counts, total_counts, on <span class="op">=</span> <span class="st">"country_code"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>how <span class="op">=</span> <span class="st">"left"</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a total medal count variable, and only keep countries </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with medals in at least 1 sport</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>total_counts <span class="op">=</span> Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> pd.merge(Medal_Counts, total_counts, on <span class="op">=</span> <span class="st">"country_code"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create the Combined Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>overall_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Overall_Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"country_code in @overall_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plot_3 <span class="op">=</span> (</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Overall_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>overall_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Overall_Medal_Counts <span class="op">=</span> Medal_Counts.query(<span class="st">"country_code in @overall_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plot_3 <span class="op">=</span> (</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Overall_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>plot_3.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-18-5.png" class="img-fluid figure-img" width="614"></p>
+</figure>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># changing the geom_tile() width and height arguments did </span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nothing to improve visual appearance of the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># changing the geom_tile() width and height arguments did </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nothing to improve visual appearance of the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the code chunk above I specified a list of countries to keep, based on the same requirements that I had in my plots in R. The query(“country_code in <span class="citation" data-cites="overall_countries_to_keep">@overall_countries_to_keep</span>”) is a good example of some differences in syntax than we would have in doing this in R, specifically with the quotes around the whole filtering statement.</p>
 <p>Men’s Overall Medal Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'M'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'M'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</code></pre>
 </div>
 </div>
 <p>More Male Data Manipulations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>total_male_counts <span class="op">=</span> Male_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> pd.merge(Male_Medal_Counts, total_male_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>total_male_counts <span class="op">=</span> Male_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> pd.merge(Male_Medal_Counts, total_male_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Male_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Male Heatmap Plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>male_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'IRI'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'USA'</span>, <span class="st">'UZB'</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Updated_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>plot_4 <span class="op">=</span> (</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Male)"</span>,</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>male_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'CHN'</span>, <span class="st">'ESP'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>, <span class="st">'HUN'</span>, <span class="st">'IRI'</span>, <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'USA'</span>, <span class="st">'UZB'</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Updated_Medal_Counts <span class="op">=</span> Male_Medal_Counts.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plot_4 <span class="op">=</span> (</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Male)"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>plot_4.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-21-7.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Women’s Overall Medal Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'W'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Medals_df.query(<span class="st">"gender == 'W'"</span>).groupby([<span class="st">'country_code'</span>, <span class="st">'Sport_Category'</span>]).size().reset_index(name <span class="op">=</span> <span class="st">'count'</span>).sort_values(by <span class="op">=</span> <span class="st">'count'</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</code></pre>
 </div>
 </div>
 <p>More Female Data Manipulations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>total_female_counts <span class="op">=</span> Female_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> pd.merge(Female_Medal_Counts, total_female_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>total_female_counts <span class="op">=</span> Female_Medal_Counts.groupby(<span class="st">'country_code'</span>).size().reset_index(name<span class="op">=</span><span class="st">'total_count'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> pd.merge(Female_Medal_Counts, total_female_counts, on <span class="op">=</span> <span class="st">"country_code"</span>, how <span class="op">=</span> <span class="st">"left"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"total_count &gt; 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Female Heatmap Plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>female_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>,  <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>Updated_Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>plot_5 <span class="op">=</span> (</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Female)"</span>,</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>female_countries_to_keep <span class="op">=</span> [<span class="st">'AUS'</span>, <span class="st">'BRA'</span>, <span class="st">'CAN'</span>, <span class="st">'CHN'</span>, <span class="st">'FRA'</span>, <span class="st">'GBR'</span>, <span class="st">'GER'</span>,  <span class="st">'ITA'</span>, <span class="st">'JPN'</span>, <span class="st">'KOR'</span>, <span class="st">'NED'</span>, <span class="st">'NZL'</span>, <span class="st">'USA'</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>Updated_Female_Medal_Counts <span class="op">=</span> Female_Medal_Counts.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>plot_5 <span class="op">=</span> (</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Medal_Counts, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>                             y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>                             fill<span class="op">=</span><span class="st">'count'</span>)) <span class="op">+</span>  </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Medal Count by Country and Sport (Female)"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    coord_fixed() <span class="op">+</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name <span class="op">=</span> <span class="st">"Medal Count"</span>)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>plot_5.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-24-9.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Now create heatmaps based on proportion of sport’s medals instead of totals:</p>
 <p>Create Male Proportions Dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Male_prop <span class="op">=</span> Male_Medal_Counts</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Male_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Male_prop <span class="op">=</span> Male_Medal_Counts</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Male_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Male_prop[<span class="st">'count'</span>] <span class="op">/</span> Male_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Male_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Male_prop[<span class="st">'count'</span>] <span class="op">/</span> Male_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create Female Proportions Dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>Female_prop <span class="op">=</span> Female_Medal_Counts</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Female_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Female_prop <span class="op">=</span> Female_Medal_Counts</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'total_sport_medals'</span>] <span class="op">=</span> Female_prop.groupby(<span class="st">'Sport_Category'</span>)[<span class="st">'count'</span>].transform(<span class="st">'sum'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;string&gt;:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Female_prop[<span class="st">'count'</span>] <span class="op">/</span> Female_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Female_prop[<span class="st">'prop_sport_medals'</span>] <span class="op">=</span> Female_prop[<span class="st">'count'</span>] <span class="op">/</span> Female_prop[<span class="st">'total_sport_medals'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Instead of using a $ in R to access a dataset’s variable, you use [] in Python. Instead of a mutate function that I would have used in R, here I am telling Python what variable to save as prop_sport_medals to my male and female datasets.</p>
 <p>Now create the proportions heatmap plots: Male Proportions Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Updated_Male_Prop <span class="op">=</span> Male_prop.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plot_6 <span class="op">=</span> (</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Male_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Male)"</span>,</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Updated_Male_Prop <span class="op">=</span> Male_prop.query(<span class="st">"country_code in @male_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plot_6 <span class="op">=</span> (</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Male_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Male)"</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="fl">0.5</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>plot_6.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-27-11.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Female Proportions Heatmap:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Updated_Female_Prop <span class="op">=</span> Female_prop.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plot_7 <span class="op">=</span> (</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Female)"</span>,</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="dv">1</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(plot_7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;ggplot: (640 x 480)&gt;</code></pre>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Updated_Female_Prop <span class="op">=</span> Female_prop.query(<span class="st">"country_code in @female_countries_to_keep"</span>).query(<span class="st">"count &gt; 0"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plot_7 <span class="op">=</span> (</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    ggplot(Updated_Female_Prop, aes(x<span class="op">=</span><span class="st">'Sport_Category'</span>, </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                                  y<span class="op">=</span><span class="st">'country_code'</span>, </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                                  fill<span class="op">=</span><span class="st">'prop_sport_medals'</span>)) <span class="op">+</span>  </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    geom_tile() <span class="op">+</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    labs(title<span class="op">=</span><span class="st">"Proportion of Medals Won for Each Sport (Female)"</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Sport"</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>         y<span class="op">=</span><span class="st">"Country"</span>) <span class="op">+</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    theme_minimal() <span class="op">+</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    scale_fill_gradient(low<span class="op">=</span><span class="st">"lightblue"</span>, high<span class="op">=</span><span class="st">"darkblue"</span>, name<span class="op">=</span><span class="st">"Medal Proportion"</span>) <span class="op">+</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, vjust<span class="op">=</span><span class="dv">1</span>, hjust<span class="op">=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    coord_fixed()</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>plot_7.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-28-13.png" class="img-fluid figure-img" width="614"></p>
+</figure>
+</div>
 </div>
 </div>
 <p><strong>Specific Code Comparisons:</strong></p>
@@ -784,10 +805,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before making the male athletes and medals bar plot, I had to group by the country and add up all the athletes for each country.</p>
 <p>Here is how I did it in R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="ot">&lt;-</span> Male_Athletes_df <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_code) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">athlete_count =</span> <span class="fu">n</span>())</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Male_Athletes_Count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="ot">&lt;-</span> Male_Athletes_df <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_code) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">athlete_count =</span> <span class="fu">n</span>())</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Male_Athletes_Count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   country_code athlete_count
@@ -802,10 +823,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>And here is how I did it in Python:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="op">=</span> Male_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name<span class="op">=</span><span class="st">"athlete_count"</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation (group_by, summarise):</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="op">=</span> Male_Athletes_df.groupby(<span class="st">"country_code"</span>).size().reset_index(name<span class="op">=</span><span class="st">"athlete_count"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  country_code  athlete_count
 0          AFG              3
@@ -819,12 +840,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Another example of side by side code comparisons of R and Python that I want to show is with joining datasets.</p>
 <p>Here is how I performed the joining of the male athletes and male medals datasets before creating the bar plot using R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Male_Athletes_Count, Male_Total_Medal_Counts, </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> <span class="st">"country_code"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Male_Athletes_Count, Male_Total_Medal_Counts, </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> <span class="st">"country_code"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And here is how I did that in Python:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count_joined <span class="op">=</span> pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>Male_Athletes_Count_joined <span class="op">=</span> pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on<span class="op">=</span><span class="st">"country_code"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Both languages are using a left join, and joining by matching the country_code in the two datasets they are joining. R has a built-in left_join() function to specify that the join type is left, while Python’s pd.merge() function can be used for all types of joins, and you use the how = “left” argument to specify that you want the join to be a left join. The on argument in this R example and the by argument in the Python example are used in the same exact way, to specify the variable to join on.</p>
 
