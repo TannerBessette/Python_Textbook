@@ -1,8 +1,0 @@
----
-title: "Untitled"
-format: html
----
-
-```{python}
-2 + 4
-```

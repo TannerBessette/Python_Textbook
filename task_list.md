@@ -1,5 +1,14 @@
 ## Task List
 
+## December 5
+
+1. Wrap up the knn analysis in Python.
+
+2. Revise write-up based on comments.
+
+3. Start incorporating that analysis into the write-up.
+
+
 ## November 21
 
 1. Visualize NBA data in R.
