@@ -8,7 +8,6 @@
 
 3. Start incorporating that analysis into the write-up.
 
-
 ## November 21
 
 1. Visualize NBA data in R.

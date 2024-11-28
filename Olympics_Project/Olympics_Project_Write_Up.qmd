@@ -1,13 +1,22 @@
 ---
 title: "Final Version of Olympics Project"
 author: "Tanner Bessette"
-format: html
+format:
+  html:
+    toc: true
 execute:
   python:
     executable: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3
 ---
 
-**R vs. Python Language Comparison**
+## SYE Goals
+
+This semester, I am conducting an independent honors project with the main goal of teaching
+myself data science in Python. I have taken Foundations of Data Science, as well as many other statistics courses in R, and I have also utilized R for a Summer research project in 2023 and an internship this past Summer. I think Python is an important skill to have for a soon-to-be graduated Statistics major looking to make a career out of statistics or data science, and I had little to no experience with data manipulation, data visualization, and statistical modeling in Python previous to this project. After going through a data science textbook with Python coding instructions and tasks, I split the remainder of my SYE semester into two major projects: an Olympics project and an NBA project.
+
+In this write-up, I will first highlight R and Python coding similarities and differences that I found. Then, I will include my Olympics project code in R, then the same project with equivalent Python code, with analysis and code langauge comparisons included. Finally I will include my entire NBA project, where instead of doing it entirely in R then entirely in Python, I utilized R first to read in the data, wrangle the data, and visualize the data, and used Python to create a knn model with the goal of successfully predicting NBA all-stars.
+
+## R vs. Python Language Comparison
 
 After conducting this project, one major take-away was that lots of functions have direct translations from R to Python. Here are some of the helpful functions that I found to be almost equivalent from R to Python:
 
@@ -51,7 +60,7 @@ Other Syntax:
 
 	-  |>  in R → . in Python
 
-Additionally, I have found the plotting structure to be overall very similar using ggplot in R and LetsPlot in Python. There were slight differences with quotes which I found to be a difference between R and Python in other situations as well, but functions within plots are all named the same from what I’ve seen, with the same/similar inputs.
+Additionally, I have found the plotting structure to be overall very similar using ggplot in R and plotnine in Python. There were slight differences with quotes which I found to be a difference between R and Python in other situations as well, but functions within plots are all named the same from what I’ve seen, with the same/similar inputs.
 
 Of course, there were differences I encountered as well. A specific difference that I found challenging was that there is not a good Python equivalent to mutate in R, which I find to be one of the most helpful and one of my most-used functions when I am manipulating data in R. Transform in Python works similarly to a mutate in R that is doing a mathematical operation, and assign in Python creates a new column similarly to mutate, but there is not an exact mutate equivalent in Python.
 
@@ -59,15 +68,20 @@ There are also some big downsides to using Python instead of R in this setting, 
 
 Interpretability is so much more feasible in R. For somebody unfamiliar with either language, it would be easier to learn basic R, and it would be easier for somebody who doesn’t code to be able to understand what the coder is doing to the data each step of the data manipulation process. The structure of the code is much cleaner and easier to follow.
 
-The majority of the math that I do in R is using built-in functions, whereas I find it tedious to have to load a library into Python in order to even do math, and then call that package when doing some of the operations. It feels like R was made specifically to perform mathematical and statistical calculations, and Python is good at doing a variety of things, but for math and statistics specifically, it is not typically as efficient as using R. Although I do definitely prefer R overall for this style of project, the two languages are similar, especially with things like reading in data, joining datasets, and basic plotting.
+The majority of the math that I do in R is using built-in functions, whereas I find it tedious to have to load a library into Python in order to even do math, and then call that package when doing some of the operations. It feels like R was made specifically to perform mathematical and statistical calculations, and Python is good at doing a variety of things, but for math and statistics specifically, it is not as user-friendly. Although I do definitely prefer R overall for this style of project, the two languages are similar, especially with things like reading in data, joining datasets, and basic plotting.
 
-**Olympics Project:**
+Below is a project that I conducted about the 2024 Paris Olympics, the first of my two projects utilizing both R and Python.
+
+## Olympics Project Goals
+
+The main purpose of these projects is to gain familiarity with Python, and to help
+draw comparisons between Python in R. For this project I am aiming to be able to read in,
+wrangle, and create visuals all using Python, after first doing it in R. 
 
 In this project I wanted to investigate and visualize how the men's and 
 women's teams for all of the countries that participated in the 2024 Olympics 
-performed compared to each other. Specifically, I wanted to see how many male 
-and female athletes each country sends, and how many medals different country's 
-male and female teams win.
+performed compared to each other. Specifically, I wanted to visualize and compare 
+the number of athletes and medals for each country's male and female teams.
 
 For my investigation, I utilized a Kaggle dataset called "Paris 2024 Olympic
 Summer Games" by Petro, who has a PhD and is actively working as a data
@@ -82,7 +96,7 @@ throughout the Olympics, and the athlete/team that won each medal.
 
 Here is the R code that I utilized for this project. After I am finished with the R code, I will include the equivalent Python code to do the same process to help compare the languages.
 
-**OLYMPICS PROJECT IN R**
+## Olympics Project in R
 
 **Load libraries and read in datasets:**
 ```{r, warning=FALSE, message=FALSE}
@@ -116,6 +130,7 @@ Female_Total_Medal_Counts <- Medals_df %>%
   summarise(medal_totals = n()) 
 ```
 
+In the bar plots below, each bar represents a country, and the light blue fill represents the number of athletes the country sent, and the dark blue fill represents the number of medals won by each country.
 
 **Visualize the total number of male athletes by country, and fill the bars**
 **by medals won to indicate the proportion of each country's athletes** 
@@ -195,6 +210,8 @@ had a remarkably low proportion of their athletes receive medals.
 Heatmaps provide a way to visualize where each country's medals are coming from,
 and how different countries perform in different sports.
 
+I am dividing sports into categories because there are so many sports in the Olympics that the plot would become unreadable and not interpretable.
+
 **Create a Sports Category variable that groups similar sports together:**
 ```{r}
 # Create new Sport_Category variable for heatmap that reduces 
@@ -234,6 +251,7 @@ concise; it consists of team sports besides basketball that are played
 with more than 4 people, (Rugby, Football, Handball, and Hockey). The "Athlons"
 level contains the triathlon and Modern Pentathlon.
 
+I decided that a fair cutoff for including countries in the heatmaps was to exclude those with fewer than ten medals. After trying different medal cutoffs, setting any higher than ten made the heatmaps overcrowded.
 
 **Heatmap for Medals:**
 ```{r, warning=FALSE, message=FALSE}
@@ -354,16 +372,20 @@ medals up for grabs.
 
 **Create Heatmaps that color based on proportion of medals won in each sport:**
 
+Aside from coloring heatmaps based solely on medal totals, I thought basing heatmaps on proportion of medals could provide additional insights that are harder to see in the previous plots. Specifically, athletics, swimming, and other sports with more medals up for grabs overshadow the other sports by having darker colors. By coloring based on proportion, it shows whcih countries were competitive in the different sports more clearly.
+
+For example, let's say there are 12 total medals available in basketball and the United States won 4 of them, and there are 24 medals available in volleyball and the United States also won 4 of them. Then, their proportion of medals won in basketball was 1/3, and in volleyball was 1/6. These heatmaps would color based on these proportions, rather than showing both squares as 4 medals, as the previous heatmaps did.
+
 **Male Medal Proportion Heatmap:**
 
 ```{r}
-Male_Medal_Counts <- Male_Medal_Counts %>%
+Male_Medal_Prop <- Male_Medal_Counts %>%
   group_by(Sport_Category) %>%
   mutate(total_sport_medals = sum(count)) %>%
   mutate(prop_sport_medals = count / total_sport_medals)
 
 # Heatmap 
-ggplot(Male_Medal_Counts, aes(x = Sport_Category, 
+ggplot(Male_Medal_Prop, aes(x = Sport_Category, 
                               y = reorder(country_code, total_count), 
                               fill= prop_sport_medals)) + 
   geom_tile() +
@@ -384,13 +406,13 @@ It also demonstrates that although certain countries had many medals in certain 
 **Female Medal Proportion Heatmap:**
 
 ```{r}
-Female_Medal_Counts <- Female_Medal_Counts %>%
+Female_Prop <- Female_Medal_Counts %>%
   group_by(Sport_Category) %>%
   mutate(total_sport_medals = sum(count)) %>%
   mutate(prop_sport_medals = count / total_sport_medals)
 
 # Heatmap 
-ggplot(Female_Medal_Counts, aes(x = Sport_Category, 
+ggplot(Female_Prop, aes(x = Sport_Category, 
                               y = reorder(country_code, total_count), 
                               fill= prop_sport_medals)) + 
   geom_tile() +
@@ -414,7 +436,9 @@ use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", req
 ```
 
 
-**OLYMPICS PROJECT IN PYTHON**
+## Olympics Project in Python
+
+Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (`.size()` then `.reset_index()`) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.
 
 ```{python}
 import pandas as pd
@@ -461,8 +485,6 @@ plot_1 = (
 plot_1.show()
 ```
 
-Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (.size() then .reset_index()) instead of one in R. Quotations also slightly differ between the two languages, with Python using single quotes frequently where R would have used double quotes, or Python using double quotes where R would have used no quotes.
-
 ```{python}
 # FEMALE BAR PLOT:
 # data manipulation (group_by, summarise):
@@ -487,8 +509,9 @@ plot_2 = (
 plot_2.show()
 ```
 
+Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.
 
-Data manipulation before Heatmaps:
+**Data manipulation before Heatmaps:**
 ```{python}
 # Used ChatGPT for this, first step is sorting which sport will be the levels
 # for the factor variable, second is assigning names for each level
@@ -543,14 +566,12 @@ Medals_df['Sport_Category'] = np.select(
 Medals_df['Sport_Category'] = Medals_df['Sport_Category'].astype('category')
 ```
 
-Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.
-
-Create a medal count variable that counts country's medals by sport:
+**Create a medal count variable that counts country's medals by sport:**
 ```{python}
 Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)
 ```
 
-More manipulations for combined Heatmap:
+**More manipulations for combined Heatmap:**
 ```{python}
 # Create a total medal count variable, and only keep countries 
 # with medals in at least 1 sport
@@ -560,7 +581,11 @@ how = "left")
 Medal_Counts = Medal_Counts.query("total_count > 1")
 ```
 
-Create the Combined Heatmap:
+In the code chunk below I specified a list of countries to keep, based on the same requirements that I had in my plots in R. The `.query("country_code in @overall_countries_to_keep")` is a good example of some differences in syntax than we would have in doing this in R, specifically with the quotes around the whole filtering statement. 
+
+Something to note: unfortunately, for the heatmap plots in Python, the x-axis labels overlap with the plot itself, instead of being below as they were in the R plots - this is a minor weakness of plotting in Python. 
+
+**Create the Combined Heatmap:**
 ```{python}
 overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
 
@@ -580,25 +605,21 @@ plot_3 = (
     scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
 )
 plot_3.show()
-# changing the geom_tile() width and height arguments did 
-# nothing to improve visual appearance of the plot
 ```
 
-In the code chunk above I specified a list of countries to keep, based on the same requirements that I had in my plots in R. The query("country_code in @overall_countries_to_keep") is a good example of some differences in syntax than we would have in doing this in R, specifically with the quotes around the whole filtering statement. 
-
-Men's Overall Medal Heatmap:
+**Men's Overall Medal Heatmap:**
 ```{python}
 Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
 ```
 
-More Male Data Manipulations:
+**More Male Data Manipulations:**
 ```{python}
 total_male_counts = Male_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
 Male_Medal_Counts = pd.merge(Male_Medal_Counts, total_male_counts, on = "country_code", how = "left")
 Male_Medal_Counts = Male_Medal_Counts.query("total_count > 1")
 ```
 
-Male Heatmap Plot:
+**Male Heatmap Plot:**
 ```{python}
 male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'IRI', 'ITA', 'JPN', 'KOR', 'NED', 'USA', 'UZB']
 
@@ -620,19 +641,19 @@ plot_4 = (
 plot_4.show()
 ```
 
-Women's Overall Medal Heatmap:
+**Women's Overall Medal Heatmap:**
 ```{python}
 Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
 ```
 
-More Female Data Manipulations:
+**More Female Data Manipulations:**
 ```{python}
 total_female_counts = Female_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
 Female_Medal_Counts = pd.merge(Female_Medal_Counts, total_female_counts, on = "country_code", how = "left")
 Female_Medal_Counts = Female_Medal_Counts.query("total_count > 1")
 ```
 
-Female Heatmap Plot:
+**Female Heatmap Plot:**
 ```{python}
 female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR', 'GER',  'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
 
@@ -658,24 +679,25 @@ plot_5.show()
 Now create heatmaps based on proportion of sport's medals 
 instead of totals:
 
-Create Male Proportions Dataset:
+**Create Male Proportions Dataset:**
 ```{python}
 Male_prop = Male_Medal_Counts
 Male_prop['total_sport_medals'] = Male_prop.groupby('Sport_Category')['count'].transform('sum')
 Male_prop['prop_sport_medals'] = Male_prop['count'] / Male_prop['total_sport_medals']
 ```
 
-Create Female Proportions Dataset:
+Instead of using a $ in R to access a dataset's variable, you use [] in Python. Instead of a mutate function that I would have used in R, here I am telling Python what variable to save as prop_sport_medals to my male and female datasets.
+
+**Create Female Proportions Dataset:**
 ```{python}
 Female_prop = Female_Medal_Counts
 Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count'].transform('sum')
 Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
 ```
 
-Instead of using a $ in R to access a dataset's variable, you use [] in Python. Instead of a mutate function that I would have used in R, here I am telling Python what variable to save as prop_sport_medals to my male and female datasets.
-
 Now create the proportions heatmap plots:
-Male Proportions Heatmap:
+
+**Male Proportions Heatmap:**
 ```{python}
 Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").query("count > 0")
 
@@ -695,8 +717,7 @@ plot_6 = (
 plot_6.show()
 ```
 
-
-Female Proportions Heatmap:
+**Female Proportions Heatmap:**
 ```{python}
 Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_keep").query("count > 0")
 
@@ -716,9 +737,13 @@ plot_7 = (
 plot_7.show()
 ```
 
-**Specific Code Comparisons:**
+Overall, I was able to almost identically replicate each step of my R wrangling and plotting process in my Python analysis.
+
+## Specific Code Comparisons
 
 I thought it may be interesting to compare some of the specific data manipulations side by side now that we have seen the project in both R and Python.
+
+**Example 1:**
 
 Before making the male bar plot, I had to group by country and add up all the athletes for each country.
 
@@ -738,7 +763,9 @@ Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_inde
 Male_Athletes_Count.head()
 ```
 
-Obviously the group_by() and groupby() functions are extremely similar, as I highlighted in the function comparison. The .size() function in Python essentially does the same thing as the combination of a summarise and n() in R. In Python, to keep country_code and athlete_count as two different columns and keep the Male_Athletes_Counts as a dataframe, we need to use the reset_index() function.
+Obviously the `group_by()` and `groupby()` functions are extremely similar, as I highlighted in the function comparison. The `.size()` function in Python essentially does the same thing as the combination of a summarise and `n()` in R. In Python, to keep country_code and athlete_count as two different columns and keep the Male_Athletes_Counts as a dataframe, we need to use the `reset_index()` function.
+
+**Example 2:**
 
 Another example of side by side code comparisons of R and Python that I want to show is with joining datasets.
 
@@ -755,4 +782,304 @@ And here is how I did that in Python:
 Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on="country_code", how="left")
 ```
 
-Both languages are using a left join, and joining by matching the country_code in the two datasets they are joining. R has a built-in left_join() function to specify that the join type is left, while Python's pd.merge() function can be used for all types of joins, and you use the how = "left" argument to specify that you want the join to be a left join. The on argument in this R example and the by argument in the Python example are used in the same exact way, to specify the variable to join on.
+Both languages are using a left join, and joining by matching the country_code in the two datasets they are joining. R has a built-in `left_join()` function to specify that the join type is left, while Python's `pd.merge()` function can be used for all types of joins, and you use the how = "left" argument to specify that you want the join to be a left join. The on argument in this R example and the by argument in the Python example are used in the same exact way, to specify the variable to join on.
+
+**Example 3:**
+
+Before creating the heatmaps based on countries' proportions of medals won in
+each sports category, I had to actually calculate the proportions for each, and
+save it to a dataset. 
+
+Here is how I did that in R:
+```{r}
+Female_Medal_Prop <- Female_Medal_Counts %>%
+  group_by(Sport_Category) %>%
+  mutate(total_sport_medals = sum(count)) %>%
+  mutate(prop_sport_medals = count / total_sport_medals)
+```
+
+And here is how I did it in Python:
+```{python}
+Female_prop = Female_Medal_Counts
+Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category', observed = False)['count'].transform('sum')
+Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
+```
+
+Using R, I used the simple dplyr functions of group_by and mutate, and saved an updated version of Female_Medal_Counts that would have two new columns (total medals and proportion of medals for each sport) as Female_Medal_Prop. In Python, I created these same two columns, this time in separate coding commands, and saved these columns to the Female_prop dataset. I edited the two columns using brackets [], which is equivalent to if I had edited the individual columns in R using a dollar sign $, instead of the dplyr method. 
+
+## NBA Project Introduction
+
+Now, onto a new project. This time, I will be looking at datasets that contain every player's NBA statistics, and whether or not that player made it to the NBA all-star game for every season from the year 2000 and on. I will be importing, wrangling, and visualizing variable correlations using boxplots in R. Then, I will create a knn model in Python with the intent of accurately predicting whether or not each player made the all-star game each season.
+
+## NBA Data Wrangling and Plotting in R
+
+Load libraries and import data:
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(dplyr)
+player_averages <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Per_Game.csv")
+
+all_stars <- read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
+
+player_totals <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
+```
+
+
+Join datasets and create an all-star variable with two levels:
+```{r}
+# create an all-star variable with 1 = made all-star and 0 = didn't make it:
+all_stars <- all_stars |>
+  mutate(all_star = 1)
+
+# Join player averages data with the all_stars data:
+joined_all_star_data <- left_join(player_averages, all_stars, 
+                                  by = c("season", "player"))
+
+# remove variables that we definitely won't need:
+joined_all_star_data <- joined_all_star_data |>
+  dplyr::select(-c("birth_year", "lg.x", "lg.y", "team"))
+
+# fix the all-star variable to be 0s and 1s not 1s and NAs
+joined_all_star_data <- joined_all_star_data |>
+  mutate(all_star = case_when(
+    is.na(all_star) ~ 0,
+    all_star == 1 ~ 1))
+```
+
+I decided that a fair indication of whether somebody was an "NBA starter" and should remain in the dataset was whether somebody started at least half of their team's games in a given NBA season (42+ games started). I also only kept seasons in the 21st century, since the game has evolved so much since before the year 2000. Also, I excluded the year 2025, because the
+season is active, and there has not yet been an all-star game this season.
+
+Filter down to keep recent years and NBA starters:
+```{r}
+# specify the seasons:
+joined_all_star_data <- joined_all_star_data |>
+  filter(season > 1999) |>
+  filter(season != 2025)
+
+# specify the number of starts each player must have (at least half of the season):
+joined_all_star_data <- joined_all_star_data |>
+  filter(gs > 41)
+```
+
+Export the now manipulated data so we can model with Python later:
+```{r}
+# export updated dataset so we can import again with Python:
+write_csv(joined_all_star_data, "/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
+```
+
+**Visualize NBA data in R:**
+
+First let's investigate some of the most common statistics, and create box plots to see how points, rebounds, and assists correlate to making the NBA all-star game.
+
+```{r}
+library(ggplot2)
+
+# Points:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = pts_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Points Per Game",
+         title = "Points Per Game as a Predictor of All-Star") +
+    theme_minimal()
+
+# Rebounds:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = trb_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Rebounds Per Game",
+         title = "Rebounds Per Game as a Predictor of All-Star") +
+    theme_minimal()
+
+# Assists:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = ast_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Assists Per Game",
+         title = "Assists Per Game as a Predictor of All-Star") +
+    theme_minimal()
+```
+
+All three seem to have a difference in means between making and missing all-star game as we would expect, but of the three, points seems to be the most significant predictor, then assists, then rebounds seem to be a bit less significant.
+
+Let's try the same plots for minutes played, experience, 3-pointers per game, blocks and steals per game. 
+
+```{r}
+# Minutes Played:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = mp_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Minutes Played Per Game",
+         title = "Minutes Played Per Game as a Predictor of All-Star") +
+    theme_minimal() 
+
+# Experience:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = experience)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Experience in NBA",
+         title = "Experience as a Predictor of All-Star") +
+    theme_minimal()
+
+# 3 pointers made per game:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = x3p_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "3 Pointers Made per Game",
+         title = "3 Pointers as a Predictor of All-Star") +
+    theme_minimal()
+
+# Blocks per game:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = blk_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Blocks per Game",
+         title = "Blocks as a Predictor of All-Star") +
+    theme_minimal()
+
+# Steals per game:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = stl_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Steals per Game",
+         title = "Steals as a Predictor of All-Star") +
+    theme_minimal()
+```
+
+From minutes played graph: An interesting takeaway from this plot is out of players playing less than 26/27 minutes per game, not a single one made the all-star game.
+
+Experience does not appear to be a significant predictor of whether somebody makes the all-star game. 
+
+3 pointers does not seem to be very significant either, but one takeaway is that if you are making a very high amount of threes (more than 4 per game), you are almost guaranteed to be an all-star that season.
+
+Blocks appears to have a slight positive correlation to whether or not a player was an all-star, while steals appears to have the same correlation but a little more obvious. (Steals appear more significant than blocks).
+
+The last few variables I want to look at are attempted field goals per game - because if you are attempting a lot of shots, you are likely one of your team's trusted scorers, and turnovers per game - my thought process is that the better players have the ball more, and if you have the ball a lot of the time you are more likely to turn the ball over.
+
+```{r}
+# Field Goals Made per game:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = fga_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Field Goals Attempts per Game",
+         title = "Field Goal Attempts a Predictor of All-Star") +
+    theme_minimal()
+
+# Turnovers per game:
+ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = tov_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (1 = Yes, 0 = No)",
+         y = "Turnovers per Game",
+         title = "Turnovers a Predictor of All-Star") +
+    theme_minimal()
+```
+
+Field goal attempts appears to be one of the most significant predictors I have looked at yet. (Field goals made also appears to be simiarly significicant, but would probably have to include only one field goal statistic when running the knn model).
+
+Turnovers also appears to be significant, just as I had hypothesized, but probably in a different way than the average fan would expect. Typically, we associate more turnovers with a player performing poorly, but clearly this is not something the voters weigh heavily when casting their all-star ballots each season. As it turns out, turnovers may be a telling statistic as to which players have the ball more often, since it appears so strongly positively correlated with making the all-star game.
+
+## NBA KNN Modeling in Python:
+```{python}
+import math
+from sklearn.neighbors import KNeighborsClassifier
+import sklearn.metrics
+
+# read in the data we wrangled previously
+joined_all_star_data = pd.read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
+
+# set the seed
+np.random.seed(42)
+```
+
+Create train and test data by splitting up the joined_all_star_data:
+```{python}
+# .sample in Python appears to be the same as slice_sample in R
+train_sample = joined_all_star_data.sample(n = 2852)
+
+# below is what we are using instead of an anti-join
+# basically does a left join but creates a merge variable that
+# indicates whether a row was in both original datasets, the left,
+# or the right. Only keep in left, and remove the variable afterwards
+
+columns_to_join_on = joined_all_star_data.columns.tolist()
+test_sample = joined_all_star_data.merge(train_sample, on=columns_to_join_on, how='left', indicator=True)
+
+test_sample = test_sample[test_sample['_merge'] == 'left_only'].drop(columns=['_merge'])
+```
+
+Create a data frame that only has the predictors we will use:
+```{python}
+# to specify the columns to use for knn model, create a list, then
+# select just those columns from train and test datasets
+columns_to_keep = ['pts_per_game', 'trb_per_game', 'ast_per_game', 
+                     'stl_per_game', 'fga_per_game', 'tov_per_game']
+
+train_small = train_sample[columns_to_keep]
+test_small = test_sample[columns_to_keep]
+```
+
+Put the all-star response into a vector:
+```{python}
+# Create vectors:
+train_cat = train_sample['all_star']
+test_cat = test_sample['all_star']
+```
+
+Below, I calculate a number of nearest neighbors that I will use in  my knn model by finding the square root of the size of my training dataset.
+
+Calculate a reasonable number of nearest neighbors ($\sqrt{2852}$):
+```{python}
+# Find a good number of nearest neighbors (sqrt of train size):
+math.sqrt(2852) # use 53 nearest neighbors
+```
+
+The code chunk below utilizes the scikit-learn library to fit a knn model. The KNeighborsClassifier specifies how many neighbors we want to utilize in our model. Then, I use `.fit()` and `.predict()` to fit and predict, respectively.
+
+Fit the KNN model:
+```{python}
+# Specify 53 neighbors:
+knn = KNeighborsClassifier(n_neighbors = 53)
+
+# Fit the knn model
+knn.fit(train_small, train_cat)
+
+# Make predictions for test data
+knn_mod = knn.predict(test_small)
+```
+
+Here, I create a confusion matrix to analyze the predictive accuracy of the knn model. The `confusion_matrix()` function creates the confusion matrix, and the `accuracy_score()` function calculates our classification accuracy. These functions are a part of the sklearns.metrics package.
+
+Evaluate the knn model:
+```{python}
+# Create the confusion matrix
+conf_matrix = sklearn.metrics.confusion_matrix(test_cat, knn_mod)
+
+# Display the confusion matrix:
+print(conf_matrix)
+```
+
+The rows of the table give us our model's predicted all_star choice (made it or didn't make it), and the column's give the actual result.
+
+So, in the above confusion matrix, the top left number, 559, gives us the number of non-all-stars that our knn model correctly predicted as non-all-stars, while the bottom right number, 70, gives us the number of all-stars that our model correctly predicted as all-stars. The bottom left number, 70, gives the number of non-all-stars that our model predicted to actually be all-stars, while the top right number, 14, gives us the number of players that our model predicted to not be all-stars but were actually all-stars.
+
+Obtain the predictive accuracy of the knn model:
+```{python}
+# Obtain the classification rate from the confusion matrix:
+accuracy = sklearn.metrics.accuracy_score(test_cat, knn_mod)
+
+# Print the classification rate:
+print(accuracy)
+```
+
+Our classification rate of 88.22% tells us that our knn model predicted whether or not players made the all-star game with an accuracy of 88.92%! 
