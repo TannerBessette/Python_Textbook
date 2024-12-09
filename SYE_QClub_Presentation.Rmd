@@ -1,0 +1,875 @@
+---
+title: "R vs. Python: Data Science Comparison"
+author: "By Tanner Bessette"
+output:
+  beamer_presentation:
+    theme: "Frankfurt"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(hrbrthemes)
+Athletes_df <- read_csv("/Users/tannerbessette/Desktop/SYE/athletes.csv")
+Medals_df <- read_csv("/Users/tannerbessette/Desktop/SYE/medals.csv")
+```
+
+
+```{r}
+Male_Athletes_df <- Athletes_df %>%
+  filter(gender == "Male")
+
+Female_Athletes_df <- Athletes_df %>%
+  filter(gender == "Female")
+```
+
+
+```{r}
+Male_Total_Medal_Counts <- Medals_df %>%
+  filter(gender == "M") %>%
+  group_by(country_code) %>%
+  summarise(medal_totals = n())
+
+Female_Total_Medal_Counts <- Medals_df %>%
+  filter(gender == "W") %>%
+  group_by(country_code) %>%
+  summarise(medal_totals = n()) 
+```
+
+
+```{r, include=FALSE}
+Male_Athletes_Count <- Male_Athletes_df %>%
+  group_by(country_code) %>%
+  summarise(athlete_count = n()) %>%
+  arrange(desc(athlete_count))
+
+# join the medals counts with the athletes count
+Male_Athletes_Count <- left_join(
+  Male_Athletes_Count, Male_Total_Medal_Counts, by = "country_code")
+
+# Calculate max country counts and visualize the top 10 countries:
+Male_Athletes_Count <- Male_Athletes_Count %>%
+  filter(athlete_count > 128)
+
+# Create the plot:
+Male_Athletes_Count_barplot <- ggplot(data = Male_Athletes_Count) +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
+          labs(title = "Male Athletes and Medals by Country",
+               x = "Country",
+               y = "Male Athletes and Medal Counts") +
+          theme_minimal() +
+          theme(legend.position = "none")
+
+print(Male_Athletes_Count_barplot)
+```
+
+
+```{r, include=FALSE}
+Female_Athletes_Count <- Female_Athletes_df %>%
+  group_by(country_code) %>%
+  summarise(athlete_count = n()) %>%
+  arrange(desc(athlete_count))
+
+# join the medals counts with the athletes count
+Female_Athletes_Count <- left_join(
+  Female_Athletes_Count, Female_Total_Medal_Counts, by = "country_code")
+
+# Calculate max country counts and visualize the top 10 countries:
+Female_Athletes_Count <- Female_Athletes_Count %>%
+  filter(athlete_count > 177)
+
+# Create the plot:
+Female_Athletes_Count_barplot <- ggplot(data = Female_Athletes_Count) +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
+          labs(title = "Female Athletes and Medals by Country",
+               x = "Country",
+               y = "Female Athletes and Medal Counts") +
+          theme_minimal() +
+          scale_fill_viridis_c() +
+          theme(legend.position = "none")
+
+print(Female_Athletes_Count_barplot)
+```
+
+
+```{r}
+# Create new Sport_Category variable for heatmap that reduces 
+# the amount of categories:
+Medal_Counts <- Medals_df %>%
+  mutate(Sport_Category = as.factor(case_when(
+    discipline %in% c("3x3 Basketball", "Basketball") ~ "Basketball",
+    discipline %in% c("Badminton", "Table Tennis", "Tennis") ~ "Racket Sports",
+    discipline %in% c("Boxing", "Taekwondo", "Wrestling", "Judo") ~ "Combat Sports",
+    discipline %in% c("Swimming", "Marathon Swimming", "Diving", "Artistic Swimming") ~
+      "Swimming",
+    discipline %in% c("Volleyball", "Beach Volleyball") ~ "Volleyball",
+    discipline %in% c("Cycling BMX Freestyle", "Cycling BMX Racing", 
+                      "Cycling Mountain Bike",
+                 "Cycling Road", "Cycling Track") ~ "Cycling",
+    discipline %in% c("Water Polo", "Surfing", "Sailing") ~ "Water Sports",
+    discipline %in% c("Artistic Gymnastics", "Rhythmic Gymnastics", 
+                      "Trampoline Gymnastics") ~ "Gymnastics",
+    discipline == "Athletics" ~ "Athletics",
+    discipline %in% c("Canoe Slalom", "Canoe Sprint", "Rowing") ~ "Canoe/Rowing",
+    discipline == "Equestrian" ~ "Equestrian",
+    discipline %in% c("Football", "Handball", "Hockey", "Rugby Sevens") ~ 
+      "Team Sports",
+    discipline %in% c("Archery", "Shooting", "Fencing") ~ "Precision Sports",
+    discipline %in% c("Triathlon", "Modern Pentathlon") ~ "Athlons",
+    discipline == "Weightlifting" ~ "Weightlifting",
+    discipline == "Skateboarding" ~ "Skateboarding",
+    discipline == "Breaking" ~ "Breakdancing",
+    discipline == "Sport Climbing" ~ "Climbing",
+    discipline == "Golf" ~ "Golf",
+    TRUE ~ "Other"  # default if any sport doesn't match
+  )))
+```
+
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+# group by our new Sport_Category variable before counting number of medals
+Medal_Counts <- Medal_Counts  %>%
+  group_by(country_code, Sport_Category) %>%
+  mutate(count = n()) %>%
+  arrange(desc(count))
+
+# Only keep countries who got at least 10 total medals:
+# (because heatmap was getting sloppy)
+Medal_Counts <- Medal_Counts %>%
+  group_by(country_code) %>%
+  mutate(total_count = n()) %>%
+  filter(total_count >= 10)
+
+# Heatmap 
+ggplot(Medal_Counts, aes(x = Sport_Category, 
+                         y = fct_reorder(country_code, total_count),
+                         fill= count)) + 
+  geom_tile() +
+  labs(title = "Medal Count by Country and Sport",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
+  coord_fixed()
+```
+
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+# Only keep countries who got at least 10 total medals:
+# (because heatmap was getting sloppy)
+# group by our new Sport_Category variable before counting number of medals
+Male_Medal_Counts <- Medal_Counts  %>%
+  filter(gender == "M") %>%
+  group_by(country_code, Sport_Category) %>%
+  mutate(count = n()) %>%
+  arrange(desc(count))
+
+Male_Medal_Counts <- Male_Medal_Counts %>%
+  group_by(country_code) %>%
+  mutate(total_count = n()) %>%
+  filter(total_count >= 10)
+
+# Heatmap 
+ggplot(Male_Medal_Counts, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= count)) + 
+  geom_tile() +
+  labs(title = "Medal Count by Country and Sport (Male)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
+  coord_fixed()
+```
+
+
+```{r, warning=FALSE, message=FALSE, include=FALSE}
+# Only keep countries who got at least 10 total medals:
+# (because heatmap was getting sloppy)
+# group by our new Sport_Category variable before counting number of medals
+Female_Medal_Counts <- Medal_Counts  %>%
+  filter(gender == "W") %>%
+  group_by(country_code, Sport_Category) %>%
+  mutate(count = n()) %>%
+  arrange(desc(count))
+
+Female_Medal_Counts <- Female_Medal_Counts %>%
+  group_by(country_code) %>%
+  mutate(total_count = n()) %>%
+  filter(total_count >= 10)
+
+# Heatmap 
+ggplot(Female_Medal_Counts, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= count)) + 
+  geom_tile() +
+  labs(title = "Medal Count by Country and Sport (Female)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
+  coord_fixed()
+```
+
+
+
+```{r, include=FALSE}
+Male_Medal_Prop <- Male_Medal_Counts %>%
+  group_by(Sport_Category) %>%
+  mutate(total_sport_medals = sum(count)) %>%
+  mutate(prop_sport_medals = count / total_sport_medals)
+
+# Heatmap 
+ggplot(Male_Medal_Prop, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= prop_sport_medals)) + 
+  geom_tile() +
+  labs(title = "Proportion of Medals Won for Each Sport (Male)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Proportion") +
+  coord_fixed()
+```
+
+```{r, include=FALSE}
+Female_Prop <- Female_Medal_Counts %>%
+  group_by(Sport_Category) %>%
+  mutate(total_sport_medals = sum(count)) %>%
+  mutate(prop_sport_medals = count / total_sport_medals)
+
+# Heatmap 
+ggplot(Female_Prop, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= prop_sport_medals)) + 
+  geom_tile() +
+  labs(title = "Proportion of Medals Won for Each Sport (Female)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Proportion") +
+  coord_fixed()
+```
+
+
+```{r}
+library(reticulate)
+use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", required = TRUE)
+```
+
+```{python, include=FALSE}
+import pandas as pd
+import numpy as np
+from palmerpenguins import load_penguins
+from plotnine import *
+
+# Read in data:
+Athletes_df = pd.read_csv("/Users/tannerbessette/Desktop/SYE/athletes.csv")
+Medals_df = pd.read_csv("/Users/tannerbessette/Desktop/SYE/medals.csv")
+
+
+# Create Male and Female Datasets:
+Male_Athletes_df = Athletes_df.query("gender == 'Male'")
+Female_Athletes_df = Athletes_df.query("gender == 'Female'")
+
+
+# Total Male and Female Medals for each sport:
+# (learned reset_index from ChatGPT - helps to mimick summarise in R)
+Male_Total_Medal_Counts = Medals_df.query("gender == 'M'").groupby("country_code").size().reset_index(name = "medal_totals")
+Female_Total_Medal_Counts = Medals_df.query("gender == 'W'").groupby("country_code").size().reset_index(name = "medal_totals")
+
+
+# MALE BAR PLOT:
+# data manipulation (group_by, summarise):
+Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(name = "athlete_count")
+# join data (looked ahead in textbook to ch. 22):
+# (pd.merge is the join function, on is like by, how = join method(L/R))
+Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on="country_code", how="left")
+# Only keep top 10 countries with most athletes:
+Male_Athletes_Count_joined = Male_Athletes_Count_joined.query("athlete_count > 128")
+# Create the Male bar plot with country's athletes and medals:
+#Male_Athletes_Count.sort_values (essentially arrange -> do instead of reorder)
+Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
+plot_1 = (
+    ggplot() +
+          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Male_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Male_Athletes_Count_joined) +
+          labs(title = "Male Athletes and Medals by Country",
+               x = "Country",
+               y = "Male Athletes and Medal Counts") +
+          theme_minimal()
+)
+plot_1.show()
+```
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# FEMALE BAR PLOT:
+# data manipulation (group_by, summarise):
+Female_Athletes_Count = Female_Athletes_df.groupby("country_code").size().reset_index(name = "athlete_count")
+# join data (looked ahead in textbook to ch. 22):
+# (pd.merge is the join function, on is like by, how = join method(L/R))
+Female_Athletes_Count_joined = pd.merge(Female_Athletes_Count, Female_Total_Medal_Counts, on="country_code", how="left")
+# Only keep top 10 countries with most athletes:
+Female_Athletes_Count_joined = Female_Athletes_Count_joined.query("athlete_count > 177")
+# Create the Male bar plot with country's athletes and medals:
+# (arrange first):
+Female_Athletes_Count_joined = Female_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
+plot_2 = (
+    ggplot() +
+          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Female_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Female_Athletes_Count_joined) +
+          labs(title = "Female Athletes and Medals by Country",
+               x = "Country",
+               y = "Female Athletes and Medal Counts") +
+          theme_minimal()
+)
+plot_2.show()
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# Used ChatGPT for this, first step is sorting which sport will be the levels
+# for the factor variable, second is assigning names for each level
+Medals_df['Sport_Category'] = np.select(
+    [
+        Medals_df['discipline'].isin(["3x3 Basketball", "Basketball"]),
+        Medals_df['discipline'].isin(["Badminton", "Table Tennis", "Tennis"]),
+        Medals_df['discipline'].isin(["Boxing", "Taekwondo", "Wrestling", "Judo"]),
+        Medals_df['discipline'].isin(["Swimming", "Marathon Swimming", "Diving", "Artistic Swimming"]),
+        Medals_df['discipline'].isin(["Volleyball", "Beach Volleyball"]),
+        Medals_df['discipline'].isin(["Cycling BMX Freestyle", "Cycling BMX Racing", 
+                                      "Cycling Mountain Bike", "Cycling Road", "Cycling Track"]),
+        Medals_df['discipline'].isin(["Water Polo", "Surfing", "Sailing"]),
+        Medals_df['discipline'].isin(["Artistic Gymnastics", "Rhythmic Gymnastics", "Trampoline Gymnastics"]),
+        Medals_df['discipline'] == "Athletics",
+        Medals_df['discipline'].isin(["Canoe Slalom", "Canoe Sprint", "Rowing"]),
+        Medals_df['discipline'] == "Equestrian",
+        Medals_df['discipline'].isin(["Football", "Handball", "Hockey", "Rugby Sevens"]),
+        Medals_df['discipline'].isin(["Archery", "Shooting", "Fencing"]),
+        Medals_df['discipline'].isin(["Triathlon", "Modern Pentathlon"]),
+        Medals_df['discipline'] == "Weightlifting",
+        Medals_df['discipline'] == "Skateboarding",
+        Medals_df['discipline'] == "Breaking",
+        Medals_df['discipline'] == "Sport Climbing",
+        Medals_df['discipline'] == "Golf"
+    ],
+    [
+        "Basketball",
+        "Racket Sports",
+        "Combat Sports",
+        "Swimming",
+        "Volleyball",
+        "Cycling",
+        "Water Sports",
+        "Gymnastics",
+        "Athletics",
+        "Canoe/Rowing",
+        "Equestrian",
+        "Team Sports",
+        "Precision Sports",
+        "Athlons",
+        "Weightlifting",
+        "Skateboarding",
+        "Breakdancing",
+        "Climbing",
+        "Golf"
+    ],
+    default="Other"  # default if any sport doesn't match
+)
+
+# Convert 'Sport_Category' to a categorical type
+Medals_df['Sport_Category'] = Medals_df['Sport_Category'].astype('category')
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# Create a total medal count variable, and only keep countries 
+# with medals in at least 1 sport
+total_counts = Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
+Medal_Counts = pd.merge(Medal_Counts, total_counts, on = "country_code",
+how = "left")
+Medal_Counts = Medal_Counts.query("total_count > 1")
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+
+Overall_Medal_Counts = Medal_Counts.query("country_code in @overall_countries_to_keep").query("count > 0")
+
+plot_3 = (
+    ggplot(Overall_Medal_Counts, aes(x='Sport_Category', 
+                             y='country_code', 
+                             fill='count')) +  
+    geom_tile() +
+    labs(title="Medal Count by Country and Sport",
+         x="Sport",
+         y="Country") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1)) +
+    coord_fixed() +
+    scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
+)
+plot_3.show()
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+total_male_counts = Male_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
+Male_Medal_Counts = pd.merge(Male_Medal_Counts, total_male_counts, on = "country_code", how = "left")
+Male_Medal_Counts = Male_Medal_Counts.query("total_count > 1")
+```
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'IRI', 'ITA', 'JPN', 'KOR', 'NED', 'USA', 'UZB']
+
+Updated_Medal_Counts = Male_Medal_Counts.query("country_code in @male_countries_to_keep").query("count > 0")
+
+plot_4 = (
+    ggplot(Updated_Medal_Counts, aes(x='Sport_Category', 
+                             y='country_code', 
+                             fill='count')) +  
+    geom_tile() +
+    labs(title="Medal Count by Country and Sport (Male)",
+         x="Sport",
+         y="Country") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1)) +
+    coord_fixed() +
+    scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
+)
+plot_4.show()
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+total_female_counts = Female_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
+Female_Medal_Counts = pd.merge(Female_Medal_Counts, total_female_counts, on = "country_code", how = "left")
+Female_Medal_Counts = Female_Medal_Counts.query("total_count > 1")
+```
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR', 'GER',  'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+
+Updated_Female_Medal_Counts = Female_Medal_Counts.query("country_code in @female_countries_to_keep").query("count > 0")
+
+plot_5 = (
+    ggplot(Updated_Female_Medal_Counts, aes(x='Sport_Category', 
+                             y='country_code', 
+                             fill='count')) +  
+    geom_tile() +
+    labs(title="Medal Count by Country and Sport (Female)",
+         x="Sport",
+         y="Country") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1)) +
+    coord_fixed() +
+    scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
+)
+plot_5.show()
+```
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Male_prop = Male_Medal_Counts
+Male_prop['total_sport_medals'] = Male_prop.groupby('Sport_Category')['count'].transform('sum')
+Male_prop['prop_sport_medals'] = Male_prop['count'] / Male_prop['total_sport_medals']
+```
+
+```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Female_prop = Female_Medal_Counts
+Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count'].transform('sum')
+Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").query("count > 0")
+
+plot_6 = (
+    ggplot(Updated_Male_Prop, aes(x='Sport_Category', 
+                                  y='country_code', 
+                                  fill='prop_sport_medals')) +  
+    geom_tile() +
+    labs(title="Proportion of Medals Won for Each Sport (Male)",
+         x="Sport",
+         y="Country") +
+    theme_minimal() +
+    theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1)) +
+    scale_fill_gradient(low="lightblue", high="darkblue", name="Medal Proportion") +
+    coord_fixed()
+)
+plot_6.show()
+```
+
+
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_keep").query("count > 0")
+
+plot_7 = (
+    ggplot(Updated_Female_Prop, aes(x='Sport_Category', 
+                                  y='country_code', 
+                                  fill='prop_sport_medals')) +  
+    geom_tile() +
+    labs(title="Proportion of Medals Won for Each Sport (Female)",
+         x="Sport",
+         y="Country") +
+    theme_minimal() +
+    scale_fill_gradient(low="lightblue", high="darkblue", name="Medal Proportion") +
+    theme(axis_text_x=element_text(angle=90, vjust=1, hjust=1)) +
+    coord_fixed()
+)
+plot_7.show()
+```
+
+
+
+
+
+## SYE Goals
+
+- Learn Python for data science
+- Go through a Python data science textbook and explore Positron IDE
+- Compare R and Python functions side by side
+- Be able to identify strengths of both languages, and combine them in a project
+
+## What is R? What is Python?
+
+- Both R and Python are coding languages
+- R is specifically designed for statistics/data analysis
+- Python is utilized for a wider variety of things, including software 
+development, web applications, machine learning, and data science
+
+## Olympics Project Overview
+
+- Split the semester into two main projects: 2024 Paris Olympics and NBA
+- First: Wrangle data and generate plots in R
+- Next: replicate everything in Python, following along with a textbook called 
+"Python for Data Science"
+
+## Some Olympics Project Plots
+
+**Female Athletes Barplot:**
+
+- Light blue represents number of athletes each country sent to the Olympics
+
+- Dark blue represents the number of medals won
+
+```{r, warning=FALSE, message=FALSE, fig.width=3, fig.height=2, fig.align="center"}
+Female_Athletes_Count <- Female_Athletes_df %>%
+  group_by(country_code) %>%
+  summarise(athlete_count = n()) %>%
+  arrange(desc(athlete_count))
+
+# join the medals counts with the athletes count
+Female_Athletes_Count <- left_join(
+  Female_Athletes_Count, Female_Total_Medal_Counts, by = "country_code")
+
+# Calculate max country counts and visualize the top 10 countries:
+Female_Athletes_Count <- Female_Athletes_Count %>%
+  filter(athlete_count > 177)
+
+# Create the plot:
+Female_Athletes_Count_barplot <- ggplot(data = Female_Athletes_Count) +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
+          labs(title = "Female Athletes and Medals by Country",
+               x = "Country",
+               y = "Female Athletes and Medal Counts") +
+          theme_minimal() +
+          scale_fill_viridis_c() +
+          theme(plot.title = element_text(size = 7, hjust = 0.5),
+                axis.title.x = element_text(size = 6),
+                axis.title.y = element_text(size = 6),
+                axis.text.x = element_text(size = 5),
+                axis.text.y = element_text(size = 5),
+                legend.position = "none")
+
+print(Female_Athletes_Count_barplot)
+```
+
+## Some Olympics Project Plots
+
+**Male Medals Heatmap:**
+
+- Each heatmap square corresponds to one country and one sport  
+
+- The darkness of the color represents the number of medals that country's male athletes won in that sport
+
+```{r, warning=FALSE, message=FALSE, fig.width=3, fig.height=2, fig.align="center"}
+# Only keep countries who got at least 10 total medals:
+# (because heatmap was getting sloppy)
+# group by our new Sport_Category variable before counting number of medals
+Male_Medal_Counts <- Medal_Counts  %>%
+  filter(gender == "M") %>%
+  group_by(country_code, Sport_Category) %>%
+  mutate(count = n()) %>%
+  arrange(desc(count))
+
+Male_Medal_Counts <- Male_Medal_Counts %>%
+  group_by(country_code) %>%
+  mutate(total_count = n()) %>%
+  filter(total_count >= 10)
+
+# Heatmap 
+ggplot(Male_Medal_Counts, aes(x = Sport_Category, 
+                              y = reorder(country_code, total_count), 
+                              fill= count)) + 
+  geom_tile() +
+  labs(title = "Medal Count by Country and Sport (Male)",
+               x = "Sport",
+               y = "Country") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
+  coord_fixed() +
+  theme(plot.title = element_text(size = 7, hjust = 0.5),
+                axis.title.x = element_text(size = 6),
+                axis.title.y = element_text(size = 6),
+                axis.text.x = element_text(size = 5),
+                axis.text.y = element_text(size = 5),
+                legend.key.size = unit(0.3, "cm"),
+                legend.text = element_text(size = 4), 
+                legend.title = element_text(size = 4))
+```
+
+## R vs. Python Code Comparison
+
+- Here is how I performed the joining of the male athletes and male medals datasets before creating the bar plot using R:
+
+```{r, echo = TRUE}
+Male_Athletes_Count <- 
+  left_join(Male_Athletes_Count,
+            Male_Total_Medal_Counts, 
+            by = "country_code")
+```
+
+- And here is how I did that in Python:
+
+```{python, echo = TRUE}
+Male_Athletes_Count_joined = pd.merge(
+  Male_Athletes_Count, Male_Total_Medal_Counts,
+  on="country_code", how="left")
+```
+
+## R vs. Python Code Comparison
+
+- Before making the male bar plot, I had to group by country and add up all the athletes for each country.
+- Here is how I did it in R:
+
+```{r, echo = TRUE, results = 'hide'}
+Male_Athletes_Count <- Male_Athletes_df %>%
+  group_by(country_code) %>%
+  summarise(athlete_count = n())
+```
+
+- And here is how I did it in Python:
+```{python, echo = TRUE, output = FALSE}
+Male_Athletes_Count = Male_Athletes_df.groupby(
+"country_code").size().reset_index(name="athlete_count")
+```
+
+## NBA Project
+
+- The second project I worked on was predicting whether NBA players made the all-star game
+based on their stats
+- The dataset included all player statistics each season from 1947 to present
+- First part of the project: wrangle and plot in R
+- Second part: perform a statistical learning method (KNN) in Python
+
+## NBA Project Results
+
+- Interestingly, when making the exploratory plots, one of the variables that looked the most correlated with players making the all-star game was having a high average turnovers
+- The variables I used in the KNN model were: points, rebounds, assists, steals, field goals attempted, and turnovers
+- Final KNN model accuracy was 88.22%
+
+## Turnovers and Three Pointers as Predictors of All-Star
+
+```{r, warning=FALSE, message=FALSE, include=FALSE, echo=FALSE, results='hide'}
+library(tidyverse)
+library(dplyr)
+player_averages <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Per_Game.csv")
+
+all_stars <- read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
+
+player_totals <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
+```
+
+```{r, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# create an all-star variable with 1 = made all-star and 0 = didn't make it:
+all_stars <- all_stars |>
+  mutate(all_star = 1)
+
+# Join player averages data with the all_stars data:
+joined_all_star_data <- left_join(player_averages, all_stars, 
+                                  by = c("season", "player"))
+
+# remove variables that we definitely won't need:
+joined_all_star_data <- joined_all_star_data |>
+  dplyr::select(-c("birth_year", "lg.x", "lg.y", "team"))
+
+# fix the all-star variable to be 0s and 1s not 1s and NAs
+joined_all_star_data <- joined_all_star_data |>
+  mutate(all_star = case_when(
+    is.na(all_star) ~ 0,
+    all_star == 1 ~ 1))
+```
+
+```{r, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# specify the seasons:
+joined_all_star_data <- joined_all_star_data |>
+  filter(season > 1999) |>
+  filter(season != 2025)
+
+# specify the number of starts each player must have (at least half of the season):
+joined_all_star_data <- joined_all_star_data |>
+  filter(gs > 41)
+```
+
+```{r, warning=FALSE, message=FALSE, fig.width = 5, fig.height = 3}
+library(gridExtra)
+library(viridis)
+
+# Three pointers made per game:
+plot1 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = x3p_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (0 = No, 1 = Yes)",
+         y = "3 Pointers Made per Game",
+         title = "3 Pointers as a Predictor of All-Star") +
+    theme_minimal() +
+    scale_fill_viridis_d(name = "All Star", option = "D") +
+    theme(plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
+                axis.title.x = element_text(size = 7),
+                axis.title.y = element_text(size = 7),
+                axis.text.x = element_text(size = 6),
+                axis.text.y = element_text(size = 6))
+
+# Turnovers per game:
+plot2 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
+                                 y = tov_per_game)) +
+    geom_boxplot() +
+    labs(x = "All Star? (0 = No, 1 = Yes)",
+         y = "Turnovers per Game",
+         title = "Turnovers a Predictor of All-Star") +
+    theme_minimal() +
+    scale_fill_viridis_d(name = "All Star", option = "D") +
+    theme(plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
+                axis.title.x = element_text(size = 7),
+                axis.title.y = element_text(size = 7),
+                axis.text.x = element_text(size = 6),
+                axis.text.y = element_text(size = 6))
+
+# Combine the plots side by side
+grid.arrange(plot1, plot2, ncol=2)
+```
+
+## Confusion Matrix
+```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+import math
+from sklearn.neighbors import KNeighborsClassifier
+import sklearn.metrics
+
+# read in the data we wrangled previously
+joined_all_star_data = pd.read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
+
+# set the seed
+np.random.seed(42)
+
+# .sample in Python appears to be the same as slice_sample in R
+train_sample = joined_all_star_data.sample(n = 2852)
+
+# below is what we are using instead of an anti-join
+# basically does a left join but creates a merge variable that
+# indicates whether a row was in both original datasets, the left,
+# or the right. Only keep in left, and remove the variable afterwards
+
+columns_to_join_on = joined_all_star_data.columns.tolist()
+test_sample = joined_all_star_data.merge(train_sample, on=columns_to_join_on, how='left', indicator=True)
+
+test_sample = test_sample[test_sample['_merge'] == 'left_only'].drop(columns=['_merge'])
+
+# to specify the columns to use for knn model, create a list, then
+# select just those columns from train and test datasets
+columns_to_keep = ['pts_per_game', 'trb_per_game', 'ast_per_game', 
+                     'stl_per_game', 'fga_per_game', 'tov_per_game']
+
+train_small = train_sample[columns_to_keep]
+test_small = test_sample[columns_to_keep]
+
+# Create vectors:
+train_cat = train_sample['all_star']
+test_cat = test_sample['all_star']
+
+# Find a good number of nearest neighbors (sqrt of train size):
+math.sqrt(2852) # use 53 nearest neighbors
+
+# Specify 53 neighbors:
+knn = KNeighborsClassifier(n_neighbors = 53)
+
+# Fit the knn model
+knn.fit(train_small, train_cat)
+
+# Make predictions for test data
+knn_mod = knn.predict(test_small)
+```
+
+- **Confusion matrix with the results of my KNN model**
+- Top left number, 559, gives us the number of non-all-stars that our knn model correctly predicted as non-all-stars
+- Bottom right number $\rightarrow$ number of all-stars that our model correctly predicted as all-stars. 
+- Bottom left $\rightarrow$ non-all-stars that our model predicted to actually be all-stars
+- Top right $\rightarrow$ players that our model predicted to not be all-stars but were actually all-stars
+
+```{python, echo = TRUE, class.source="small-code", class.output="small-output"}
+# Create and display the confusion matrix
+conf_matrix = sklearn.metrics.confusion_matrix(
+  test_cat, knn_mod)
+print(conf_matrix)
+```
+
+## Thoughts on Learning Python for Data Science
+
+- I am surprised that Python is used so much for data science outside of SLU
+- R seems more intuitive and organized, especially when it comes to data wrangling
+- As an introduction to coding or a machine learning class, I believe
+Python makes more sense to learn, but I'm glad our department teaches R for
+DATA234
+
+## Conclusion
+
+- In my opinion, R is easier to learn for data science, especially for beginner coders
+- Both languages have similar math/statistical capabilities
+- For data wranging and plotting, R is great!
+- Python may be better (or at least equal) in terms of stat. learning
+
+

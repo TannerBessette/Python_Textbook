@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -69,35 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Olympics_Project_Write_Up_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Olympics_Project_Write_Up_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -144,9 +117,7 @@ window.Quarto = {
   </div>
   
 
-
 </header>
-
 
 <section id="sye-goals" class="level2">
 <h2 class="anchored" data-anchor-id="sye-goals">SYE Goals</h2>
@@ -262,11 +233,7 @@ window.Quarto = {
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Male_Athletes_Count_barplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>France and USA both sent many male athletes to the Olympics, and received a lot of medals. Germany and Spain, despite sending many male athletes, received relatively few total medals. China and Great Britain sent less athletes than some other countries, but had a high proportion of their male athletes medal.</p>
@@ -298,11 +265,7 @@ window.Quarto = {
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Female_Athletes_Count_barplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>USA and France sent the most female athletes as well. USA and China had the highest number of their female athletes medal. Despite being seventh in the total number of female athletes that participated in the Olympics, Spain had a remarkably low proportion of their athletes receive medals.</p>
@@ -372,11 +335,7 @@ window.Quarto = {
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It appears that there is a wide variety of countries who medalled in athletics and in combat sports. All of the countries who had the most overall medals also have a significant number of medals in swimming, likely because there are so many available medals to win in swimming. A country that stands out in the plot is Kenya - they are one of the strongest performers in the whole world in athletics, yet they didn’t obtain a single medal in any other sports!</p>
@@ -410,11 +369,7 @@ window.Quarto = {
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Similarly to Kenya with athletics, Iran received zero medals in all other sports, but they performed very strongly in combat sports, getting some of the most male combat sport medals of any country.</p>
@@ -448,11 +403,7 @@ window.Quarto = {
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The USA women clearly received far more medals than any other country’s women’s teams did. They were especially dominant in swimming, with China and Australia being the only other countries who even came close, and a big drop off after them.</p>
@@ -480,11 +431,7 @@ window.Quarto = {
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Proportion"</span>) <span class="sc">+</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The male proportion heatmap helps to highlight how dominant countries were in certain sports. Specifically, USA and France being the only countries to medal in breakdancing, and USA, France, and Germany being the only countries to medal in volleyball. Basketball, skateboarding, and golf also only had three countries receive a medal in the men’s competitions.</p>
@@ -509,11 +456,7 @@ window.Quarto = {
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Proportion"</span>) <span class="sc">+</span></span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In the women’s competitions, climbing, breakdancing, and golf seem to be the sports that were most dominated by just a couple of countries. Many of the sports in the women’s proportions plot have a wide range of countries with roughly the same proportion of medals. Some of these sports include athletics, combat sports, and swimming. Swimming proportions being close was especially surprising to me in this plot, given how many medals we could see that USA, China, and Australia won in total. It just goes to show how many total swimming medals are up for grabs.</p>
@@ -571,11 +514,7 @@ window.Quarto = {
 <span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>plot_1.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <div class="cell">
@@ -601,11 +540,7 @@ window.Quarto = {
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>plot_2.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.</p>
@@ -702,11 +637,7 @@ window.Quarto = {
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>plot_3.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-18-5.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-18-5.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p><strong>Men’s Overall Medal Heatmap:</strong></p>
@@ -743,11 +674,7 @@ window.Quarto = {
 <span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>plot_4.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-21-7.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-21-7.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p><strong>Women’s Overall Medal Heatmap:</strong></p>
@@ -784,11 +711,7 @@ window.Quarto = {
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>plot_5.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-24-9.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-24-9.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Now create heatmaps based on proportion of sport’s medals instead of totals:</p>
@@ -831,11 +754,7 @@ window.Quarto = {
 <span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>plot_6.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-27-11.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-27-11.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p><strong>Female Proportions Heatmap:</strong></p>
@@ -857,11 +776,7 @@ window.Quarto = {
 <span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>plot_7.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-28-13.png" class="img-fluid figure-img" width="614"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-28-13.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Overall, I was able to almost identically replicate each step of my R wrangling and plotting process in my Python analysis.</p>
@@ -1003,11 +918,7 @@ window.Quarto = {
 <span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Points Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rebounds:</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1018,11 +929,7 @@ window.Quarto = {
 <span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Rebounds Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assists:</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1033,11 +940,7 @@ window.Quarto = {
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Assists Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-39-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>All three seem to have a difference in means between making and missing all-star game as we would expect, but of the three, points seems to be the most significant predictor, then assists, then rebounds seem to be a bit less significant.</p>
@@ -1052,11 +955,7 @@ window.Quarto = {
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Minutes Played Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experience:</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1067,11 +966,7 @@ window.Quarto = {
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Experience as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 pointers made per game:</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1082,11 +977,7 @@ window.Quarto = {
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"3 Pointers as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blocks per game:</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1097,11 +988,7 @@ window.Quarto = {
 <span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Blocks as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-4.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Steals per game:</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1112,11 +999,7 @@ window.Quarto = {
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Steals as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-5.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-5.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>From minutes played graph: An interesting takeaway from this plot is out of players playing less than 26/27 minutes per game, not a single one made the all-star game.</p>
@@ -1134,11 +1017,7 @@ window.Quarto = {
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Field Goal Attempts a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Turnovers per game:</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined_all_star_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(all_star), </span>
@@ -1149,11 +1028,7 @@ window.Quarto = {
 <span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Turnovers a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Field goal attempts appears to be one of the most significant predictors I have looked at yet. (Field goals made also appears to be simiarly significicant, but would probably have to include only one field goal statistic when running the knn model).</p>
@@ -1697,7 +1572,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1729,50 +1615,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1782,17 +1629,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1804,130 +1642,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
+      return note.innerHTML;
     });
   }
       let selectedAnnoteEl;
@@ -1971,7 +1686,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1997,32 +1711,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2083,7 +1771,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 

@@ -989,7 +989,7 @@ Field goal attempts appears to be one of the most significant predictors I have 
 
 Turnovers also appears to be significant, just as I had hypothesized, but probably in a different way than the average fan would expect. Typically, we associate more turnovers with a player performing poorly, but clearly this is not something the voters weigh heavily when casting their all-star ballots each season. As it turns out, turnovers may be a telling statistic as to which players have the ball more often, since it appears so strongly positively correlated with making the all-star game.
 
-## NBA KNN Modeling in Python:
+## NBA KNN Modeling in Python
 ```{python}
 import math
 from sklearn.neighbors import KNeighborsClassifier
