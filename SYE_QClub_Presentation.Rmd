@@ -1,13 +1,12 @@
 ---
 title: "R vs. Python: Data Science Comparison"
+format: 
+  revealjs:
+    transition: fade
+    theme: serif
+    slide-number: true
 author: "By Tanner Bessette"
-output:
-  beamer_presentation:
-    theme: "Frankfurt"
-    colortheme: "dolphin"
-    fonttheme: "structurebold"
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -550,9 +549,12 @@ plot_7 = (
 plot_7.show()
 ```
 
+## Presentation Overview
 
-
-
+- SYE Goals
+- Olympics Project Overview + Findings
+- NBA All-Star Project Overview + Findings
+- Conclusion
 
 ## SYE Goals
 
@@ -563,10 +565,39 @@ plot_7.show()
 
 ## What is R? What is Python?
 
+```{r}
+# Load the necessary libraries
+library(grid)
+library(gridExtra)
+library(png)
+
+# Load images
+r_logo <- rasterGrob(readPNG("/Users/tannerbessette/Desktop/Python_Textbook/R_Logo.png"))
+python_logo <- rasterGrob(readPNG("/Users/tannerbessette/Desktop/Python_Textbook/Python_Logo.png"))
+
+# Combine and display images side by side
+grid.arrange(r_logo, python_logo, ncol = 2)
+```
+
+::: {.notes}
 - Both R and Python are coding languages
 - R is specifically designed for statistics/data analysis
 - Python is utilized for a wider variety of things, including software 
 development, web applications, machine learning, and data science
+:::
+
+
+## Positron
+
+```{r}
+positron_logo <- rasterGrob(readPNG("/Users/tannerbessette/Desktop/Python_Textbook/Positron_Logo.png"))
+
+# Combine and display images side by side
+grid.arrange(positron_logo, ncol = 1)
+```
+
+- An IDE that is in development
+- Allows easy usage of both R and Python
 
 ## Olympics Project Overview
 
@@ -577,11 +608,7 @@ development, web applications, machine learning, and data science
 
 ## Some Olympics Project Plots
 
-**Female Athletes Barplot:**
-
-- Light blue represents number of athletes each country sent to the Olympics
-
-- Dark blue represents the number of medals won
+- Light blue $\rightarrow$ athletes, Dark blue $\rightarrow$ medals won
 
 ```{r, warning=FALSE, message=FALSE, fig.width=3, fig.height=2, fig.align="center"}
 Female_Athletes_Count <- Female_Athletes_df %>%
@@ -603,14 +630,10 @@ Female_Athletes_Count_barplot <- ggplot(data = Female_Athletes_Count) +
           geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
           labs(title = "Female Athletes and Medals by Country",
                x = "Country",
-               y = "Female Athletes and Medal Counts") +
-          theme_minimal() +
+               y = "Athletes and Medal Counts") +
+          theme_minimal(base_size = 8) +
           scale_fill_viridis_c() +
-          theme(plot.title = element_text(size = 7, hjust = 0.5),
-                axis.title.x = element_text(size = 6),
-                axis.title.y = element_text(size = 6),
-                axis.text.x = element_text(size = 5),
-                axis.text.y = element_text(size = 5),
+          theme(plot.title = element_text(hjust = 0.5),
                 legend.position = "none")
 
 print(Female_Athletes_Count_barplot)
@@ -618,13 +641,7 @@ print(Female_Athletes_Count_barplot)
 
 ## Some Olympics Project Plots
 
-**Male Medals Heatmap:**
-
-- Each heatmap square corresponds to one country and one sport  
-
-- The darkness of the color represents the number of medals that country's male athletes won in that sport
-
-```{r, warning=FALSE, message=FALSE, fig.width=3, fig.height=2, fig.align="center"}
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Only keep countries who got at least 10 total medals:
 # (because heatmap was getting sloppy)
 # group by our new Sport_Category variable before counting number of medals
@@ -647,18 +664,11 @@ ggplot(Male_Medal_Counts, aes(x = Sport_Category,
   labs(title = "Medal Count by Country and Sport (Male)",
                x = "Sport",
                y = "Country") +
-  theme_minimal() +
+  theme_minimal(base_size = 14) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count") +
   coord_fixed() +
-  theme(plot.title = element_text(size = 7, hjust = 0.5),
-                axis.title.x = element_text(size = 6),
-                axis.title.y = element_text(size = 6),
-                axis.text.x = element_text(size = 5),
-                axis.text.y = element_text(size = 5),
-                legend.key.size = unit(0.3, "cm"),
-                legend.text = element_text(size = 4), 
-                legend.title = element_text(size = 4))
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ## R vs. Python Code Comparison
@@ -686,8 +696,8 @@ Male_Athletes_Count_joined = pd.merge(
 - Here is how I did it in R:
 
 ```{r, echo = TRUE, results = 'hide'}
-Male_Athletes_Count <- Male_Athletes_df %>%
-  group_by(country_code) %>%
+Male_Athletes_Count <- Male_Athletes_df |>
+  group_by(country_code) |>
   summarise(athlete_count = n())
 ```
 
@@ -698,20 +708,6 @@ Male_Athletes_Count = Male_Athletes_df.groupby(
 ```
 
 ## NBA Project
-
-- The second project I worked on was predicting whether NBA players made the all-star game
-based on their stats
-- The dataset included all player statistics each season from 1947 to present
-- First part of the project: wrangle and plot in R
-- Second part: perform a statistical learning method (KNN) in Python
-
-## NBA Project Results
-
-- Interestingly, when making the exploratory plots, one of the variables that looked the most correlated with players making the all-star game was having a high average turnovers
-- The variables I used in the KNN model were: points, rebounds, assists, steals, field goals attempted, and turnovers
-- Final KNN model accuracy was 88.22%
-
-## Turnovers and Three Pointers as Predictors of All-Star
 
 ```{r, warning=FALSE, message=FALSE, include=FALSE, echo=FALSE, results='hide'}
 library(tidyverse)
@@ -756,7 +752,82 @@ joined_all_star_data <- joined_all_star_data |>
   filter(gs > 41)
 ```
 
-```{r, warning=FALSE, message=FALSE, fig.width = 5, fig.height = 3}
+- Goal: Predict whether players make the all-star game using k-nearest-neighbors
+- Example data:
+
+```{r}
+library(knitr)
+
+slides_nba_data <- joined_all_star_data |>
+  slice_head(n = 5) |>
+  select("season", "player", "pos", "gs", "pts_per_game")
+
+kable(slides_nba_data)
+```
+
+::: {.notes}
+- The second project I worked on was predicting whether NBA players made the all-star game
+based on their stats
+- The dataset included all player statistics each season from 1947 to present
+- First part of the project: wrangle and plot in R
+- Second part: perform a statistical learning method (KNN) in Python
+:::
+
+## NBA Project Results
+
+- Variables used in KNN model: points, rebounds, assists, steals, field goals attempted, and turnovers
+- Final KNN classification rate: 88.22%
+
+## Turnovers and Three Pointers as Predictors of All-Star
+
+::: {.notes}
+- Interestingly, when making the exploratory plots, one of the variables that looked the most correlated with players making the all-star game was having a high average turnovers
+:::
+
+```{r, warning=FALSE, message=FALSE, include=FALSE, echo=FALSE, results='hide'}
+library(tidyverse)
+library(dplyr)
+player_averages <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Per_Game.csv")
+
+all_stars <- read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
+
+player_totals <- 
+  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
+```
+
+```{r, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# create an all-star variable with 1 = made all-star and 0 = didn't make it:
+all_stars <- all_stars |>
+  mutate(all_star = 1)
+
+# Join player averages data with the all_stars data:
+joined_all_star_data <- left_join(player_averages, all_stars, 
+                                  by = c("season", "player"))
+
+# remove variables that we definitely won't need:
+joined_all_star_data <- joined_all_star_data |>
+  dplyr::select(-c("birth_year", "lg.x", "lg.y", "team"))
+
+# fix the all-star variable to be 0s and 1s not 1s and NAs
+joined_all_star_data <- joined_all_star_data |>
+  mutate(all_star = case_when(
+    is.na(all_star) ~ 0,
+    all_star == 1 ~ 1))
+```
+
+```{r, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+# specify the seasons:
+joined_all_star_data <- joined_all_star_data |>
+  filter(season > 1999) |>
+  filter(season != 2025)
+
+# specify the number of starts each player must have (at least half of the season):
+joined_all_star_data <- joined_all_star_data |>
+  filter(gs > 41)
+```
+
+```{r, warning=FALSE, message=FALSE}
 library(gridExtra)
 library(viridis)
 
@@ -767,13 +838,9 @@ plot1 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star),
     labs(x = "All Star? (0 = No, 1 = Yes)",
          y = "3 Pointers Made per Game",
          title = "3 Pointers as a Predictor of All-Star") +
-    theme_minimal() +
+    theme_minimal(base_size = 15) +
     scale_fill_viridis_d(name = "All Star", option = "D") +
-    theme(plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
-                axis.title.x = element_text(size = 7),
-                axis.title.y = element_text(size = 7),
-                axis.text.x = element_text(size = 6),
-                axis.text.y = element_text(size = 6))
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 
 # Turnovers per game:
 plot2 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star), 
@@ -782,13 +849,9 @@ plot2 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star),
     labs(x = "All Star? (0 = No, 1 = Yes)",
          y = "Turnovers per Game",
          title = "Turnovers a Predictor of All-Star") +
-    theme_minimal() +
+    theme_minimal(base_size = 15) +
     scale_fill_viridis_d(name = "All Star", option = "D") +
-    theme(plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
-                axis.title.x = element_text(size = 7),
-                axis.title.y = element_text(size = 7),
-                axis.text.x = element_text(size = 6),
-                axis.text.y = element_text(size = 6))
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
 
 # Combine the plots side by side
 grid.arrange(plot1, plot2, ncol=2)
@@ -819,6 +882,9 @@ test_sample = joined_all_star_data.merge(train_sample, on=columns_to_join_on, ho
 
 test_sample = test_sample[test_sample['_merge'] == 'left_only'].drop(columns=['_merge'])
 
+# Package to scale the variables:
+from sklearn.preprocessing import StandardScaler
+
 # to specify the columns to use for knn model, create a list, then
 # select just those columns from train and test datasets
 columns_to_keep = ['pts_per_game', 'trb_per_game', 'ast_per_game', 
@@ -826,6 +892,15 @@ columns_to_keep = ['pts_per_game', 'trb_per_game', 'ast_per_game',
 
 train_small = train_sample[columns_to_keep]
 test_small = test_sample[columns_to_keep]
+
+# Scale the predictors using StandardScaler()
+
+# Initialize the scaler
+scaler = StandardScaler()
+
+# Fit the scaler on the training data and transform both train and test data
+train_small = scaler.fit_transform(train_small)
+test_small = scaler.transform(test_small)
 
 # Create vectors:
 train_cat = train_sample['all_star']
@@ -844,32 +919,35 @@ knn.fit(train_small, train_cat)
 knn_mod = knn.predict(test_small)
 ```
 
+```{python, echo = TRUE, output = TRUE}
+# Create the confusion matrix
+conf_matrix = sklearn.metrics.confusion_matrix(test_cat, knn_mod)
+
+# Display the confusion matrix:
+print(conf_matrix)
+```
+
+::: {.notes}
 - **Confusion matrix with the results of my KNN model**
 - Top left number, 559, gives us the number of non-all-stars that our knn model correctly predicted as non-all-stars
 - Bottom right number $\rightarrow$ number of all-stars that our model correctly predicted as all-stars. 
 - Bottom left $\rightarrow$ non-all-stars that our model predicted to actually be all-stars
 - Top right $\rightarrow$ players that our model predicted to not be all-stars but were actually all-stars
+:::
 
-```{python, echo = TRUE, class.source="small-code", class.output="small-output"}
-# Create and display the confusion matrix
-conf_matrix = sklearn.metrics.confusion_matrix(
-  test_cat, knn_mod)
-print(conf_matrix)
-```
+## Take-aways
 
-## Thoughts on Learning Python for Data Science
+- R wrangling code is a bit easier to learn and more intuitive
+- Most wrangling functions share an analogue in each language
+  - `filter()` in R → `.query()` in Python 
+  - `group_by()` in R → `.groupby()` in Python
+  - `%in%` in R → `.isin() in Python
+- Both languages can wrangle and visualize data
 
-- I am surprised that Python is used so much for data science outside of SLU
-- R seems more intuitive and organized, especially when it comes to data wrangling
-- As an introduction to coding or a machine learning class, I believe
-Python makes more sense to learn, but I'm glad our department teaches R for
-DATA234
+## Caveats
 
-## Conclusion
-
-- In my opinion, R is easier to learn for data science, especially for beginner coders
-- Both languages have similar math/statistical capabilities
-- For data wranging and plotting, R is great!
-- Python may be better (or at least equal) in terms of stat. learning
+- Learned R first (and used in research, internship, and many courses)
+- Did not look at machine learning, and did not look at big data
+- Not exactly comparing R and Python, comparing `tidyverse` R package to `pandas`/`plotnine`/`numpy` packages in Python
 
 
