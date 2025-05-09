@@ -7,6 +7,7 @@ institute: "St. Lawrence University"
 number-sections: true
 date: "5/09/24"
 execute:
+  warning: false
   python:
     executable: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3
 format:
@@ -73,7 +74,11 @@ Functions:
 
          → .pivot() in Python with index, columns, values as arguments
 
-    -left_join(), right_join(), full_join in R → pd.merge() with on = “variable name” and how as the other argument specifying the type of join (how = “left” for example)
+    -left_join(), right_join(), full_join in R → pd.merge() with on = “variable name”
+    
+     and how as the other argument specifying the type of join (how = “left” for 
+     
+     example)
 
     -as.factor() in R → .astype(‘category’) in Python
 
@@ -208,8 +213,10 @@ Male_Athletes_Count <- Male_Athletes_Count %>%
 
 # Create the plot:
 Male_Athletes_Count_barplot <- ggplot(data = Male_Athletes_Count) +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), 
+          y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), 
+          y = medal_totals), fill = "darkblue", stat = "identity") +
           labs(title = "Male Athletes and Medals by Country",
                x = "Country",
                y = "Male Athletes and Medal Counts") +
@@ -244,8 +251,10 @@ Female_Athletes_Count <- Female_Athletes_Count %>%
 
 # Create the plot:
 Female_Athletes_Count_barplot <- ggplot(data = Female_Athletes_Count) +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = athlete_count), fill = "lightblue", stat = "identity") +
-          geom_bar(aes(x = reorder(country_code, -athlete_count), y = medal_totals), fill = "darkblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), 
+          y = athlete_count), fill = "lightblue", stat = "identity") +
+          geom_bar(aes(x = reorder(country_code, -athlete_count), 
+          y = medal_totals), fill = "darkblue", stat = "identity") +
           labs(title = "Female Athletes and Medals by Country",
                x = "Country",
                y = "Female Athletes and Medal Counts") +
@@ -485,7 +494,8 @@ Now, I will be going through the same project, this time in Python.
 Specify the correct Python path before switching to Python:
 ```{r}
 library(reticulate)
-use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", required = TRUE)
+use_python("/Library/Frameworks/Python.framework/Versions/3.12/bin/python3", 
+required = TRUE)
 ```
 
 
@@ -511,25 +521,32 @@ Female_Athletes_df = Athletes_df.query("gender == 'Female'")
 
 # Total Male and Female Medals for each sport:
 # (learned reset_index from ChatGPT - helps to mimick summarise in R)
-Male_Total_Medal_Counts = Medals_df.query("gender == 'M'").groupby("country_code").size().reset_index(name = "medal_totals")
-Female_Total_Medal_Counts = Medals_df.query("gender == 'W'").groupby("country_code").size().reset_index(name = "medal_totals")
+Male_Total_Medal_Counts = Medals_df.query("gender == 'M'").groupby(
+  "country_code").size().reset_index(name = "medal_totals")
+Female_Total_Medal_Counts = Medals_df.query("gender == 'W'").groupby(
+  "country_code").size().reset_index(name = "medal_totals")
 
 
 # MALE BAR PLOT:
 # data manipulation (group_by, summarise):
-Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(name = "athlete_count")
+Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(
+  name = "athlete_count")
 # join data (looked ahead in textbook to ch. 22):
 # (pd.merge is the join function, on is like by, how = join method(L/R))
-Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on="country_code", how="left")
+Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, 
+Male_Total_Medal_Counts, on="country_code", how="left")
 # Only keep top 10 countries with most athletes:
 Male_Athletes_Count_joined = Male_Athletes_Count_joined.query("athlete_count > 128")
 # Create the Male bar plot with country's athletes and medals:
 #Male_Athletes_Count.sort_values (essentially arrange -> do instead of reorder)
-Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
+Male_Athletes_Count_joined = Male_Athletes_Count_joined.sort_values("athlete_count",
+ ascending=False)
 plot_1 = (
     ggplot() +
-          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Male_Athletes_Count_joined) +
-          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Male_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue",
+           stat = "identity", data = Male_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue",
+           stat = "identity", data = Male_Athletes_Count_joined) +
           labs(title = "Male Athletes and Medals by Country",
                x = "Country",
                y = "Male Athletes and Medal Counts") +
@@ -541,19 +558,25 @@ plot_1.show()
 ```{python}
 # FEMALE BAR PLOT:
 # data manipulation (group_by, summarise):
-Female_Athletes_Count = Female_Athletes_df.groupby("country_code").size().reset_index(name = "athlete_count")
+Female_Athletes_Count = Female_Athletes_df.groupby("country_code").size().reset_index(
+  name = "athlete_count")
 # join data (looked ahead in textbook to ch. 22):
 # (pd.merge is the join function, on is like by, how = join method(L/R))
-Female_Athletes_Count_joined = pd.merge(Female_Athletes_Count, Female_Total_Medal_Counts, on="country_code", how="left")
+Female_Athletes_Count_joined = pd.merge(Female_Athletes_Count, 
+Female_Total_Medal_Counts, on="country_code", how="left")
 # Only keep top 10 countries with most athletes:
-Female_Athletes_Count_joined = Female_Athletes_Count_joined.query("athlete_count > 177")
+Female_Athletes_Count_joined = Female_Athletes_Count_joined.query(
+  "athlete_count > 177")
 # Create the Male bar plot with country's athletes and medals:
 # (arrange first):
-Female_Athletes_Count_joined = Female_Athletes_Count_joined.sort_values("athlete_count", ascending=False)
+Female_Athletes_Count_joined = Female_Athletes_Count_joined.sort_values(
+  "athlete_count", ascending=False)
 plot_2 = (
     ggplot() +
-          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue", stat = "identity", data = Female_Athletes_Count_joined) +
-          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue", stat = "identity", data = Female_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'athlete_count'), fill = "lightblue",
+           stat = "identity", data = Female_Athletes_Count_joined) +
+          geom_bar(aes(x = 'country_code', y = 'medal_totals'), fill = "darkblue",
+           stat = "identity", data = Female_Athletes_Count_joined) +
           labs(title = "Female Athletes and Medals by Country",
                x = "Country",
                y = "Female Athletes and Medal Counts") +
@@ -573,16 +596,21 @@ Medals_df['Sport_Category'] = np.select(
         Medals_df['discipline'].isin(["3x3 Basketball", "Basketball"]),
         Medals_df['discipline'].isin(["Badminton", "Table Tennis", "Tennis"]),
         Medals_df['discipline'].isin(["Boxing", "Taekwondo", "Wrestling", "Judo"]),
-        Medals_df['discipline'].isin(["Swimming", "Marathon Swimming", "Diving", "Artistic Swimming"]),
+        Medals_df['discipline'].isin(["Swimming", "Marathon Swimming", "Diving",
+         "Artistic Swimming"]),
         Medals_df['discipline'].isin(["Volleyball", "Beach Volleyball"]),
-        Medals_df['discipline'].isin(["Cycling BMX Freestyle", "Cycling BMX Racing", 
-                                      "Cycling Mountain Bike", "Cycling Road", "Cycling Track"]),
+        Medals_df['discipline'].isin(["Cycling BMX Freestyle", "Cycling BMX Racing",
+
+                                      "Cycling Mountain Bike",
+                                       "Cycling Road", "Cycling Track"]),
         Medals_df['discipline'].isin(["Water Polo", "Surfing", "Sailing"]),
-        Medals_df['discipline'].isin(["Artistic Gymnastics", "Rhythmic Gymnastics", "Trampoline Gymnastics"]),
+        Medals_df['discipline'].isin(["Artistic Gymnastics", "Rhythmic Gymnastics",
+         "Trampoline Gymnastics"]),
         Medals_df['discipline'] == "Athletics",
         Medals_df['discipline'].isin(["Canoe Slalom", "Canoe Sprint", "Rowing"]),
         Medals_df['discipline'] == "Equestrian",
-        Medals_df['discipline'].isin(["Football", "Handball", "Hockey", "Rugby Sevens"]),
+        Medals_df['discipline'].isin(["Football", "Handball", "Hockey", 
+        "Rugby Sevens"]),
         Medals_df['discipline'].isin(["Archery", "Shooting", "Fencing"]),
         Medals_df['discipline'].isin(["Triathlon", "Modern Pentathlon"]),
         Medals_df['discipline'] == "Weightlifting",
@@ -621,7 +649,9 @@ Medals_df['Sport_Category'] = Medals_df['Sport_Category'].astype('category')
 
 Create a medal count variable that counts each country's medals by sport:
 ```{python}
-Medal_Counts = Medals_df.groupby(['country_code', 'Sport_Category']).size().reset_index(name='count').sort_values(by='count', ascending=False)
+Medal_Counts = Medals_df.groupby(['country_code', 
+'Sport_Category']).size().reset_index(name='count').sort_values(by=
+'count', ascending=False)
 ```
 
 Perform more manipulations for the combined men's and women's heatmap:
@@ -640,9 +670,11 @@ Something to note: unfortunately, for the heatmap plots in Python, the x-axis la
 
 Create the combined men's and women's heatmap:
 ```{python}
-overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+overall_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'ESP', 'FRA', 'GBR',
+ 'GER', 'HUN', 'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
 
-Overall_Medal_Counts = Medal_Counts.query("country_code in @overall_countries_to_keep").query("count > 0")
+Overall_Medal_Counts = Medal_Counts.query(
+  "country_code in @overall_countries_to_keep").query("count > 0")
 
 plot_3 = (
     ggplot(Overall_Medal_Counts, aes(x='Sport_Category', 
@@ -662,20 +694,26 @@ plot_3.show()
 
 Wrangle the men's data before creating the men's heatmap:
 ```{python}
-Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
+Male_Medal_Counts = Medals_df.query("gender == 'M'").groupby(['country_code',
+ 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count',
+  ascending = False)
 
-total_male_counts = Male_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
+total_male_counts = Male_Medal_Counts.groupby(
+  'country_code').size().reset_index(name='total_count')
 
-Male_Medal_Counts = pd.merge(Male_Medal_Counts, total_male_counts, on = "country_code", how = "left")
+Male_Medal_Counts = pd.merge(Male_Medal_Counts, total_male_counts, 
+on = "country_code", how = "left")
 
 Male_Medal_Counts = Male_Medal_Counts.query("total_count > 1")
 ```
 
 Create the men's heatmap in Python:
 ```{python}
-male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR', 'GER', 'HUN', 'IRI', 'ITA', 'JPN', 'KOR', 'NED', 'USA', 'UZB']
+male_countries_to_keep = ['AUS', 'CHN', 'ESP', 'FRA', 'GBR',
+ 'GER', 'HUN', 'IRI', 'ITA', 'JPN', 'KOR', 'NED', 'USA', 'UZB']
 
-Updated_Medal_Counts = Male_Medal_Counts.query("country_code in @male_countries_to_keep").query("count > 0")
+Updated_Medal_Counts = Male_Medal_Counts.query(
+  "country_code in @male_countries_to_keep").query("count > 0")
 
 plot_4 = (
     ggplot(Updated_Medal_Counts, aes(x='Sport_Category', 
@@ -695,20 +733,26 @@ plot_4.show()
 
 Wrangle the women's data before creating the women's heatmap:
 ```{python}
-Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code', 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count', ascending = False)
+Female_Medal_Counts = Medals_df.query("gender == 'W'").groupby(['country_code',
+ 'Sport_Category']).size().reset_index(name = 'count').sort_values(by = 'count',
+  ascending = False)
 
-total_female_counts = Female_Medal_Counts.groupby('country_code').size().reset_index(name='total_count')
+total_female_counts = Female_Medal_Counts.groupby(
+  'country_code').size().reset_index(name='total_count')
 
-Female_Medal_Counts = pd.merge(Female_Medal_Counts, total_female_counts, on = "country_code", how = "left")
+Female_Medal_Counts = pd.merge(Female_Medal_Counts, 
+total_female_counts, on = "country_code", how = "left")
 
 Female_Medal_Counts = Female_Medal_Counts.query("total_count > 1")
 ```
 
 Create the women's heatmap in Python:
 ```{python}
-female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR', 'GER',  'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
+female_countries_to_keep = ['AUS', 'BRA', 'CAN', 'CHN', 'FRA', 'GBR',
+ 'GER',  'ITA', 'JPN', 'KOR', 'NED', 'NZL', 'USA']
 
-Updated_Female_Medal_Counts = Female_Medal_Counts.query("country_code in @female_countries_to_keep").query("count > 0")
+Updated_Female_Medal_Counts = Female_Medal_Counts.query(
+  "country_code in @female_countries_to_keep").query("count > 0")
 
 plot_5 = (
     ggplot(Updated_Female_Medal_Counts, aes(x='Sport_Category', 
@@ -721,7 +765,8 @@ plot_5 = (
     theme_minimal() +
     theme(axis_text_x=element_text(angle=90, vjust=0.5, hjust=1)) +
     coord_fixed() +
-    scale_fill_gradient(low="lightblue", high="darkblue", name = "Medal Count")
+    scale_fill_gradient(low="lightblue", high="darkblue", 
+    name = "Medal Count")
 )
 plot_5.show()
 ```
@@ -733,7 +778,8 @@ instead of totals:
 Create the dataset for men's medal proportions:
 ```{python}
 Male_prop = Male_Medal_Counts
-Male_prop['total_sport_medals'] = Male_prop.groupby('Sport_Category')['count'].transform('sum')
+Male_prop['total_sport_medals'] = Male_prop.groupby(
+  'Sport_Category')['count'].transform('sum')
 Male_prop['prop_sport_medals'] = Male_prop['count'] / Male_prop['total_sport_medals']
 ```
 
@@ -742,15 +788,18 @@ Instead of using a $ in R to access a dataset's variable, you use [] in Python. 
 Create the dataset for women's medal proportions:
 ```{python}
 Female_prop = Female_Medal_Counts
-Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category')['count'].transform('sum')
-Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
+Female_prop['total_sport_medals'] = Female_prop.groupby(
+  'Sport_Category')['count'].transform('sum')
+Female_prop['prop_sport_medals'] = Female_prop[
+  'count'] / Female_prop['total_sport_medals']
 ```
 
 Now create the proportions heatmap plots:
 
 Create the men's proportion heatmap:
 ```{python}
-Updated_Male_Prop = Male_prop.query("country_code in @male_countries_to_keep").query("count > 0")
+Updated_Male_Prop = Male_prop.query(
+  "country_code in @male_countries_to_keep").query("count > 0")
 
 plot_6 = (
     ggplot(Updated_Male_Prop, aes(x='Sport_Category', 
@@ -770,7 +819,8 @@ plot_6.show()
 
 Create the women's proportion heatmap:
 ```{python}
-Updated_Female_Prop = Female_prop.query("country_code in @female_countries_to_keep").query("count > 0")
+Updated_Female_Prop = Female_prop.query(
+  "country_code in @female_countries_to_keep").query("count > 0")
 
 plot_7 = (
     ggplot(Updated_Female_Prop, aes(x='Sport_Category', 
@@ -809,7 +859,8 @@ head(Male_Athletes_Count)
 And here is how I did it in Python:
 ```{python}
 # data manipulation (group_by, summarise):
-Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(name="athlete_count")
+Male_Athletes_Count = Male_Athletes_df.groupby("country_code").size().reset_index(
+  name="athlete_count")
 
 Male_Athletes_Count.head()
 ```
@@ -830,7 +881,8 @@ Male_Athletes_Count <- left_join(Male_Athletes_Count, Male_Total_Medal_Counts,
 And here is how I did that in Python:
 
 ```{python}
-Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts, on="country_code", how="left")
+Male_Athletes_Count_joined = pd.merge(Male_Athletes_Count, Male_Total_Medal_Counts,
+ on="country_code", how="left")
 ```
 
 Both languages are using a left join, and joining by matching the country_code in the two datasets they are joining. R has a built-in `left_join()` function to specify that the join type is left, while Python's `pd.merge()` function can be used for all types of joins, and you use the how = "left" argument to specify that you want the join to be a left join. The on argument in this R example and the by argument in the Python example are used in the same exact way, to specify the variable to join on.
@@ -852,8 +904,10 @@ Female_Medal_Prop <- Female_Medal_Counts %>%
 And here is how I did it in Python:
 ```{python}
 Female_prop = Female_Medal_Counts
-Female_prop['total_sport_medals'] = Female_prop.groupby('Sport_Category', observed = False)['count'].transform('sum')
-Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop['total_sport_medals']
+Female_prop['total_sport_medals'] = Female_prop.groupby(
+  'Sport_Category', observed = False)['count'].transform('sum')
+Female_prop['prop_sport_medals'] = Female_prop['count'] / Female_prop[
+  'total_sport_medals']
 ```
 
 Using R, I used the simple `dplyr` functions of `group_by()` and `mutate()`, and saved an updated version of Female_Medal_Counts that would have two new columns (total medals and proportion of medals for each sport) as Female_Medal_Prop. In Python, I created these same two columns, this time in separate coding commands, and saved these columns to the Female_prop dataset. I edited the two columns using brackets [], which is equivalent to if I had edited the individual columns in R using a dollar sign $, instead of the `dplyr` method. 
@@ -871,10 +925,12 @@ library(dplyr)
 player_averages <- 
   read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Per_Game.csv")
 
-all_stars <- read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
+all_stars <- read_csv(
+  "/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/All_Star_Selections.csv")
 
 player_totals <- 
-  read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
+  read_csv(
+    "/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/Player_Totals.csv")
 ```
 
 
@@ -930,7 +986,8 @@ joined_all_star_data <- joined_all_star_data |>
 Export the now manipulated data so we can model with Python later:
 ```{r}
 # export updated dataset so we can import again with Python:
-write_csv(joined_all_star_data, "/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
+write_csv(joined_all_star_data, 
+"/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
 ```
 
 **Visualize NBA data in R:**
@@ -1085,7 +1142,8 @@ from sklearn.neighbors import KNeighborsClassifier
 import sklearn.metrics
 
 # read in the data we wrangled previously
-joined_all_star_data = pd.read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
+joined_all_star_data = pd.read_csv(
+  "/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
 
 # set the seed
 np.random.seed(42)
@@ -1106,9 +1164,11 @@ train_sample = joined_all_star_data.sample(n = 2852)
 # or the right. Only keep in left, and remove the variable afterwards
 
 columns_to_join_on = joined_all_star_data.columns.tolist()
-test_sample = joined_all_star_data.merge(train_sample, on=columns_to_join_on, how='left', indicator=True)
+test_sample = joined_all_star_data.merge(train_sample, 
+on=columns_to_join_on, how='left', indicator=True)
 
-test_sample = test_sample[test_sample['_merge'] == 'left_only'].drop(columns=['_merge'])
+test_sample = test_sample[test_sample['_merge'] == 
+'left_only'].drop(columns=['_merge'])
 ```
 
 I chose predictors based on whichever ones looked most correlated with being selected for the all-star game from the exploratory plots. These predictors were points per game, rebounds per game, assists per game, steals per game, field goal attempts per game, and turnovers per game.
