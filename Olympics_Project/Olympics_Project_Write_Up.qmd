@@ -1,13 +1,46 @@
 ---
-title: "Final Version of Olympics Project"
-author: "Tanner Bessette"
-format:
-  html:
-    toc: true
+title: "Learning Python for Data Science"
+author: 
+  - name: "Tanner J. Bessette"
+  - name: "Advisor: Matt Higham"
+institute: "St. Lawrence University"
+number-sections: true
+date: "5/09/24"
 execute:
   python:
     executable: /Library/Frameworks/Python.framework/Versions/3.12/bin/python3
+format:
+  pdf:
+    toc: true
+    embed-resources: true
+    include-in-header:
+        text: |
+          \usepackage{lipsum}
+          \usepackage{setspace}
+          \onehalfspacing
+          \linespread{2}
+#format:
+#  html:
+#    embed-resources: true
+#    toc: true
 ---
+
+\pagebreak
+
+```{r}
+#| label: setup
+#| include: false
+##| eval: true
+#| eval: false
+
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\\linespread{0.9}\n", x, "\n\n\\linespread{2}")
+})
+```
+
+
 
 ## SYE Goals
 

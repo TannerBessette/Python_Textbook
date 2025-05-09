@@ -1,5 +1,5 @@
 ---
-title: "R vs. Python: Data Science Comparison"
+title: "R and Python: Data Science Comparison"
 format: 
   revealjs:
     transition: fade
@@ -559,7 +559,6 @@ plot_7.show()
 ## SYE Goals
 
 - Learn Python for data science
-- Go through a Python data science textbook and explore Positron IDE
 - Compare R and Python functions side by side
 - Be able to identify strengths of both languages, and combine them in a project
 
@@ -673,7 +672,7 @@ ggplot(Male_Medal_Counts, aes(x = Sport_Category,
 
 ## R vs. Python Code Comparison
 
-- Here is how I performed the joining of the male athletes and male medals datasets before creating the bar plot using R:
+- Joining two datasets using R:
 
 ```{r, echo = TRUE}
 Male_Athletes_Count <- 
@@ -682,7 +681,7 @@ Male_Athletes_Count <-
             by = "country_code")
 ```
 
-- And here is how I did that in Python:
+- Joining two datasets using Python:
 
 ```{python, echo = TRUE}
 Male_Athletes_Count_joined = pd.merge(
@@ -692,8 +691,7 @@ Male_Athletes_Count_joined = pd.merge(
 
 ## R vs. Python Code Comparison
 
-- Before making the male bar plot, I had to group by country and add up all the athletes for each country.
-- Here is how I did it in R:
+- Data wrangling using R:
 
 ```{r, echo = TRUE, results = 'hide'}
 Male_Athletes_Count <- Male_Athletes_df |>
@@ -701,7 +699,7 @@ Male_Athletes_Count <- Male_Athletes_df |>
   summarise(athlete_count = n())
 ```
 
-- And here is how I did it in Python:
+- Data wrangling using Python:
 ```{python, echo = TRUE, output = FALSE}
 Male_Athletes_Count = Male_Athletes_df.groupby(
 "country_code").size().reset_index(name="athlete_count")
@@ -857,83 +855,6 @@ plot2 <- ggplot(joined_all_star_data, aes(x = as.factor(all_star),
 grid.arrange(plot1, plot2, ncol=2)
 ```
 
-## Confusion Matrix
-```{python, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
-import math
-from sklearn.neighbors import KNeighborsClassifier
-import sklearn.metrics
-
-# read in the data we wrangled previously
-joined_all_star_data = pd.read_csv("/Users/tannerbessette/Desktop/Python_Textbook/NBA_Project/joined_all_star_data.csv")
-
-# set the seed
-np.random.seed(42)
-
-# .sample in Python appears to be the same as slice_sample in R
-train_sample = joined_all_star_data.sample(n = 2852)
-
-# below is what we are using instead of an anti-join
-# basically does a left join but creates a merge variable that
-# indicates whether a row was in both original datasets, the left,
-# or the right. Only keep in left, and remove the variable afterwards
-
-columns_to_join_on = joined_all_star_data.columns.tolist()
-test_sample = joined_all_star_data.merge(train_sample, on=columns_to_join_on, how='left', indicator=True)
-
-test_sample = test_sample[test_sample['_merge'] == 'left_only'].drop(columns=['_merge'])
-
-# Package to scale the variables:
-from sklearn.preprocessing import StandardScaler
-
-# to specify the columns to use for knn model, create a list, then
-# select just those columns from train and test datasets
-columns_to_keep = ['pts_per_game', 'trb_per_game', 'ast_per_game', 
-                     'stl_per_game', 'fga_per_game', 'tov_per_game']
-
-train_small = train_sample[columns_to_keep]
-test_small = test_sample[columns_to_keep]
-
-# Scale the predictors using StandardScaler()
-
-# Initialize the scaler
-scaler = StandardScaler()
-
-# Fit the scaler on the training data and transform both train and test data
-train_small = scaler.fit_transform(train_small)
-test_small = scaler.transform(test_small)
-
-# Create vectors:
-train_cat = train_sample['all_star']
-test_cat = test_sample['all_star']
-
-# Find a good number of nearest neighbors (sqrt of train size):
-math.sqrt(2852) # use 53 nearest neighbors
-
-# Specify 53 neighbors:
-knn = KNeighborsClassifier(n_neighbors = 53)
-
-# Fit the knn model
-knn.fit(train_small, train_cat)
-
-# Make predictions for test data
-knn_mod = knn.predict(test_small)
-```
-
-```{python, echo = TRUE, output = TRUE}
-# Create the confusion matrix
-conf_matrix = sklearn.metrics.confusion_matrix(test_cat, knn_mod)
-
-# Display the confusion matrix:
-print(conf_matrix)
-```
-
-::: {.notes}
-- **Confusion matrix with the results of my KNN model**
-- Top left number, 559, gives us the number of non-all-stars that our knn model correctly predicted as non-all-stars
-- Bottom right number $\rightarrow$ number of all-stars that our model correctly predicted as all-stars. 
-- Bottom left $\rightarrow$ non-all-stars that our model predicted to actually be all-stars
-- Top right $\rightarrow$ players that our model predicted to not be all-stars but were actually all-stars
-:::
 
 ## Take-aways
 
@@ -941,7 +862,7 @@ print(conf_matrix)
 - Most wrangling functions share an analogue in each language
   - `filter()` in R → `.query()` in Python 
   - `group_by()` in R → `.groupby()` in Python
-  - `%in%` in R → `.isin() in Python
+  - `%in%` in R → `.isin()` in Python
 - Both languages can wrangle and visualize data
 
 ## Caveats

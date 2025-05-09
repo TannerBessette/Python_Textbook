@@ -6,7 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tanner Bessette">
+<meta name="author" content="Tanner J. Bessette">
+<meta name="author" content="Advisor: Matt Higham">
+<meta name="dcterms.date" content="2024-05-09">
 
 <title>Final Version of Olympics Project</title>
 <style>
@@ -74,27 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body>
+<body class="fullcontent">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sye-goals" id="toc-sye-goals" class="nav-link active" data-scroll-target="#sye-goals">SYE Goals</a></li>
-  <li><a href="#r-vs.-python-language-comparison" id="toc-r-vs.-python-language-comparison" class="nav-link" data-scroll-target="#r-vs.-python-language-comparison">R vs.&nbsp;Python Language Comparison</a></li>
-  <li><a href="#olympics-project-goals" id="toc-olympics-project-goals" class="nav-link" data-scroll-target="#olympics-project-goals">Olympics Project Goals</a></li>
-  <li><a href="#olympics-project-in-r" id="toc-olympics-project-in-r" class="nav-link" data-scroll-target="#olympics-project-in-r">Olympics Project in R</a></li>
-  <li><a href="#olympics-project-in-python" id="toc-olympics-project-in-python" class="nav-link" data-scroll-target="#olympics-project-in-python">Olympics Project in Python</a></li>
-  <li><a href="#specific-code-comparisons" id="toc-specific-code-comparisons" class="nav-link" data-scroll-target="#specific-code-comparisons">Specific Code Comparisons</a></li>
-  <li><a href="#nba-project-introduction" id="toc-nba-project-introduction" class="nav-link" data-scroll-target="#nba-project-introduction">NBA Project Introduction</a></li>
-  <li><a href="#nba-data-wrangling-and-plotting-in-r" id="toc-nba-data-wrangling-and-plotting-in-r" class="nav-link" data-scroll-target="#nba-data-wrangling-and-plotting-in-r">NBA Data Wrangling and Plotting in R</a></li>
-  <li><a href="#nba-knn-modeling-in-python" id="toc-nba-knn-modeling-in-python" class="nav-link" data-scroll-target="#nba-knn-modeling-in-python">NBA KNN Modeling in Python</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul>
-</nav>
-</div>
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -103,16 +88,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Tanner J. Bessette </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            St.&nbsp;Lawrence University
+          </p>
+      </div>
+      <div class="quarto-title-meta-contents">
+    <p class="author">Advisor: Matt Higham </p>
+  </div>
+    </div>
 
 <div class="quarto-title-meta">
 
+      
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-             <p>Tanner Bessette </p>
-          </div>
+      <p class="date">May 9, 2024</p>
+    </div>
   </div>
-    
   
     
   </div>
@@ -120,14 +121,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="sye-goals" class="level2">
-<h2 class="anchored" data-anchor-id="sye-goals">SYE Goals</h2>
+<div style="page-break-after: always;"></div>
+<section id="sye-goals" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sye-goals"><span class="header-section-number">1</span> SYE Goals</h2>
 <p>This semester, I am conducting an independent honors project with the main goal of teaching myself data science in Python. I have taken Foundations of Data Science, as well as many other statistics courses in R, and I have also utilized R for a Summer research project in 2023 and an internship this past Summer. I think Python is an important skill to have for a soon-to-be graduated Statistics major looking to make a career out of statistics or data science, and I had little to no experience with data manipulation, data visualization, and statistical modeling in Python previous to this project. After going through a data science textbook with Python coding instructions and tasks, I split the remainder of my SYE semester into two major projects: an Olympics project and an NBA project.</p>
 <p>In this write-up, I will first highlight R and Python coding similarities and differences that I found. Then, I will include my Olympics project code in R, then the same project with equivalent Python code, with analysis and code langauge comparisons included. Finally I will include my entire NBA project, where instead of doing it entirely in R then entirely in Python, I utilized R first to read in the data, wrangle the data, and visualize the data, and used Python to create a knn model with the goal of successfully predicting NBA all-stars. For this project, I primarily used the <code>pandas</code> package in Python for data manipulation and the <code>tidyverse</code> package in R.</p>
 <p>In the following section, I complete a short analysis on Olympics data in both R and Python, pointing out comparisons between the two languages along the way. Then, I complete another project, where I wrangle the data in R first, then attempt to predict whether players are selected to the NBA All-Star game by building a k-nearest-neighbors model in Python. I created this document in Quarto, which supports rednering for both R and Python code.</p>
 </section>
-<section id="r-vs.-python-language-comparison" class="level2">
-<h2 class="anchored" data-anchor-id="r-vs.-python-language-comparison">R vs.&nbsp;Python Language Comparison</h2>
+<section id="r-vs.-python-language-comparison" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="r-vs.-python-language-comparison"><span class="header-section-number">2</span> R vs.&nbsp;Python Language Comparison</h2>
 <p>After conducting this project, one major take-away was that lots of functions have direct translations from R to Python. Here are some of the helpful functions that I found to be almost equivalent from R to Python:</p>
 <p>Functions:</p>
 <pre><code>-filter() in R → .query() in Python
@@ -171,15 +173,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The majority of the math that I do in R is using built-in functions, whereas I find it tedious to have to load a library into Python in order to even do math, and then call that package when doing some of the operations. It feels like R was made specifically to perform mathematical and statistical calculations, and Python is good at doing a variety of things, but for math and statistics specifically, it is not as user-friendly. Although I do definitely prefer R overall for this style of project, the two languages are similar, especially with things like reading in data, joining datasets, and basic plotting.</p>
 <p>Below is a project that I conducted about the 2024 Paris Olympics, the first of my two projects utilizing both R and Python.</p>
 </section>
-<section id="olympics-project-goals" class="level2">
-<h2 class="anchored" data-anchor-id="olympics-project-goals">Olympics Project Goals</h2>
+<section id="olympics-project-goals" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="olympics-project-goals"><span class="header-section-number">3</span> Olympics Project Goals</h2>
 <p>The main purpose of these projects is to gain familiarity with Python, and to help draw comparisons between Python in R. For this project I am aiming to be able to read in, wrangle, and create visuals all using Python, after first doing it in R.</p>
 <p>In this project I wanted to investigate and visualize how the men’s and women’s teams for all of the countries that participated in the 2024 Olympics performed compared to each other. Specifically, I wanted to visualize and compare the number of athletes and medals for each country’s male and female teams.</p>
 <p>For my investigation, I utilized a Kaggle dataset called “Paris 2024 Olympic Summer Games” by Petro, who has a PhD and is actively working as a data scientist at CheAI. This dataset was updated daily throughout the Olympics, and includes all of the athletes that competed, all of the events that were hosted, all of the medals that were won, the daily schedules, the sport venues, and so much more. For this project I utilized his athletes and medals datasets. The athletes dataset includes each athlete, their gender, the country they are competing for, and other facts about them. The medals dataset includes information on each gold, silver, and bronze medal that was won in each event throughout the Olympics, and the athlete/team that won each medal.</p>
 <p>Here is the R code that I utilized for this project. After I am finished with the R code, I will include the equivalent Python code to do the same process to help compare the languages.</p>
 </section>
-<section id="olympics-project-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="olympics-project-in-r">Olympics Project in R</h2>
+<section id="olympics-project-in-r" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="olympics-project-in-r"><span class="header-section-number">4</span> Olympics Project in R</h2>
 <p>Load in the necessary libraries and read in the athletes and medals datasets:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -357,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Male_Athletes_Count_barplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In this plot, the dark blue represents the total number of medals won by men for each country, and the light blue bar indicates the number of male athletes sent by each country.</p>
@@ -390,11 +392,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Female_Athletes_Count_barplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>USA and France sent the most female athletes as well. USA and China had the highest number of their female athletes medal. Despite being seventh in the total number of female athletes that participated in the Olympics, Spain had a remarkably low proportion of their athletes receive medals.</p>
-<p><strong>HEATMAPS</strong></p>
+<p><strong>Heatmaps:</strong></p>
 <p>Heatmaps provide a way to visualize where each country’s medals are coming from, and how different countries perform in different sports.</p>
 <p>I am dividing sports into categories because there are so many sports in the Olympics that the plot would become unreadable and not interpretable.</p>
 <p>Create a Sports Category variable that groups similar sports together:</p>
@@ -460,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It appears that there is a wide variety of countries who medalled in athletics and in combat sports. All of the countries who had the most overall medals also have a significant number of medals in swimming, likely because there are so many available medals to win in swimming. A country that stands out in the plot is Kenya - they are one of the strongest performers in the whole world in athletics, yet they didn’t obtain a single medal in any other sports!</p>
@@ -494,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Similarly to Kenya with athletics, Iran received zero medals in all other sports, but they performed very strongly in combat sports, getting some of the most male combat sport medals of any country.</p>
@@ -528,7 +530,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Count"</span>) <span class="sc">+</span></span>
 <span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The USA women clearly received far more medals than any other country’s women’s teams did. They were especially dominant in swimming, with China and Australia being the only other countries who even came close, and a big drop off after them.</p>
@@ -556,7 +558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Proportion"</span>) <span class="sc">+</span></span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The male proportion heatmap helps to highlight how dominant countries were in certain sports. Specifically, USA and France being the only countries to medal in breakdancing, and USA, France, and Germany being the only countries to medal in volleyball. Basketball, skateboarding, and golf also only had three countries receive a medal in the men’s competitions.</p>
@@ -581,7 +583,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"lightblue"</span>, <span class="at">high=</span><span class="st">"darkblue"</span>, <span class="at">name =</span> <span class="st">"Medal Proportion"</span>) <span class="sc">+</span></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In the women’s competitions, climbing, breakdancing, and golf seem to be the sports that were most dominated by just a couple of countries. Many of the sports in the women’s proportions plot have a wide range of countries with roughly the same proportion of medals. Some of these sports include athletics, combat sports, and swimming. Swimming proportions being close was especially surprising to me in this plot, given how many medals we could see that USA, China, and Australia won in total. It just goes to show how many total swimming medals are up for grabs.</p>
@@ -592,9 +594,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/Library/Frameworks/Python.framework/Versions/3.12/bin/python3"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="olympics-project-in-python" class="level2">
-<h2 class="anchored" data-anchor-id="olympics-project-in-python">Olympics Project in Python</h2>
-<p>Reading in datasets is very similar, as is filtering (query in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (<code>.size()</code> then <code>.reset_index()</code>) instead of one in R.</p>
+<section id="olympics-project-in-python" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="olympics-project-in-python"><span class="header-section-number">5</span> Olympics Project in Python</h2>
+<p>Reading in datasets is very similar, as is filtering (<code>.query()</code> in Python), and plotting. Mutations/summarizing are a bit different between the two languages, it was a two step process to create the athlete count variable in Python (<code>.size()</code> then <code>.reset_index()</code>) instead of one in R.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -639,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>plot_1.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <div class="cell">
@@ -665,7 +667,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plot_2.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Creating the sport categories was different in Python and harder to follow, you need to specify the group order beforehand then the list of categories, instead of using the ~ at each row when I did it in R.</p>
@@ -762,7 +764,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>plot_3.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-20-5.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-21-5.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Wrangle the men’s data before creating the men’s heatmap:</p>
@@ -799,7 +801,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>plot_4.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-22-7.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-23-7.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Wrangle the women’s data before creating the women’s heatmap:</p>
@@ -836,7 +838,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>plot_5.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-24-9.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-25-9.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Now create heatmaps based on proportion of sport’s medals instead of totals:</p>
@@ -879,7 +881,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>plot_6.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-27-11.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-28-11.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Create the women’s proportion heatmap:</p>
@@ -901,13 +903,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>plot_7.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-28-13.png" class="img-fluid" width="614"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-29-13.png" class="img-fluid" width="614"></p>
 </div>
 </div>
 <p>Overall, I was able to almost identically replicate each step of my R wrangling and plotting process in my Python analysis.</p>
 </section>
-<section id="specific-code-comparisons" class="level2">
-<h2 class="anchored" data-anchor-id="specific-code-comparisons">Specific Code Comparisons</h2>
+<section id="specific-code-comparisons" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="specific-code-comparisons"><span class="header-section-number">6</span> Specific Code Comparisons</h2>
 <p>I thought it may be interesting to compare some of the specific data manipulations side by side now that we have seen the project in both R and Python.</p>
 <p><strong>Example 1:</strong></p>
 <p>Before making the male bar plot, I had to group by country and add up all the athletes for each country.</p>
@@ -974,12 +976,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Using R, I used the simple <code>dplyr</code> functions of <code>group_by()</code> and <code>mutate()</code>, and saved an updated version of Female_Medal_Counts that would have two new columns (total medals and proportion of medals for each sport) as Female_Medal_Prop. In Python, I created these same two columns, this time in separate coding commands, and saved these columns to the Female_prop dataset. I edited the two columns using brackets [], which is equivalent to if I had edited the individual columns in R using a dollar sign $, instead of the <code>dplyr</code> method.</p>
 </section>
-<section id="nba-project-introduction" class="level2">
-<h2 class="anchored" data-anchor-id="nba-project-introduction">NBA Project Introduction</h2>
+<section id="nba-project-introduction" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="nba-project-introduction"><span class="header-section-number">7</span> NBA Project Introduction</h2>
 <p>Now, onto a new project. This time, I will be looking at datasets that contain every player’s NBA statistics, and whether or not that player made it to the NBA all-star game for every season from the year 2000 and on. The purpose for this project is to use both languages to perform a single analysis. I will be importing, wrangling, and visualizing variable correlations using boxplots in R. Then, I will create a knn model in Python with the intent of accurately predicting whether or not each player made the all-star game each season.</p>
 </section>
-<section id="nba-data-wrangling-and-plotting-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="nba-data-wrangling-and-plotting-in-r">NBA Data Wrangling and Plotting in R</h2>
+<section id="nba-data-wrangling-and-plotting-in-r" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="nba-data-wrangling-and-plotting-in-r"><span class="header-section-number">8</span> NBA Data Wrangling and Plotting in R</h2>
 <p>Load the necessary libraries and import NBA datasets:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -1111,7 +1113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Points Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Point per game appears to have a strong positive correlation with making the all-star game. It looks like just one player who scored more than 30 points per game did not make the all-star game that season.</p>
@@ -1125,7 +1127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Rebounds Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Rebounds per game does not have as strong of a correlation as I would have expected, but there still does appear to be a general trend of more rebounds per game means increased likelihood of being an all-star selection.</p>
@@ -1139,7 +1141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Assists Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Assists appears to have a stronger correlation with making the all-star game than rebounds does, but a weaker correlation with making the all-star game than points does.</p>
@@ -1155,7 +1157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Minutes Played Per Game as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>An interesting takeaway from this plot is out of players playing less than 26/27 minutes per game, not a single one made the all-star game.</p>
@@ -1169,7 +1171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Experience as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Experience does not appear to be a significant predictor of whether somebody makes the all-star game.</p>
@@ -1183,7 +1185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"3 Pointers as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>3 pointers does not seem to be very significant either, but one takeaway is that if you are making a very high amount of threes (more than 4 per game), you are almost guaranteed to be an all-star that season.</p>
@@ -1197,7 +1199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Blocks as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Blocks appears to have a very slight positive correlation to whether or not a player was an all-star.</p>
@@ -1211,7 +1213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Steals as a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Steals appears to have the same correlation as blocks but a little more obvious. (Steals appear more significant than blocks)</p>
@@ -1226,7 +1228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Field Goal Attempts a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Field goal attempts appears to be one of the most significant predictors I have looked at yet. (Field goals made also appears to be simiarly significicant, but would probably have to include only one field goal statistic when running the knn model).</p>
@@ -1240,13 +1242,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Turnovers a Predictor of All-Star"</span>) <span class="sc">+</span></span>
 <span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+<p><img src="Olympics_Project_Write_Up_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Turnovers also appears to be significant, just as I had hypothesized, but probably in a different way than the average fan would expect. Typically, we associate more turnovers with a player performing poorly, but clearly this is not something the voters weigh heavily when casting their all-star ballots each season. As it turns out, turnovers may be a telling statistic as to which players have the ball more often, since it appears so strongly positively correlated with making the all-star game.</p>
 </section>
-<section id="nba-knn-modeling-in-python" class="level2">
-<h2 class="anchored" data-anchor-id="nba-knn-modeling-in-python">NBA KNN Modeling in Python</h2>
+<section id="nba-knn-modeling-in-python" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="nba-knn-modeling-in-python"><span class="header-section-number">9</span> NBA KNN Modeling in Python</h2>
 <p>Now that I have explored and visualized the data in R, I am going to perform the stat learning algorithm in Python. As I mentioned above, the statistical learning method I will be implementing is called k-nearest-neighbors, or knn. A knn algorithm predicts the value of a variable (made/missed all-star game) based on whether the k most similar data points made/missed the all-star game. It measures similar data points to be the data points that have the closest distance in each scaled predictor (closest Euclidean distance).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
@@ -1764,8 +1766,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Our classification rate of 87.4% tells us that our knn model predicted whether or not players made the all-star game with an accuracy of 87.4%!</p>
 <p><strong>Potential Future Directions:</strong> With more time, it may be of interest to investigate which players the model predicted to be an all-star but actually weren’t selected to be an all-star and why. It will also be cool to test out this model on this year’s NBA season at the conclusion of the season, to see how accurately it predicts. We can also use this model to see if the same players that fans believe to be “snubbed” from the all-star game were players that the model predicted to be NBA all-stars but did not get selected.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<section id="conclusion" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">10</span> Conclusion</h2>
 <p>From these two projects, in my opinion, R wrangling code is a bit easier to learn and is a bit more intuitive. It is worth noting that most wrangling functions share an analogue in each language, such as <code>filter()</code> in R → <code>.query()</code> in Python, <code>group_by()</code> in R → <code>.groupby()</code> in Python, <code>%in%</code> in R → <code>.isin()</code> in Python. Despite my personal preference of R, both languages are more than capable of wrangling and visualizing data.</p>
 <p>There are a few caveats to the project that are worth noting. Firstly, the fact that I learned R first, and used it in my research fellowship, internship, and in many courses throughout my time at St.&nbsp;Lawrence University likely has an impact on my favorism of the langauge. Additionally, I did not look at machine learning and did not look at big data throughout this project, both of which are considered “strengths” of Python. Finally, this project was not exactly comparing R and Python, it was essentially comparing the <code>tidyverse</code> R package to the <code>pandas</code>/<code>plotnine</code>/<code>numpy</code> packages in Python.</p>
 </section>
